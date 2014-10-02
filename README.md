@@ -1,4 +1,4 @@
 magicworm
 =========
 
-Doctor Lee's Magic Worm
+Doctor Lui's Magic Worm
