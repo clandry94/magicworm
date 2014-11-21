@@ -32,6 +32,7 @@ class Snake {
 
 		vector<position> getPositions();
 		void setPositions();
+		
 };
 
 
