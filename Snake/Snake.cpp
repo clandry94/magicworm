@@ -9,6 +9,7 @@ Snake::Snake(int size, int speed, string color, position startCoords) {
   coordinates.at(0).x = startCoords.x;
   coordinates.at(0).y = startCoords.y;
   coordinates.at(0).type = 1;
+  coordinates.at(0).color = color;
 }
 
 int Snake::getSize() {
@@ -37,7 +38,7 @@ void Snake::eat() {
   incrementSpeed();
 }
 
-vector<position> getPositions() {
+vector<artifact> getPositions() {
   return coordinates;
 }
 

@@ -11,12 +11,12 @@ class Snake {
 		int size;	//size of the snake
 		int speed;	//speed of the snake
 		string color;
-		vector<position> coordinates;
+		vector<artifact> coordinates;
 
 	public:
 		bool hasPowerup; //Snake has powerup t/f
 
-		Snake(int size, int speed, string color, position initCoords);
+		Snake(int size, int speed, string color, artifact initCoords);
 
 		int getSize();
 		void incrementSize();
@@ -32,7 +32,7 @@ class Snake {
 
 		vector<position> getPositions();
 		void setPositions();
-		
+
 };
 
 
