@@ -11,6 +11,7 @@ class Food {
     int foodX;
     int foodY;
     void generateFood();
+    void randomValue();
 
 };
 
