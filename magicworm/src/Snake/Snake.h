@@ -1,4 +1,5 @@
 #include <vector>
+#include "../artifact/artifact.h"
 
 #ifndef SNAKE_H
 #define SNAKE_H
@@ -14,6 +15,7 @@ class Snake {
 		vector<artifact> coordinates;
 
 	public:
+
 		bool hasPowerup; //Snake has powerup t/f
 
 		Snake(int size, int speed, string color, artifact initCoords);
@@ -30,8 +32,8 @@ class Snake {
 
 		void eat();
 
-		vector<position> getPositions();
-		void setPositions();
+		vector<artifact> getCoordinates() { return coordinates; }
+		void setCoordinate(int position, int x, int y);
 
 };
 

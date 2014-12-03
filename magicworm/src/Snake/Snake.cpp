@@ -1,8 +1,8 @@
 #include <iostream>
-#include "../position/position.h"
-#include "snake.h"
 
-Snake::Snake(int size, int speed, string color, position startCoords) {
+#include "Snake.h"
+
+Snake::Snake(int size, int speed, string color, artifact startCoords) {
   size = this->size;
   speed = this->speed;
   color = this->color;
@@ -38,11 +38,7 @@ void Snake::eat() {
   incrementSpeed();
 }
 
-vector<artifact> getPositions() {
-  return coordinates;
-}
-
-void setPositions(int position, int x, int y) {
-  coordinates.at(position).x = x;
-  coordinates.at(position).y = y;
+void Snake::setCoordinate(int position, int x, int y) {
+  getCoordinates().at(position).x = x;
+  getCoordinates().at(position).y = y;
 }
