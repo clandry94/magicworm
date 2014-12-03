@@ -3,6 +3,8 @@
 #ifndef FOOD_H
 #define FOOD_H
 
+#include <SDL/SDL.h>
+
 using namespace std;
 
 class Food {
@@ -12,6 +14,7 @@ class Food {
     int foodY;
     void generateFood();
     void randomValue();
+    void drawFood();
 
 };
 

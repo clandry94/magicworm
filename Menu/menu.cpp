@@ -9,8 +9,7 @@
 #include <iostream>
 #include <string>
 
-#include <GL/glew.h>
-#include <glfw3.h>
+#include <SDL/SDL.h>
 
 using namespace std;
 
