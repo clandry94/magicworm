@@ -1,0 +1,4 @@
+project(MagicWorm)
+add_executable(MagicWorm src/main.cpp)
+target_link_libraries(MagicWorm ${SDL2_LIBRARY})
+install(TARGETS MagicWorm RUNTIME DESTINATION ${BIN_DIR})

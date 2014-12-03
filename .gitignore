@@ -29,3 +29,7 @@
 
 # OSX
 .DS_Store
+
+#bin and build folder
+/bin
+/build

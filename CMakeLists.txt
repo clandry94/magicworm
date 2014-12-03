@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
-project(MagicWorm)
+project(magicworm)
 
 # Use our modified FindSDL2* modules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${TwinklebearDevLessons_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${magicworm_SOURCE_DIR}/cmake")
 # Set an output directory for our binaries
-set(BIN_DIR ${TwinklebearDevLessons_SOURCE_DIR}/bin)
+set(BIN_DIR ${magicworm_SOURCE_DIR}/bin)
 
 # Bump up warning levels appropriately for clang, gcc & msvc
 # Also set debug/optimization flags depending on the build type. IDE users choose this when
@@ -26,4 +26,4 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
 # Look in the Lesson0 subdirectory to find its CMakeLists.txt so we can build the executable
-add_subdirectory(MagicWorm)
+add_subdirectory(magicworm)
