@@ -6,6 +6,9 @@ class PowerUp {
 		PowerUp();
 		void placePowerUp();
 		void removePowerUp();
+		int powerUpX;
+		int powerUpY;
+		bool isPowerUp;
 
 	public:
 		void speedUp(int x, int y);
@@ -14,7 +17,8 @@ class PowerUp {
 		void extraFood(int x, int y);
 		void minusScore(int x, int y);
 		void invertDirections(int x, int y);
-		bool isPowerUp;
+		int getX();
+		int getY();
 };
 
 #endif

@@ -13,44 +13,55 @@ PowerUp::PowerUp() {
 
 }
 
+int PowerUp::getX() {
+	return powerUpX;
+}
+
+int PowerUp::getY() {
+	return powerUpY;
+}
+
 void PowerUp::placePowerUp() {
-	int powerupX = rand() % 100 + 1;
-	int powerupY = rand() % 100 + 1;
-	while ((powerupX == food.getX() && powerupY == food.getY()) ||
-			(powerupX == snake.getX() && powerupY == snake.getY())){
-		 powerupX = rand() % 100 + 1;
-		 powerupY = rand() % 100 + 1;
+	int powerUpX = rand() % 100 + 1;
+	int powerUpY = rand() % 100 + 1;
+	while ((powerUpX == food.getX() && powerUpY == food.getY()) ||
+			(powerUpX == snake.getX() && powerUpY == snake.getY())){
+		 powerUpX = rand() % 100 + 1;
+		 powerUpY = rand() % 100 + 1;
 	}
 
 	int whichPowerUp = (rand() % 6);
 	if (whichPowerUp == 0) {
-		speedUp(powerupX, powerupY);
+		speedUp(powerUpX, powerUpY);
 	}
 	else if (whichPowerUp == 1) {
-		slowDown(powerupX, powerupY);
+		slowDown(powerUpX, powerUpY);
 	}
 	else if (whichPowerUp == 2) {
-		changeColor(powerupX, powerupY);
+		changeColor(powerUpX, powerUpY);
 	}
 	else if (whichPowerUp == 3) {
-		extraFood(powerupX, powerupY);
+		extraFood(powerUpX, powerUpY);
 	}
 	else if (whichPowerUp == 4) {
-		minusScore(powerupX, powerupY);
+		minusScore(powerUpX, powerUpY);
 	}
 	else if (whichPowerUp == 5) {
-		invertDirections(powerupX, powerupY);
+		invertDirections(powerUpX, powerUpY);
 	}
 	isPowerUp = true;
 }
 
 void PowerUp::removePowerUp() {
 	isPowerUp = false;
+	powerUpX = -1;
+	powerUpY = -1;
 }
 
 void PowerUp::speedUp(int x, int y) {
 	while (isPowerUp = true) {
 		if (x = snake.getX() && y = snake.getY()) {
+			removePowerUp();
 			speed +=3;
 			clock_t startTime = clock();
 			clock_t endTime;
@@ -61,7 +72,6 @@ void PowerUp::speedUp(int x, int y) {
 				timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
 			}
 			speed -=3;
-			removePowerUp();
 		}
 	}
 }
@@ -69,6 +79,7 @@ void PowerUp::speedUp(int x, int y) {
 void PowerUp::slowDown(int x, int y) {
 	while (isPowerUp = true) {
 		if (x = snake.getX() && y = snake.getY()) {
+			removePowerUp();
 			speed -=3;
 			clock_t startTime = clock();
 			clock_t endTime;
@@ -79,7 +90,6 @@ void PowerUp::slowDown(int x, int y) {
 				timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
 			}
 				speed +=3;
-				removePowerUp();
 		}
 	}
 }
@@ -87,9 +97,16 @@ void PowerUp::slowDown(int x, int y) {
 void PowerUp::changeColor(int x, int y) {
 	while (isPowerUp = true) {
 		if (x = snake.getX() && y = snake.getY()) {
+			removePowerUp();
 			int whichColor = rand() % 2;
 			if (whichColor = 0) {
-
+				//color =
+			}
+			else if (whichColor = 1) {
+				//color =
+			}
+			else if (whichColor = 2) {
+				//color =
 			}
 		}
 	}
@@ -98,9 +115,9 @@ void PowerUp::changeColor(int x, int y) {
 void PowerUp::extraFood(int x, int y) {
 	while (isPowerUp = true) {
 		if (x = snake.getX() && y = snake.getY()) {
-			generateFood();
-			generateFood();
 			removePowerUp();
+			food.generateFood();
+			food.generateFood();
 		}
 	}
 }
@@ -108,12 +125,17 @@ void PowerUp::extraFood(int x, int y) {
 void PowerUp::minusScore(int x, int y) {
 	while (isPowerUp = true) {
 		if (x = snake.getX() && y = snake.getY()) {
-			score -=3;
 			removePowerUp();
+			score -=3;
 		}
 	}
 }
 
 void PowerUp::invertDirections(int x, int y) {
+	while (isPowerUp = true) {
+		if (x = snake.getX() && y = snake.getY()) {
+			removePowerUp();
 
+		}
+	}
 }
