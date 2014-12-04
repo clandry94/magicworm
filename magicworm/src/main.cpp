@@ -82,6 +82,39 @@ SDL_Renderer * createRenderer(SDL_Window * window) {
   return renderer;
 }
 
+/*
+ * Checks the velocity of the snake and updates accordingly
+ */
+void checkVelocity(int &x_vel, int &y_vel, int &speed) {
+  if(x_vel != 0) {
+    if(x_vel > 0) {
+      x_vel = speed;
+    } else {
+      x_vel = speed * -1;
+    }
+  }
+
+  if(y_vel != 0) {
+    if(y_vel > 0) {
+      y_vel = speed;
+    } else {
+      y_vel = speed * -1;
+    }
+  }
+
+}
+
+bool hitBoundary(int x, int y) {
+  if(x < 0 || (x + 16) > 640) {
+    return true;
+  }
+
+  if(y < 0 || (y+16) > 640) {
+    return true;
+  }
+
+  return false;
+}
 
 
 
@@ -94,7 +127,7 @@ int main() {
   SDL_Renderer * renderer = createRenderer(window);
 
   //Path to the snake resource
-  const string snakePath = getResourcePath("magicworm") + "square.bmp";
+  const string snakePath = getResourcePath("magicworm") + "snake.bmp";
 
   SDL_Texture * image = loadTexture(snakePath, renderer);
   if (image == nullptr){
@@ -164,34 +197,24 @@ int main() {
           //render snake
           //renderTexture(image, renderer, snake->getX(), snake->getY());
 
-  }
-
-  if(x_vel != 0) {
-    if(x_vel > 0) {
-      x_vel = speed;
-    } else {
-      x_vel = speed * -1;
     }
-  }
 
-  if(y_vel != 0) {
-    if(y_vel > 0) {
-      y_vel = speed;
-    } else {
-      y_vel = speed * -1;
+    checkVelocity(x_vel, y_vel, speed);
+    speed = snake->getSpeed();
+    snake->setX(snake->getX() + x_vel);
+    snake->setY(snake->getY() + y_vel);
+
+    cout << initX << "," << snake->getX() << endl;
+    cout << initY << "," << snake->getY() << endl;
+
+    if(hitBoundary(snake->getX(), snake->getY())) {
+      SDL_Quit();
     }
+  	//Render the scene
+  	SDL_RenderClear(renderer);
+  	renderTexture(image, renderer, snake->getX(), snake->getY());
+  	SDL_RenderPresent(renderer);
   }
-
-  speed = snake->getSpeed();
-  snake->setX(snake->getX() + x_vel);
-  snake->setY(snake->getY() + y_vel);
-  cout << initX << "," << snake->getX() << endl;
-  cout << initY << "," << snake->getY() << endl;
-	//Render the scene
-	SDL_RenderClear(renderer);
-	renderTexture(image, renderer, snake->getX(), snake->getY());
-	SDL_RenderPresent(renderer);
-}
   //cleanup(background, image, render, window);
   SDL_Quit();
 }
