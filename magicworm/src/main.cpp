@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include "Artifact/Artifact.h"
+#include "respath.h"
 
 using namespace std;
 
@@ -79,11 +80,9 @@ int main() {
   	return 1;
   }
 
-  const string backgroundPath = "/Users/landry/Documents/cop3503/magicworm/res/magicworm/background.bmp";
-  const string snakePath = "/Users/landry/Documents/cop3503/magicworm/res/magicworm/square.bmp";
-  SDL_Texture *background = loadTexture(backgroundPath, renderer);
+  const string snakePath = getResourcePath("magicworm") + "square.bmp";
   SDL_Texture *image = loadTexture(snakePath, renderer);
-  if (background == nullptr || image == nullptr){
+  if (image == nullptr){
   	//cleanup(background, image, render, window);
   	SDL_Quit();
   	return 1;
