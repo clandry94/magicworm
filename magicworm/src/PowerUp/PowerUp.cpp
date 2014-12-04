@@ -10,10 +10,11 @@
 
 using namespace std;
 
-PowerUp::PowerUp() {
-	int powerUpX = -1;
-	int powerUpY = -1;
-	bool isPowerUp = false;
+PowerUp::PowerUp(SDL_Renderer * irenderer) {
+	powerUpX = -1;
+	powerUpY = -1;
+	isPowerUp = false;
+	renderer = irenderer;
 }
 
 int PowerUp::getX() {
