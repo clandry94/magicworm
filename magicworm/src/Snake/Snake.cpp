@@ -1,12 +1,13 @@
 #include <iostream>
+#include <SDL2/SDL.h>
 
 #include "Snake.h"
 
-Snake::Snake(int speed, string color, int x, int y) {
+Snake::Snake(int speed, string color, int iX, int iY) {
   speed = this->speed;
   color = this->color;
-  x = this->x;
-  y = this->y;
+  x = iX;
+  y = iY;
 }
 
 int Snake::getSpeed() {
@@ -36,4 +37,14 @@ int Snake::getX() {
 
 int Snake::getY() {
   return y;
+}
+
+
+//Sets the new x and y position
+void Snake::setX(int iX) {
+  x = iX;
+}
+
+void Snake::setY(int iY) {
+  y = iY;
 }

@@ -57,31 +57,46 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
 	SDL_RenderCopy(ren, tex, NULL, &dst);
 }
 
+SDL_Window * createWindow() {
+  SDL_Window * window = SDL_CreateWindow("MagicWorm", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+  if (window == nullptr){
+    logSDLError(std::cout, "CreateWindow");
+    SDL_Quit();
+    return NULL;
+  }
+
+  return window;
+}
+
+SDL_Renderer * createRenderer(SDL_Window * window) {
+
+  SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+  if (renderer == nullptr){
+    logSDLError(std::cout, "CreateRenderer");
+    //cleanup(window);
+    SDL_Quit();
+    return NULL;
+  }
+
+  return renderer;
+}
+
+
+
 
 int main() {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
   	logSDLError(std::cout, "SDL_Init");
   	return 1;
   }
+  SDL_Window * window = createWindow(); //Creates the window used on the screen
+  SDL_Renderer * renderer = createRenderer(window);
 
-  SDL_Window *window = SDL_CreateWindow("MagicWorm", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-  if (window == nullptr){
-  	logSDLError(std::cout, "CreateWindow");
-  	SDL_Quit();
-  	return 1;
-  }
-
-  SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-  if (renderer == nullptr){
-  	logSDLError(std::cout, "CreateRenderer");
-  	//cleanup(window);
-  	SDL_Quit();
-  	return 1;
-  }
-
+  //Path to the snake resource
   const string snakePath = getResourcePath("magicworm") + "square.bmp";
-  SDL_Texture *image = loadTexture(snakePath, renderer);
+
+  SDL_Texture * image = loadTexture(snakePath, renderer);
   if (image == nullptr){
   	//cleanup(background, image, render, window);
   	SDL_Quit();
@@ -92,8 +107,14 @@ int main() {
 
   int iW, iH;
   SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
-  int x = SCREEN_WIDTH / 2 - iW / 2;
-  int y = SCREEN_HEIGHT / 2 - iH / 2;
+
+  int initX = SCREEN_WIDTH / 2 - iW / 2;
+  int initY = SCREEN_HEIGHT / 2 - iH / 2;
+
+  Snake * snake = new Snake(1, "red", initX, initY);
+
+
+
   //int x = 0;
   //int y = 0;
   //int x_vel = 0;
@@ -101,15 +122,12 @@ int main() {
 
   //renderTexture(image, renderer, x, y);
   //renderTexture(image, renderer, 50, 50);
-  Snake * snake = new Snake(1, "red", 0, 0);
+
   //Our event structure
   SDL_Event e;
   vector<artifact> snakeCoords;
   bool quit = false;
   while (!quit){
-
-    //snakeCoords = snake->getCoordinates();
-
   	while (SDL_PollEvent(&e)){
       switch(e.type){
               /* Look for a keypress */
@@ -117,16 +135,16 @@ int main() {
                   /* Check the SDLKey values and move change the coords */
                   switch(e.key.keysym.sym){
                       case SDLK_LEFT:
-                          x -= 5;
+                          snake->setX(snake->getX() - 20);
                           break;
                       case SDLK_RIGHT:
-                          x += 5;
+                          snake->setX(snake->getX() + 20);
                           break;
                       case SDLK_UP:
-                          y -= 5;
+                          snake->setY(snake->getY() - 20);
                           break;
                       case SDLK_DOWN:
-                          y += 5;
+                          snake->setY(snake->getY() + 20);
                           break;
                       case SDLK_ESCAPE:
                           SDL_Quit();
@@ -141,12 +159,15 @@ int main() {
           }
           break;
 
-          renderTexture(image, renderer, x, y);
+          //render snake
+          //renderTexture(image, renderer, snake->getX(), snake->getY());
 
   }
+  cout << initX << "," << snake->getX() << endl;
+  cout << initY << "," << snake->getY() << endl;
 	//Render the scene
 	SDL_RenderClear(renderer);
-	renderTexture(image, renderer, x, y);
+	renderTexture(image, renderer, snake->getX(), snake->getY());
 	SDL_RenderPresent(renderer);
 }
   //cleanup(background, image, render, window);

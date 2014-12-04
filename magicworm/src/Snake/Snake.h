@@ -1,4 +1,4 @@
-
+#include <SDL2/SDL.h>
 
 #ifndef SNAKE_H
 #define SNAKE_H
@@ -32,6 +32,8 @@ class Snake {
 		void setCoordinate(int x, int y);
 		int getX();
 		int getY();
+		void setX(int iX);
+		void setY(int iY);
 
 };
 
