@@ -6,11 +6,14 @@
 #include "../gameboard/gameboard.h"
 #include "../food/food.h"
 #include "../snake/snake."
+#include <SDL2/SDL.h>
 
 using namespace std;
 
 PowerUp::PowerUp() {
-
+	int powerUpX = -1;
+	int powerUpY = -1;
+	bool isPowerUp = false;
 }
 
 int PowerUp::getX() {
@@ -22,14 +25,15 @@ int PowerUp::getY() {
 }
 
 void PowerUp::placePowerUp() {
-	int powerUpX = rand() % 100 + 1;
-	int powerUpY = rand() % 100 + 1;
+	powerUpX = rand() % 100 + 1;
+	powerUpY = rand() % 100 + 1;
 	while ((powerUpX == food.getX() && powerUpY == food.getY()) ||
 			(powerUpX == snake.getX() && powerUpY == snake.getY())){
 		 powerUpX = rand() % 100 + 1;
 		 powerUpY = rand() % 100 + 1;
 	}
 
+	isPowerUp = true;
 	int whichPowerUp = (rand() % 6);
 	if (whichPowerUp == 0) {
 		speedUp(powerUpX, powerUpY);
@@ -49,7 +53,6 @@ void PowerUp::placePowerUp() {
 	else if (whichPowerUp == 5) {
 		invertDirections(powerUpX, powerUpY);
 	}
-	isPowerUp = true;
 }
 
 void PowerUp::removePowerUp() {
