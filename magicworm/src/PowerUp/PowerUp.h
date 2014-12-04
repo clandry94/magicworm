@@ -3,13 +3,14 @@
 
 class PowerUp {
 	private:
-		PowerUp(SDL_Renderer * irenderer);
+		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
 		void placePowerUp();
 		void removePowerUp();
 		int powerUpX;
 		int powerUpY;
 		bool isPowerUp;
 		SDL_Renderer * renderer;
+		Snake * snake;
 
 	public:
 		void speedUp(int x, int y, SDL_Renderer * renderer);

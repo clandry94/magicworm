@@ -9,11 +9,12 @@
 
 using namespace std;
 
-PowerUp::PowerUp(SDL_Renderer * irenderer) {
+PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake) {
 	powerUpX = -1;
 	powerUpY = -1;
 	isPowerUp = false;
 	renderer = irenderer;
+	snake = isnake;
 }
 
 int PowerUp::getX() {
@@ -27,8 +28,7 @@ int PowerUp::getY() {
 void PowerUp::placePowerUp() {
 	powerUpX = rand() % 100 + 1;
 	powerUpY = rand() % 100 + 1;
-	while ((powerUpX == food.getX() && powerUpY == food.getY()) ||
-			(powerUpX == snake.getX() && powerUpY == snake.getY())){
+	while (powerUpX == snake.getX() && powerUpY == snake.getY(){
 		 powerUpX = rand() % 100 + 1;
 		 powerUpY = rand() % 100 + 1;
 	}
