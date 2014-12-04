@@ -3,10 +3,9 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include "Position.h"
-#include "Snake.h"
-#include "PowerUp.h"
-#include "respath.h"
+#include "../Snake/Snake.h"
+#include "../PowerUp/PowerUp.h"
+#include "../respath.h"
 
 #include <iostream>
 #include <stdio.h>
@@ -22,6 +21,7 @@ class Food {
   private:
     int foodX;
     int foodY;
+    int totalFood = 0;
 
     void generateFood();
     void randomValue();
