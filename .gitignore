@@ -30,6 +30,11 @@
 # OSX
 .DS_Store
 
+
+# win
+.metadata
+.project
+
 #bin and build folder
 /bin
 /build

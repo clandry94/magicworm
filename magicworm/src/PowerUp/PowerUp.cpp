@@ -5,7 +5,7 @@
 #include "../artifact/artifact.h"
 #include "../gameboard/gameboard.h"
 #include "../food/food.h"
-#include "../snake/snake.
+#include "../snake/snake."
 
 using namespace std;
 
