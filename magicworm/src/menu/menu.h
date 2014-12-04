@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 
 using namespace std;
 
@@ -11,6 +11,5 @@ class Menu {
 private:
   string begin;
 
-  void firstGame();
-  void gameOver();
+  void mainMenu();
 };
