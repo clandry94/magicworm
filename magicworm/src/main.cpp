@@ -113,12 +113,9 @@ int main() {
 
   Snake * snake = new Snake(1, "red", initX, initY);
 
-
-
-  //int x = 0;
-  //int y = 0;
-  //int x_vel = 0;
-  //int y_vel = 0;
+  int x_vel = 0;
+  int y_vel = 0;
+  int speed = snake->getSpeed();
 
   //renderTexture(image, renderer, x, y);
   //renderTexture(image, renderer, 50, 50);
@@ -135,22 +132,27 @@ int main() {
                   /* Check the SDLKey values and move change the coords */
                   switch(e.key.keysym.sym){
                       case SDLK_LEFT:
-                          snake->setX(snake->getX() - 20);
+                          x_vel = speed * -1;
+                          y_vel = 0;
                           break;
                       case SDLK_RIGHT:
-                          snake->setX(snake->getX() + 20);
+                          x_vel = speed;
+                          y_vel = 0;
                           break;
                       case SDLK_UP:
-                          snake->setY(snake->getY() - 20);
+                          x_vel = 0;
+                          y_vel = speed * -1;
                           break;
                       case SDLK_DOWN:
-                          snake->setY(snake->getY() + 20);
+                          x_vel = 0;
+                          y_vel = speed;
                           break;
                       case SDLK_ESCAPE:
                           SDL_Quit();
                           break;
                       case SDLK_k:
-
+                          snake->incrementSpeed();
+                          cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
                       default:
                           break;
                   }
@@ -163,6 +165,26 @@ int main() {
           //renderTexture(image, renderer, snake->getX(), snake->getY());
 
   }
+
+  if(x_vel != 0) {
+    if(x_vel > 0) {
+      x_vel = speed;
+    } else {
+      x_vel = speed * -1;
+    }
+  }
+
+  if(y_vel != 0) {
+    if(y_vel > 0) {
+      y_vel = speed;
+    } else {
+      y_vel = speed * -1;
+    }
+  }
+
+  speed = snake->getSpeed();
+  snake->setX(snake->getX() + x_vel);
+  snake->setY(snake->getY() + y_vel);
   cout << initX << "," << snake->getX() << endl;
   cout << initY << "," << snake->getY() << endl;
 	//Render the scene

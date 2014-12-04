@@ -3,9 +3,9 @@
 
 #include "Snake.h"
 
-Snake::Snake(int speed, string color, int iX, int iY) {
-  speed = this->speed;
-  color = this->color;
+Snake::Snake(int iSpeed, string iColor, int iX, int iY) {
+  speed = iSpeed;
+  color = iColor;
   x = iX;
   y = iY;
 }
