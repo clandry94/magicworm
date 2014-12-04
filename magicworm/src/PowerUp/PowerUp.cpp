@@ -3,7 +3,6 @@
 #include "PowerUp.h"
 #include <ctime>
 #include "../artifact/artifact.h"
-#include "../gameboard/gameboard.h"
 #include "../food/food.h"
 #include "../snake/snake."
 #include <SDL2/SDL.h>

@@ -1,8 +1,9 @@
 #include "Snake/Snake.cpp"
-#include <SDL/SDL2.h>
+#include <SDL2/SDL.h>
 #include <vector>
 #include "Artifact/Artifact.h"
 #include "respath.h"
+#include "PowerUp/PowerUp.cpp"
 
 using namespace std;
 
@@ -145,6 +146,8 @@ int main() {
   int initY = SCREEN_HEIGHT / 2 - iH / 2;
 
   Snake * snake = new Snake(1, "red", initX, initY);
+  PowerUp * powerup = new PowerUp(renderer);
+  powerup->placePowerup();
 
   int x_vel = 0;
   int y_vel = 0;
