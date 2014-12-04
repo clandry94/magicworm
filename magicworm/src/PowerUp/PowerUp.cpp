@@ -166,7 +166,7 @@ void PowerUp::minusScore(int x, int y) {
 		renderTexture(minusScore, renderer, x, y);
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
-			score -=3;
+			//score -=3;
 		}
 	}
 }
