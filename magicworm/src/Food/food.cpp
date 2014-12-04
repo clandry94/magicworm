@@ -1,20 +1,5 @@
 // Food
-
-#include "../artifact/artifact.h"
-#include "../gameboard/gameboard.h"
-#include "../snake/snake.h"
-#include "../powerup/powerup.h"
 #include "food.h"
-
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#include <SDL/SDL.h>
-#include <mingw32>
-#include <SDLmain>
-#include <SDL>
 
 using namespace std;
 
