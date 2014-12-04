@@ -1,5 +1,5 @@
 #include "Snake/Snake.cpp"
-#include <SDL2/SDL.h>
+#include <SDL/SDL2.h>
 #include <vector>
 #include "Artifact/Artifact.h"
 #include "respath.h"

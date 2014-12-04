@@ -63,6 +63,14 @@ void PowerUp::removePowerUp() {
 
 void PowerUp::speedUp(int x, int y) {
 	while (isPowerUp = true) {
+		const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
+		SDL_Texture * speedUp = loadTexture(speedUpPath, renderer);
+			if (speedUp == nullptr){
+				SDL_Quit();
+				return 1;
+			}
+		renderTexture(speedUp, renderer, x, y);
+
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
 			speed +=3;
@@ -81,6 +89,14 @@ void PowerUp::speedUp(int x, int y) {
 
 void PowerUp::slowDown(int x, int y) {
 	while (isPowerUp = true) {
+		const string slowDownPath = getResourcePath("magicworm") + "slowDown.bmp";
+			SDL_Texture * slowDown = loadTexture(slowDownPath, renderer);
+				if (slowDown == nullptr){
+					SDL_Quit();
+					return 1;
+				}
+		renderTexture(slowDown, renderer, x, y);
+
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
 			speed -=3;
@@ -99,6 +115,13 @@ void PowerUp::slowDown(int x, int y) {
 
 void PowerUp::changeColor(int x, int y) {
 	while (isPowerUp = true) {
+		const string changeColorPath = getResourcePath("magicworm") + "changeColor.bmp";
+			SDL_Texture * changeColor = loadTexture(changeColorPath, renderer);
+				if (changeColor == nullptr){
+					SDL_Quit();
+					return 1;
+				}
+		renderTexture(changeColor, renderer, x, y);
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
 			int whichColor = rand() % 2;
@@ -117,6 +140,13 @@ void PowerUp::changeColor(int x, int y) {
 
 void PowerUp::extraFood(int x, int y) {
 	while (isPowerUp = true) {
+		const string extraFoodPath = getResourcePath("magicworm") + "extraFood.bmp";
+			SDL_Texture * extraFood = loadTexture(extraFoodPath, renderer);
+				if (extraFood == nullptr){
+					SDL_Quit();
+					return 1;
+				}
+		renderTexture(extraFood, renderer, x, y);
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
 			food.generateFood();
@@ -127,6 +157,13 @@ void PowerUp::extraFood(int x, int y) {
 
 void PowerUp::minusScore(int x, int y) {
 	while (isPowerUp = true) {
+		const string minusScorePath = getResourcePath("magicworm") + "minusScore.bmp";
+			SDL_Texture * minusScore = loadTexture(minusScorePath, renderer);
+				if (minusScore == nullptr){
+					SDL_Quit();
+					return 1;
+				}
+		renderTexture(minusScore, renderer, x, y);
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
 			score -=3;
@@ -136,6 +173,13 @@ void PowerUp::minusScore(int x, int y) {
 
 void PowerUp::invertDirections(int x, int y) {
 	while (isPowerUp = true) {
+		const string invertDirectionsPath = getResourcePath("magicworm") + "invertDirections.bmp";
+			SDL_Texture * invertDirections = loadTexture(invertDirectionsPath, renderer);
+				if (invertDirections == nullptr){
+					SDL_Quit();
+					return 1;
+				}
+		renderTexture(invertDirections, renderer, x, y);
 		if (x = snake.getX() && y = snake.getY()) {
 			removePowerUp();
 
