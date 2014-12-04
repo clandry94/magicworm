@@ -3,9 +3,7 @@
 
 class PowerUp {
 	private:
-		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
-		void placePowerUp();
-		void removePowerUp();
+
 		int powerUpX;
 		int powerUpY;
 		bool isPowerUp;
@@ -13,12 +11,15 @@ class PowerUp {
 		Snake * snake;
 
 	public:
-		void speedUp(int x, int y, SDL_Renderer * renderer);
-		void slowDown(int x, int y, SDL_Renderer * renderer);
-		void changeColor(int x, int y, SDL_Renderer * renderer);
-		void extraFood(int x, int y, SDL_Renderer * renderer);
-		void minusScore(int x, int y, SDL_Renderer * renderer);
-		void invertDirections(int x, int y, SDL_Renderer * renderer);
+		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
+		void placePowerUp();
+		void removePowerUp();
+		void speedUp(int x, int y);
+		void slowDown(int x, int y);
+		void changeColor(int x, int y);
+		void extraFood(int x, int y);
+		void minusScore(int x, int y);
+		void invertDirections(int x, int y);
 		int getX();
 		int getY();
 };
