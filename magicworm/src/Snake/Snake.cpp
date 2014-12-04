@@ -2,24 +2,12 @@
 
 #include "Snake.h"
 
-Snake::Snake(int size, int speed, string color, artifact startCoords) {
-  size = this->size;
+Snake::Snake(int speed, string color, int x, int y) {
   speed = this->speed;
   color = this->color;
-  coordinates.at(0).x = startCoords.x;
-  coordinates.at(0).y = startCoords.y;
-  coordinates.at(0).type = 1;
-  coordinates.at(0).color = color;
+  x = this->x;
+  y = this->y;
 }
-
-int Snake::getSize() {
-  return size;
-}
-
-void Snake::incrementSize() {
-  size += 1;
-}
-
 
 int Snake::getSpeed() {
   return speed;
@@ -34,11 +22,18 @@ void Snake::incrementSpeed() {
 }
 
 void Snake::eat() {
-  incrementSize();
   incrementSpeed();
 }
 
-void Snake::setCoordinate(int position, int x, int y) {
-  getCoordinates().at(position).x = x;
-  getCoordinates().at(position).y = y;
+void Snake::setCoordinate(int newX, int newY) {
+  x = newX;
+  y = newY;
+}
+
+int Snake::getX() {
+  return x;
+}
+
+int Snake::getY() {
+  return y;
 }

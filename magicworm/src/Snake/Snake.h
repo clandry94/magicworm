@@ -1,5 +1,4 @@
-#include <vector>
-#include "../artifact/artifact.h"
+
 
 #ifndef SNAKE_H
 #define SNAKE_H
@@ -9,18 +8,17 @@ using namespace std;
 class Snake {
 
 	private:
-		int size;	//size of the snake
 		int speed;	//speed of the snake
+		int x;
+		int y;
 		string color;
-		vector<artifact> coordinates;
 
 	public:
 
 		bool hasPowerup; //Snake has powerup t/f
 
-		Snake(int size, int speed, string color, artifact initCoords);
+		Snake(int speed, string color, int startX, int startY);
 
-		int getSize();
 		void incrementSize();
 
 		int getSpeed();
@@ -31,9 +29,9 @@ class Snake {
 		void setColor(string newColor);
 
 		void eat();
-
-		vector<artifact> getCoordinates() { return coordinates; }
-		void setCoordinate(int position, int x, int y);
+		void setCoordinate(int x, int y);
+		int getX();
+		int getY();
 
 };
 

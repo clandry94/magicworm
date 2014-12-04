@@ -1,5 +1,7 @@
 #include "Snake/Snake.cpp"
 #include <SDL2/SDL.h>
+#include <vector>
+#include "Artifact/Artifact.h"
 
 using namespace std;
 
@@ -89,25 +91,65 @@ int main() {
 
   SDL_RenderClear(renderer);
 
-  int bW, bH;
-  SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
-  renderTexture(background, renderer, 0, 0);
-  renderTexture(background, renderer, bW, 0);
-  renderTexture(background, renderer, 0, bH);
-  renderTexture(background, renderer, bW, bH);
-
   int iW, iH;
   SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
   int x = SCREEN_WIDTH / 2 - iW / 2;
   int y = SCREEN_HEIGHT / 2 - iH / 2;
-  renderTexture(image, renderer, x, y);
+  //int x = 0;
+  //int y = 0;
+  //int x_vel = 0;
+  //int y_vel = 0;
 
-  SDL_RenderPresent(renderer);
-  SDL_Delay(5000);
-  //SDL_DestroyTexture(image);
-  //SDL_DestroyRenderer(renderer);
-  SDL_Delay(5000);
+  //renderTexture(image, renderer, x, y);
+  //renderTexture(image, renderer, 50, 50);
+  Snake * snake = new Snake(1, "red", 0, 0);
+  //Our event structure
+  SDL_Event e;
+  vector<artifact> snakeCoords;
+  bool quit = false;
+  while (!quit){
 
+    //snakeCoords = snake->getCoordinates();
+
+  	while (SDL_PollEvent(&e)){
+      switch(e.type){
+              /* Look for a keypress */
+            case SDL_KEYDOWN:
+                  /* Check the SDLKey values and move change the coords */
+                  switch(e.key.keysym.sym){
+                      case SDLK_LEFT:
+                          x -= 5;
+                          break;
+                      case SDLK_RIGHT:
+                          x += 5;
+                          break;
+                      case SDLK_UP:
+                          y -= 5;
+                          break;
+                      case SDLK_DOWN:
+                          y += 5;
+                          break;
+                      case SDLK_ESCAPE:
+                          SDL_Quit();
+                          break;
+                      case SDLK_k:
+
+                      default:
+                          break;
+                  }
+                  default:
+                    break;
+          }
+          break;
+
+          renderTexture(image, renderer, x, y);
+
+  }
+	//Render the scene
+	SDL_RenderClear(renderer);
+	renderTexture(image, renderer, x, y);
+	SDL_RenderPresent(renderer);
+}
   //cleanup(background, image, render, window);
   SDL_Quit();
 }
