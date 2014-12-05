@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 /*
   Logs error created from the SDL graphics
@@ -10,6 +12,32 @@
 void logSDLError(ostream &os, const string &msg) {
   os << msg << " error: " << SDL_GetError() << endl;
 }
+
+SDL_Renderer * createRenderer(SDL_Window * window) {
+
+  SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+  if (renderer == nullptr){
+    logSDLError(std::cout, "CreateRenderer");
+    //cleanup(window);
+    SDL_Quit();
+    return NULL;
+  }
+
+  return renderer;
+}
+
+SDL_Window * createWindow() {
+  SDL_Window * window = SDL_CreateWindow("MagicWorm", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+  if (window == nullptr){
+    logSDLError(std::cout, "CreateWindow");
+    SDL_Quit();
+    return NULL;
+  }
+
+  return window;
+}
+
 
 /*
   * Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving

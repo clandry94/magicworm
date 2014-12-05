@@ -6,7 +6,6 @@ class PowerUp {
 
 		int powerUpX;
 		int powerUpY;
-		bool isPowerUp;
 		SDL_Renderer * renderer;
 		Snake * snake;
 
@@ -22,6 +21,7 @@ class PowerUp {
 		void invertDirections(int x, int y);
 		int getX();
 		int getY();
+		bool isPowerUp;
 };
 
 #endif

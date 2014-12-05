@@ -27,16 +27,20 @@ int PowerUp::getY() {
 }
 
 void PowerUp::placePowerUp() {
-	powerUpX = rand() % 100 + 1;
-	powerUpY = rand() % 100 + 1;
+	powerUpX = rand() % SCREEN_WIDTH;
+	powerUpY = rand() % SCREEN_HEIGHT;
+	cout << "1" << endl;
 	while (powerUpX == snake->getX() && powerUpY == snake->getY()){
-		 powerUpX = rand() % 100 + 1;
-		 powerUpY = rand() % 100 + 1;
+		cout << "2" << endl;
+		 powerUpX = rand() % SCREEN_WIDTH;
+		 powerUpY = rand() % SCREEN_HEIGHT;
 	}
 
 	isPowerUp = true;
-	int whichPowerUp = (rand() % 6);
+	//int whichPowerUp = (rand() % 6);
+	int whichPowerUp = 0;
 	if (whichPowerUp == 0) {
+		cout << "3" << endl;
 		speedUp(powerUpX, powerUpY);
 	}
 	else if (whichPowerUp == 1) {
@@ -63,14 +67,23 @@ void PowerUp::removePowerUp() {
 }
 
 void PowerUp::speedUp(int x, int y) {
-	while (isPowerUp) {
+	cout << "4" << endl;
+
+		cout << "5" << endl;
 		const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
+		cout << "6" << endl;
 		SDL_Texture * speedUp = loadTexture(speedUpPath, renderer);
+		cout << "7" << endl;
 			if (speedUp == nullptr){
 				SDL_Quit();
 			}
+		cout << x << ", " << y << endl;
+		SDL_RenderClear(renderer);
 		renderTexture(speedUp, renderer, x, y);
-
+		SDL_RenderPresent(renderer);
+		cout << "8" << endl;
+		/*
+while (isPowerUp) {
 		if (x == snake->getX() && y == snake->getY()) {
 			removePowerUp();
 			snake->setSpeed(snake->getSpeed() + 3);
@@ -85,6 +98,7 @@ void PowerUp::speedUp(int x, int y) {
 			snake->setSpeed(snake->getSpeed() - 3);
 		}
 	}
+	*/
 }
 
 void PowerUp::slowDown(int x, int y) {

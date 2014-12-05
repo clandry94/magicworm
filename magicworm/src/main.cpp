@@ -8,33 +8,7 @@
 
 using namespace std;
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
 
-SDL_Window * createWindow() {
-  SDL_Window * window = SDL_CreateWindow("MagicWorm", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-  if (window == nullptr){
-    logSDLError(std::cout, "CreateWindow");
-    SDL_Quit();
-    return NULL;
-  }
-
-  return window;
-}
-
-SDL_Renderer * createRenderer(SDL_Window * window) {
-
-  SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-  if (renderer == nullptr){
-    logSDLError(std::cout, "CreateRenderer");
-    //cleanup(window);
-    SDL_Quit();
-    return NULL;
-  }
-
-  return renderer;
-}
 
 /*
  * Checks the velocity of the snake and updates accordingly
@@ -100,7 +74,7 @@ int main() {
 
   Snake * snake = new Snake(1, "red", initX, initY);
   PowerUp * powerup = new PowerUp(renderer, snake);
-  //powerup->placePowerUp();
+
 
   int x_vel = 0;
   int y_vel = 0;
@@ -154,14 +128,19 @@ int main() {
           //renderTexture(image, renderer, snake->getX(), snake->getY());
 
     }
+    if(!powerup->isPowerUp) {
+      powerup->placePowerUp();
+    } else {
+      powerup->speedUp(powerup->getX(), powerup->getY());
+    }
 
     checkVelocity(x_vel, y_vel, speed);
     speed = snake->getSpeed();
     snake->setX(snake->getX() + x_vel);
     snake->setY(snake->getY() + y_vel);
 
-    cout << initX << "," << snake->getX() << endl;
-    cout << initY << "," << snake->getY() << endl;
+    //cout << initX << "," << snake->getX() << endl;
+    //cout << initY << "," << snake->getY() << endl;
 
     if(hitBoundary(snake->getX(), snake->getY())) {
       SDL_Quit();
