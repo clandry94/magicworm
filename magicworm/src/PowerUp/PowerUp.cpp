@@ -26,21 +26,35 @@ int PowerUp::getY() {
 }
 
 void PowerUp::placePowerUp() {
-	powerUpX = rand() % SCREEN_WIDTH;
-	powerUpY = rand() % SCREEN_HEIGHT;
-	cout << "1" << endl;
-	while (powerUpX == snake->getX() && powerUpY == snake->getY()){
-		cout << "2" << endl;
-		 powerUpX = rand() % SCREEN_WIDTH;
-		 powerUpY = rand() % SCREEN_HEIGHT;
+	if (isPowerUp = false) {
+		//int whichPowerUp = (rand() % 6);
+		powerUpX = rand() % SCREEN_WIDTH;
+		powerUpY = rand() % SCREEN_HEIGHT;
+
+		while (powerUpX == snake->getX() && powerUpY == snake->getY()){
+			powerUpX = rand() % SCREEN_WIDTH;
+			powerUpY = rand() % SCREEN_HEIGHT;
+		}
 	}
 
 	isPowerUp = true;
-	//int whichPowerUp = (rand() % 6);
+
 	int whichPowerUp = 0;
+
 	if (whichPowerUp == 0) {
-		cout << "3" << endl;
-		speedUp(powerUpX, powerUpY);
+		const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
+		SDL_Texture * speedUp = loadTexture(speedUpPath, renderer);
+			if (speedUp == nullptr){
+				SDL_Quit();
+			}
+		cout << x << ", " << y << endl;
+		SDL_RenderClear(renderer);
+		renderTexture(speedUp, renderer, x, y);
+		SDL_RenderPresent(renderer);
+
+		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			speedUp(powerUpX, powerUpY);
+		}
 	}
 	else if (whichPowerUp == 1) {
 		slowDown(powerUpX, powerUpY);
@@ -57,71 +71,46 @@ void PowerUp::placePowerUp() {
 	else if (whichPowerUp == 5) {
 		invertDirections(powerUpX, powerUpY);
 	}
+
 }
 
 void PowerUp::removePowerUp() {
 	isPowerUp = false;
-	powerUpX = -1;
-	powerUpY = -1;
 }
 
 void PowerUp::speedUp(int x, int y) {
-	cout << "4" << endl;
-
-		cout << "5" << endl;
-		const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
-		cout << "6" << endl;
-		SDL_Texture * speedUp = loadTexture(speedUpPath, renderer);
-		cout << "7" << endl;
-			if (speedUp == nullptr){
-				SDL_Quit();
-			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(speedUp, renderer, x, y);
-		SDL_RenderPresent(renderer);
-		cout << "8" << endl;
-		/*
-while (isPowerUp) {
-		if (x == snake->getX() && y == snake->getY()) {
-			removePowerUp();
-			snake->setSpeed(snake->getSpeed() + 3);
-			clock_t startTime = clock();
-			clock_t endTime;
-			double timeInSeconds = 0;
-			while (timeInSeconds < 30) {
-				endTime = clock();
-				clock_t ticksTaken = startTime - endTime;
-				timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
-			}
-			snake->setSpeed(snake->getSpeed() - 3);
-		}
+	removePowerUp();
+	snake->setSpeed(snake->getSpeed() + 3);
+	clock_t startTime = clock();
+	clock_t endTime;
+	double timeInSeconds = 0;
+	/*while (timeInSeconds < 30) {
+		endTime = clock();
+		clock_t ticksTaken = startTime - endTime;
+		timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
 	}
-	*/
+	snake->setSpeed(snake->getSpeed() - 3);*/
 }
 
 void PowerUp::slowDown(int x, int y) {
-	while (isPowerUp) {
-		const string slowDownPath = getResourcePath("magicworm") + "slowDown.bmp";
-			SDL_Texture * slowDown = loadTexture(slowDownPath, renderer);
-				if (slowDown == nullptr){
-					SDL_Quit();
-				}
-		renderTexture(slowDown, renderer, x, y);
-
-		if (x == snake->getX() && y == snake->getY()) {
-			removePowerUp();
-			snake->setSpeed(snake->getSpeed() - 3);
-			clock_t startTime = clock();
-			clock_t endTime;
-			double timeInSeconds = 0;
-			while (timeInSeconds < 30) {
-				endTime = clock();
-				clock_t ticksTaken = startTime - endTime;
-				timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
+	const string slowDownPath = getResourcePath("magicworm") + "slowDown.bmp";
+		SDL_Texture * slowDown = loadTexture(slowDownPath, renderer);
+			if (slowDown == nullptr){
+				SDL_Quit();
 			}
-				snake->setSpeed(snake->getSpeed() + 3);
+	renderTexture(slowDown, renderer, x, y);
+	if (x == snake->getX() && y == snake->getY()) {
+		removePowerUp();
+		snake->setSpeed(snake->getSpeed() - 3);
+		clock_t startTime = clock();
+		clock_t endTime;
+		double timeInSeconds = 0;
+		while (timeInSeconds < 30) {
+			endTime = clock();
+			clock_t ticksTaken = startTime - endTime;
+			timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
 		}
+			snake->setSpeed(snake->getSpeed() + 3);
 	}
 }
 
