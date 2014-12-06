@@ -35,8 +35,12 @@ void Food::generateFood() {
   // Check if the extra food powerup has been used
   if (totalFood < 1) {
     // If the snake lands on the same coordinates, erase food
-    //if(foodX == snake->getX() && foodY == snake->getY())
-      //eraseFood(foodX, foodY);
+    if(foodX == snake->getX() && foodY == snake->getY()) {
+      snake->eat();
+      totalFood--;
+      score++;
+      generateFood();
+    }
     srand(time(NULL));
     randomValue();
     renderFood(foodX, foodY);
@@ -50,7 +54,7 @@ void Food::randomValue() {
   foodX = rand() % SCREEN_WIDTH;
   foodY = rand() % SCREEN_HEIGHT;
   if ((foodX == powerup->getX() && foodY == powerup->getY()) || (foodX == snake->getX() && foodY == snake->getY()))
-    randomValue();
+    generateFood();
 }
 
 // Draws food on the gameboard
@@ -67,13 +71,3 @@ void Food::renderFood(int x, int y) {
 
   totalFood++;
 }
-/*
-// Remove food from the gameboard, increment score, decrement total food in case extra food powerup was used
-void Food::eraseFood(int x, int y) {
-
-  totalFood--;
-  score++;
-  generateFood();
-  snake->eat();
-}
-*/
