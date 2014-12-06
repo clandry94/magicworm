@@ -52,6 +52,30 @@ void showHighScores(SDL_Window window){
 
   textfile.close();
 
+  TTF_Font *font = NULL;
+  SDL_Surface *message = NULL;
+  SDL_Color textColor = {255, 255, 255};
+
+  if(TTF_Init() == -1){
+    return false;    
+  }
+
+  background = load_image("highscore.png");
+  font = TTF_OpenFont( FONT NAME HERE, 28 );
+  
+  if(background == NULL){
+    return false;    
+  }
+  if(font == NULL){
+    return false;
+  }
+
+  message = TTF_RenderText_Solid(font, text, textColor);
+
+  if(message == NULL){
+    return 1;    
+  }
+
   SDL_Renderer *ren = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (ren == nullptr){
     SDL_DestroyWindow(win);
@@ -93,8 +117,8 @@ void showHighScores(SDL_Window window){
           /* Check the SDLKey values and move change the coords */
           switch(e.key.keysym.sym){
             case SDLK_ESCAPE:
-                quit = true;
-                break;
+              quit = true;
+              break;
           }
           default:
             break;
@@ -143,4 +167,3 @@ bool mainMenu(SDL_Window window) {
   SDL_DestroyRenderer(ren);
   return quitProgram;
 }
-
