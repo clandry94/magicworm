@@ -52,8 +52,8 @@ void PowerUp::deactivatePowerUp() {
 
 void PowerUp::randomNumbers() {
 	if (!isPowerUp) {
-		whichPowerUp = (rand() % 6);
 		srand(time(NULL));
+		whichPowerUp = (rand() % 6);
 		powerUpX = rand() % SCREEN_WIDTH;
 		powerUpY = rand() % SCREEN_HEIGHT;
 
