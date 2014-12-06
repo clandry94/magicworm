@@ -14,57 +14,66 @@
 
 using namespace std;
 
-Food::Food() {
+Food::Food(SDL_Renderer * irenderer, Snake * isnake, PowerUp * ipowerup) {
   renderer = irenderer;
   snake = isnake;
+  powerup = ipowerup;
 }
 
+// Return food's x-coordinate
 int Food::getX() {
   return foodX;
 }
 
+// Return food's y-coordinate
 int Food::getY() {
   return foodY;
 }
 
-// Generate random X and Y coordinates for food to appear on
+// Continuously generates food on the gameboard
 void Food::generateFood() {
-  // Create random values
+  // Check if the extra food powerup has been used
   if (totalFood < 1) {
-    if(foodX == snake->getX() && foodY == snake->getY())
-      eraseFood();
+    // If the snake lands on the same coordinates, erase food
+    //if(foodX == snake->getX() && foodY == snake->getY())
+      //eraseFood(foodX, foodY);
     srand(time(NULL));
     randomValue();
-    renderFood();
-
-    return 0;
+    renderFood(foodX, foodY);
   }
   else
-    return 0;
+    generateFood();
 }
+
+// Generate new food location with x and y coordinates
 void Food::randomValue() {
-  // Generate new food location
-  foodX = rand() % 640 + 1;
-  foodY = rand() % 480 + 1;
-  if ((foodX == powerup.getX() && foodY == powerup.getY()) || (foodX == snake->getX() && foodY == snake->getY()))
+  foodX = rand() % SCREEN_WIDTH;
+  foodY = rand() % SCREEN_HEIGHT;
+  if ((foodX == powerup->getX() && foodY == powerup->getY()) || (foodX == snake->getX() && foodY == snake->getY()))
     randomValue();
 }
 
-void Food::renderFood(SDL_Texture *tex, SDL_Renderer *ren, foodX, foodY) {
-  string cupcakePath = respath.getResourcePath("magicworm") + "cupcake.bmp";
+// Draws food on the gameboard
+void Food::renderFood(int x, int y) {
+  string cupcakePath = getResourcePath("magicworm") + "cupcake.bmp";
   SDL_Texture * renderFood = loadTexture(cupcakePath, renderer);
   if (renderFood == nullptr){
     SDL_Quit();
-    return 1;
   }
-  renderTexture(renderFood, renderer, foodX, foodY);
+
+  SDL_RenderClear(renderer);
+  renderTexture(renderFood, renderer, x, y);
+  SDL_RenderPresent(renderer);
+
   totalFood++;
 }
-
-void Food::eraseFood(foodX, foodY) {
-  // Remove food
+/*
+// Remove food from the gameboard, increment score, decrement total food in case extra food powerup was used
+void Food::eraseFood(int x, int y) {
 
   totalFood--;
   score++;
   generateFood();
+  snake->eat();
 }
+*/
