@@ -10,12 +10,12 @@ using namespace std;
 class Snake {
 
 	private:
-		Node * head;
+
 		int speed;	//speed of the snake
 		string color;
 
 	public:
-
+		Node * head;
 		bool hasPowerup; //Snake has powerup t/f
 
 		Snake(int speed, string color, int startX, int startY);
@@ -23,8 +23,8 @@ class Snake {
 		int getSpeed();
 		void setSpeed(int val);
 		void incrementSpeed();
-		void incrementSize(int lastKeyPress);
-
+		void incrementSize(int x, int y);
+		int getSize();
 		string getColor();
 		void setColor(string newColor);
 

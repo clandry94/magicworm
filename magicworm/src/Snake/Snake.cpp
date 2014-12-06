@@ -20,44 +20,32 @@ void Snake::setSpeed(int val) {
 void Snake::incrementSpeed() {
   speed += 1;
 }
-/*
-void Snake::incrementSize(int lastKeyPress) {
-  const int incrementVal = 16;
-  Node * body;
-  body = head;
-  int iX;
-  int iY;
 
-  switch(lastKeyPress) {
-    case 1:
-      iX = body->x - incrementVal;
-      iY = body->y;
-      break;
-    case 2:
-      iX = body->x + incrementVal;
-      iY = body->y;
-      break;
-    case 3:
-      iX = body->x;
-      iY = body->y + incrementVal;
-      break;;
-    case 4:
-      iX = body->x;
-      iY = body->y - incrementVal;
-      break;
-    default:
-      iX = 0;
-      iY = 0;
+int Snake::getSize() {
+  int size = 1;
+	for(Node * body = head; body->next != NULL; body = body->next) {
+		size++;
+	}
+	return size;
+}
+
+/*
+  1. Move the head forward one.
+  2. Put a body segment where the head was.
+  3. Erase the last body segment.
+*/
+void Snake::incrementSize(int x, int y) {
+  Node * body;
+	body = head;
+
+	while(body->next != NULL){
+    body = body->next;
   }
 
-
-
-	while(body->next != NULL)
-		body=body->next;
-	body->next = new Node(iX, iY);
-
+	body->next = new Node (x, y);
+  cout << "NEW NODE: " << "(" << x << "," << y << ")";
 }
-*/
+
 
 void Snake::eat() {
   incrementSpeed();

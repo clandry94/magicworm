@@ -11,8 +11,9 @@ struct Node {
   Node(int iX, int iY) {
     x = iX;
     y = iY;
+    next = NULL;
   }
-  
+
 };
 
 #endif

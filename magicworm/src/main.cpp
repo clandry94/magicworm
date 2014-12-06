@@ -4,6 +4,7 @@
 #include "respath.h"
 #include "PowerUp/PowerUp.cpp"
 #include "commonSDL.h"
+#include "Snake/Node.h"
 
 using namespace std;
 
@@ -12,20 +13,20 @@ using namespace std;
 /*
  * Checks the velocity of the snake and updates accordingly
  */
-void checkVelocity(int &x_vel, int &y_vel, int &speed) {
+void checkVelocity(int &x_vel, int &y_vel, int &vel) {
   if(x_vel != 0) {
     if(x_vel > 0) {
-      x_vel = speed;
+      x_vel = vel;
     } else {
-      x_vel = speed * -1;
+      x_vel = vel * -1;
     }
   }
 
   if(y_vel != 0) {
     if(y_vel > 0) {
-      y_vel = speed;
+      y_vel = vel;
     } else {
-      y_vel = speed * -1;
+      y_vel = vel * -1;
     }
   }
 
@@ -77,7 +78,7 @@ int main() {
 
   int x_vel = 0;
   int y_vel = 0;
-  int speed = snake->getSpeed();
+  int vel = snake->getSpeed();
   int lastKeyPress = 0;
 
   //renderTexture(image, renderer, x, y);
@@ -94,23 +95,23 @@ int main() {
                   /* Check the SDLKey values and move change the coords */
                   switch(e.key.keysym.sym){
                       case SDLK_LEFT:
-                          x_vel = speed * -1;
+                          x_vel = vel * -1;
                           y_vel = 0;
                           lastKeyPress = 1;
                           break;
                       case SDLK_RIGHT:
-                          x_vel = speed;
+                          x_vel = vel;
                           y_vel = 0;
                           lastKeyPress = 2;
                           break;
                       case SDLK_UP:
                           x_vel = 0;
-                          y_vel = speed * -1;
+                          y_vel = vel * -1;
                           lastKeyPress = 3;
                           break;
                       case SDLK_DOWN:
                           x_vel = 0;
-                          y_vel = speed;
+                          y_vel = vel;
                           lastKeyPress = 4;
                           break;
                       case SDLK_ESCAPE:
@@ -119,8 +120,11 @@ int main() {
                       case SDLK_k:
                           snake->incrementSpeed();
                           cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
+                          break;
                       case SDLK_j:
-                          //snake->incrementSize(lastKeyPress);
+                          snake->incrementSize(snake->getX(), snake->getY());
+                          cout << "SNAKE SIZE: " << snake->getSize() << endl;
+                          break;
                       default:
                           break;
                   }
@@ -129,18 +133,12 @@ int main() {
           }
           break;
 
-          //render snake
-          //renderTexture(image, renderer, snake->getX(), snake->getY());
-
-    }
-    if(!powerup->isPowerUp) {
-      powerup->placePowerUp();
-    } else {
-      powerup->speedUp(powerup->getX(), powerup->getY());
     }
 
-    checkVelocity(x_vel, y_vel, speed);
-    speed = snake->getSpeed();
+    //powerup->placePowerUp();
+
+    checkVelocity(x_vel, y_vel, vel);
+    vel = snake->getSpeed();
     snake->setX(snake->getX() + x_vel);
     snake->setY(snake->getY() + y_vel);
 
@@ -148,11 +146,27 @@ int main() {
     //cout << initY << "," << snake->getY() << endl;
 
     if(hitBoundary(snake->getX(), snake->getY())) {
-      SDL_Quit();
+      quit = true;
     }
   	//Render the scene
   	SDL_RenderClear(renderer);
-  	renderTexture(image, renderer, snake->getX(), snake->getY());
+
+    /*
+      1. Move the head forward one.
+      2. Put a body segment where the head was.
+      3. Erase the last body segment.
+    */
+      Node * body;
+      body = snake->head;
+      snake->incrementSize(snake->getX(), snake->getY());
+
+      while(body != NULL) {
+        renderTexture(image, renderer, body->x, body->y);
+
+        body = body->next;
+      }
+
+
   	SDL_RenderPresent(renderer);
   }
   //cleanup(background, image, render, window);
