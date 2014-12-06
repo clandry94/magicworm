@@ -20,6 +20,7 @@ class PowerUp {
 		int startTime;
 		void randomNumbers();
 		int whichPowerUp;
+		int counter;
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake);

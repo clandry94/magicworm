@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 #include <stdlib.h>
 #include "PowerUp.h"
 #include <ctime>
@@ -20,6 +21,7 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake) {
 	isSlowedDown = false;
 	startTime = 0;
 	whichPowerUp = -1;
+	counter = 0;
 }
 
 int PowerUp::getX() {
@@ -32,9 +34,8 @@ int PowerUp::getY() {
 
 void PowerUp::deactivatePowerUp() {
 	if (isSpedUp) {
-	  clock_t ticksTaken = clock() - startTime;
-		int timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
-		if (timeInSeconds >= 30) {
+	  int timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
+	  if (timeInSeconds >= 30) {
 			snake->setSpeed(snake->getSpeed() - 3);
 			isSpedUp = false;
 		}
@@ -44,8 +45,13 @@ void PowerUp::deactivatePowerUp() {
 		clock_t ticksTaken = clock() - startTime;
 		int timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 30) {
-			snake->setSpeed(snake->getSpeed() + 3);
-			isSlowedDown = false;
+			if (snake.getSpeed() == 1) {
+				snake->setSpeed(1 + counter);
+			}
+			else {
+				snake->setSpeed(snake->getSpeed() + 3);
+				isSlowedDown = false;
+			}
 		}
 	}
 }
@@ -175,7 +181,13 @@ void PowerUp::slowDown() {
 	startTime = clock();
 	isSlowedDown = true;
 	PowerUp::removePowerUp();
-	snake->setSpeed(snake->getSpeed() - 3);
+	if (snake->getSpeed() > 3) {
+		snake->setSpeed(snake->getSpeed() - 3);
+	}
+	else if (snake->getSpeed() <=3) {
+		counter = snake->getSpeed() - 1;
+		snake->setSpeed(1);
+	}
 }
 
 void PowerUp::changeColor() {
