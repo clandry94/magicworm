@@ -15,6 +15,10 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake) {
 	isPowerUp = false;
 	renderer = irenderer;
 	snake = isnake;
+	isSpedUp = false;
+	isSlowedDown = false;
+	startTime = 0;
+	whichPowerUp = -1
 }
 
 int PowerUp::getX() {
@@ -25,108 +29,132 @@ int PowerUp::getY() {
 	return powerUpY;
 }
 
-void PowerUp::placePowerUp() {
+void PowerUp::deactivatePowerUp() {
+	if (isSpedUp = true) {
+		int clock_t ticksTaken = clock() - startTime;
+		int timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
+		if (timeInSeconds >= 30) {
+			snake->setSpeed(snake->getSpeed() - 3);
+			isSpedUp = false;
+		}
+	}
+
+	if (isSlowedDown = true) {
+		int clock_t ticksTaken = clock() - startTime;
+		int timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
+		if (timeInSeconds >= 30) {
+			snake->setSpeed(snake->getSpeed() + 3);
+			isSlowedDown = false;
+		}
+	}
+}
+
+void PowerUp::randomNumbers() {
 	if (isPowerUp = false) {
-		int whichPowerUp = (rand() % 6);
+		whichPowerUp = (rand() % 6);
 		powerUpX = rand() % SCREEN_WIDTH;
 		powerUpY = rand() % SCREEN_HEIGHT;
 
-		while (powerUpX == snake->getX() && powerUpY == snake->getY()){
-			powerUpX = rand() % SCREEN_WIDTH;
-			powerUpY = rand() % SCREEN_HEIGHT;
+		if (powerUpX == snake->getX() && powerUpY == snake->getY()){
+			randomNumbers();
 		}
 	}
+}
 
-	isPowerUp = true;
+void PowerUp::placePowerUp() {
+	deactivatePowerUp();
 
-	//int whichPowerUp = 0;
+	if (isSpedUp = false && isSlowedDown = false) {
+		randomNumbers();
 
-	if (whichPowerUp == 0) {
-		const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
-		SDL_Texture * speedUp = loadTexture(speedUpPath, renderer);
+		isPowerUp = true;
+
+		if (whichPowerUp == 0) {
+			const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
+			SDL_Texture * speedUp = loadTexture(speedUpPath, renderer);
 			if (speedUp == nullptr){
 				SDL_Quit();
 			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(speedUp, renderer, x, y);
-		SDL_RenderPresent(renderer);
+			cout << x << ", " << y << endl;
+			SDL_RenderClear(renderer);
+			renderTexture(speedUp, renderer, x, y);
+			SDL_RenderPresent(renderer);
 
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
-			speedUp(powerUpX, powerUpY);
-		}
-	}
-	else if (whichPowerUp == 1) {
-		const string speedUpPath = getResourcePath("magicworm") + "slowDown.bmp";
-		SDL_Texture * slowDown = loadTexture(slowDownPath, renderer);
-			if (slowDown == nullptr){
-				SDL_Quit();
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+				speedUp();
 			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(slowDown, renderer, x, y);
-		SDL_RenderPresent(renderer);
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
-			slowDown();
 		}
-	}
-	else if (whichPowerUp == 2) {
-		const string changeColor = getResourcePath("magicworm") + "changeColor.bmp";
-		SDL_Texture * changeColor = loadTexture(changeColorPath, renderer);
-			if (changeColor == nullptr){
-				SDL_Quit();
+		else if (whichPowerUp == 1) {
+			const string speedUpPath = getResourcePath("magicworm") + "slowDown.bmp";
+			SDL_Texture * slowDown = loadTexture(slowDownPath, renderer);
+				if (slowDown == nullptr){
+					SDL_Quit();
+				}
+			cout << x << ", " << y << endl;
+			SDL_RenderClear(renderer);
+			renderTexture(slowDown, renderer, x, y);
+			SDL_RenderPresent(renderer);
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+				slowDown();
 			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(changeColor, renderer, x, y);
-		SDL_RenderPresent(renderer);
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
-			changeColor();
 		}
-	}
-	else if (whichPowerUp == 3) {
-		const string extraFoodPath = getResourcePath("magicworm") + "extraFood.bmp";
-		SDL_Texture * extraFood = loadTexture(extraFoodPath, renderer);
-		if (extraFood == nullptr){
-				SDL_Quit();
+		else if (whichPowerUp == 2) {
+			const string changeColor = getResourcePath("magicworm") + "changeColor.bmp";
+			SDL_Texture * changeColor = loadTexture(changeColorPath, renderer);
+				if (changeColor == nullptr){
+					SDL_Quit();
+				}
+			cout << x << ", " << y << endl;
+			SDL_RenderClear(renderer);
+			renderTexture(changeColor, renderer, x, y);
+			SDL_RenderPresent(renderer);
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+				changeColor();
 			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(extraFood, renderer, x, y);
-		SDL_RenderPresent(renderer);
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
-			extraFood();
 		}
-	}
-	else if (whichPowerUp == 4) {
-		const string minusScorePath = getResourcePath("magicworm") + "minusScore.bmp";
-		SDL_Texture * minusScore = loadTexture(minusScorePath, renderer);
-			if (minusScore == nullptr){
-				SDL_Quit();
+		else if (whichPowerUp == 3) {
+			const string extraFoodPath = getResourcePath("magicworm") + "extraFood.bmp";
+			SDL_Texture * extraFood = loadTexture(extraFoodPath, renderer);
+			if (extraFood == nullptr){
+					SDL_Quit();
+				}
+			cout << x << ", " << y << endl;
+			SDL_RenderClear(renderer);
+			renderTexture(extraFood, renderer, x, y);
+			SDL_RenderPresent(renderer);
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+				extraFood();
 			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(minusScore, renderer, x, y);
-		SDL_RenderPresent(renderer);
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
-			minusScore();
 		}
-	}
-	else if (whichPowerUp == 5) {
-		const string invertDirectionsPath = getResourcePath("magicworm") + "invertDirections.bmp";
-		SDL_Texture * invertDirections = loadTexture(invertDirectionsPath, renderer);
-			if (invertDirections == nullptr){
-				SDL_Quit();
+		else if (whichPowerUp == 4) {
+			const string minusScorePath = getResourcePath("magicworm") + "minusScore.bmp";
+			SDL_Texture * minusScore = loadTexture(minusScorePath, renderer);
+				if (minusScore == nullptr){
+					SDL_Quit();
+				}
+			cout << x << ", " << y << endl;
+			SDL_RenderClear(renderer);
+			renderTexture(minusScore, renderer, x, y);
+			SDL_RenderPresent(renderer);
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+				minusScore();
 			}
-		cout << x << ", " << y << endl;
-		SDL_RenderClear(renderer);
-		renderTexture(invertDirections, renderer, x, y);
-		SDL_RenderPresent(renderer);
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+		}
+		else if (whichPowerUp == 5) {
+			const string invertDirectionsPath = getResourcePath("magicworm") + "invertDirections.bmp";
+			SDL_Texture * invertDirections = loadTexture(invertDirectionsPath, renderer);
+				if (invertDirections == nullptr){
+					SDL_Quit();
+				}
+			cout << x << ", " << y << endl;
+			SDL_RenderClear(renderer);
+			renderTexture(invertDirections, renderer, x, y);
+			SDL_RenderPresent(renderer);
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 			invertDirections();
+			}
 		}
 	}
-
 }
 
 void PowerUp::removePowerUp() {
@@ -134,34 +162,19 @@ void PowerUp::removePowerUp() {
 }
 
 void PowerUp::speedUp() {
+	startTime = clock();
+	isSpedUp = true;
 	removePowerUp();
 	snake->setSpeed(snake->getSpeed() + 3);
-	clock_t startTime = clock();
-	clock_t endTime;
-	double timeInSeconds = 0;
-	/*while (timeInSeconds < 30) {
-		endTime = clock();
-		clock_t ticksTaken = startTime - endTime;
-		timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
-	}
-	snake->setSpeed(snake->getSpeed() - 3);*/
+
 }
 
 void PowerUp::slowDown() {
-		removePowerUp();
-		snake->setSpeed(snake->getSpeed() - 3);
-		clock_t startTime = clock();
-		clock_t endTime;
-		double timeInSeconds = 0;
-		/*
-		while (timeInSeconds < 30) {
-			endTime = clock();
-			clock_t ticksTaken = startTime - endTime;
-			timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
-		}
-			snake->setSpeed(snake->getSpeed() + 3);
-		*/
-	}
+	startTime = clock();
+	isSlowedDown = true;
+	removePowerUp;
+	snake->setSpeed(snake->getSpeed() - 3);
+}
 
 void PowerUp::changeColor() {
 	removePowerUp();

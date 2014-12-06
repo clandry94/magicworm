@@ -7,10 +7,8 @@ class PowerUp {
 		int powerUpY;
 		SDL_Renderer * renderer;
 		Snake * snake;
-
-	public:
-		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
-		void placePowerUp();
+		bool isSpedUp;
+		bool isSlowedDown;
 		void removePowerUp();
 		void speedUp();
 		void slowDown();
@@ -18,6 +16,14 @@ class PowerUp {
 		void extraFood();
 		void minusScore();
 		void invertDirections();
+		void deactivatePowerUp();
+		int startTime;
+		void randomNumbers();
+		int whichPowerUp;
+
+	public:
+		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
+		void placePowerUp();
 		int getX();
 		int getY();
 		bool isPowerUp;
