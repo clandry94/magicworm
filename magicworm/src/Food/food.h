@@ -3,17 +3,6 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include <Position.h>
-#include <Snake.h>
-#include <PowerUp.h>
-
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#include <SDL/SDL.h>
-
 using namespace std;
 
 class Food {
@@ -21,10 +10,22 @@ class Food {
   private:
     int foodX;
     int foodY;
+    int totalFood = 0;
+
+    SDL_Renderer * renderer;
+    Snake * snake;
+
+    Food(SDL_Renderer * irenderer);
+    void randomValue();
+    void renderFood(int x, int y, SDL_Renderer * renderer);
+    void eraseFood(int x, int y, SDL_Renderer * renderer);
+
+  public:
+    int score;
+    int getX();
+    int getY();
 
     void generateFood();
-    void randomValue();
-    void drawFood();
 };
 
 #endif

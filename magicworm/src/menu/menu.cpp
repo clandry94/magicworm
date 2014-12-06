@@ -39,8 +39,17 @@ void printMenu(SDL_Window window){
   SDL_RenderPresent(ren);
 }
 
+<<<<<<< HEAD
 //prints the High score screen and contains High Score functionality
 void showHighScores(SDL_Window window){
+=======
+void Menu::mainMenu() {
+  cin >> begin;
+  // Welcome screen
+  // On first launch, no games played yet
+  if (isDead == false) {
+    // Display "Press 'Space Bar' to start new game" and "Press 'esc' to quit" using SDL
+>>>>>>> origin/master
 
   //reads the high score and stores it in a string
   //I don't know how to put that score on the high score screen
@@ -58,6 +67,13 @@ void showHighScores(SDL_Window window){
     SDL_Quit();
     return 1;
   }
+<<<<<<< HEAD
+=======
+  // Game over screen
+  // When a game has already been played
+  else if (isDead == true) {
+    // Display "Game Over", "Final Score: ", "Press 'Space Bar' to start new game" and "Press 'esc' to quit" using SDL
+>>>>>>> origin/master
 
   const std::string menuPath = getResourcePath("magicworm") + "highscore.bmp";
   SDL_Surface *bmp = SDL_LoadBMP(menuPath.c_str());
@@ -104,6 +120,7 @@ void showHighScores(SDL_Window window){
   SDL_DestroyTexture(tex);
   SDL_DestroyRenderer(ren);
 }
+<<<<<<< HEAD
 
 //main menu functionality
 bool mainMenu(SDL_Window window) {
@@ -143,3 +160,5 @@ bool mainMenu(SDL_Window window) {
   return quitProgram;
 }
 
+=======
+>>>>>>> origin/master
