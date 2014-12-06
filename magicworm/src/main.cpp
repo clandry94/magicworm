@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include "respath.h"
-//#include "PowerUp/PowerUp.cpp"
+#include "PowerUp/PowerUp.cpp"
 #include "commonSDL.h"
 #include "Snake/Node.h"
 
@@ -73,7 +73,7 @@ int main() {
   int initY = SCREEN_HEIGHT / 2 - iH / 2;
 
   Snake * snake = new Snake(1, "red", initX, initY);
-  //PowerUp * powerup = new PowerUp(renderer, snake);
+  PowerUp * powerup = new PowerUp(renderer, snake);
 
 
   int x_vel = 0;
@@ -137,7 +137,7 @@ int main() {
 
     }
 
-    //powerup->placePowerUp();
+    powerup->placePowerUp();
 
     checkVelocity(x_vel, y_vel, vel);
     vel = snake->getSpeed();
