@@ -6,8 +6,7 @@
 Snake::Snake(int iSpeed, string iColor, int iX, int iY) {
   speed = iSpeed;
   color = iColor;
-  x = iX;
-  y = iY;
+  head = new Node(iX, iY);
 }
 
 int Snake::getSpeed() {
@@ -21,30 +20,64 @@ void Snake::setSpeed(int val) {
 void Snake::incrementSpeed() {
   speed += 1;
 }
+/*
+void Snake::incrementSize(int lastKeyPress) {
+  const int incrementVal = 16;
+  Node * body;
+  body = head;
+  int iX;
+  int iY;
+
+  switch(lastKeyPress) {
+    case 1:
+      iX = body->x - incrementVal;
+      iY = body->y;
+      break;
+    case 2:
+      iX = body->x + incrementVal;
+      iY = body->y;
+      break;
+    case 3:
+      iX = body->x;
+      iY = body->y + incrementVal;
+      break;;
+    case 4:
+      iX = body->x;
+      iY = body->y - incrementVal;
+      break;
+    default:
+      iX = 0;
+      iY = 0;
+  }
+
+
+
+	while(body->next != NULL)
+		body=body->next;
+	body->next = new Node(iX, iY);
+
+}
+*/
 
 void Snake::eat() {
   incrementSpeed();
-}
-
-void Snake::setCoordinate(int newX, int newY) {
-  x = newX;
-  y = newY;
+  //incrementSize();
 }
 
 int Snake::getX() {
-  return x;
+  return head->x;
 }
 
 int Snake::getY() {
-  return y;
+  return head->y;
 }
 
 
 //Sets the new x and y position
 void Snake::setX(int iX) {
-  x = iX;
+  head->x = iX;
 }
 
 void Snake::setY(int iY) {
-  y = iY;
+  head->y = iY;
 }

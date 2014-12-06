@@ -1,7 +1,6 @@
 #include "Snake/Snake.cpp"
 #include <SDL2/SDL.h>
 #include <vector>
-#include "Artifact/Artifact.h"
 #include "respath.h"
 #include "PowerUp/PowerUp.cpp"
 #include "commonSDL.h"
@@ -79,13 +78,13 @@ int main() {
   int x_vel = 0;
   int y_vel = 0;
   int speed = snake->getSpeed();
+  int lastKeyPress = 0;
 
   //renderTexture(image, renderer, x, y);
   //renderTexture(image, renderer, 50, 50);
 
   //Our event structure
   SDL_Event e;
-  vector<artifact> snakeCoords;
   bool quit = false;
   while (!quit){
   	while (SDL_PollEvent(&e)){
@@ -97,18 +96,22 @@ int main() {
                       case SDLK_LEFT:
                           x_vel = speed * -1;
                           y_vel = 0;
+                          lastKeyPress = 1;
                           break;
                       case SDLK_RIGHT:
                           x_vel = speed;
                           y_vel = 0;
+                          lastKeyPress = 2;
                           break;
                       case SDLK_UP:
                           x_vel = 0;
                           y_vel = speed * -1;
+                          lastKeyPress = 3;
                           break;
                       case SDLK_DOWN:
                           x_vel = 0;
                           y_vel = speed;
+                          lastKeyPress = 4;
                           break;
                       case SDLK_ESCAPE:
                           SDL_Quit();
@@ -116,6 +119,8 @@ int main() {
                       case SDLK_k:
                           snake->incrementSpeed();
                           cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
+                      case SDLK_j:
+                          //snake->incrementSize(lastKeyPress);
                       default:
                           break;
                   }

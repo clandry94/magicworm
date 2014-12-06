@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "PowerUp.h"
 #include <ctime>
-#include "../artifact/artifact.h"
 #include "../food/food.h"
 //#include "../snake/snake.cpp"
 #include <SDL2/SDL.h>
