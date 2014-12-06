@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "respath.h"
 
 #include <SDL2/SDL.h>
 
@@ -13,13 +14,9 @@ using namespace std;
 class Menu {
 private:
 
-<<<<<<< HEAD
 	void printMenu();
  	void showHighScore();
  	bool mainMenu();
-=======
-  void mainMenu();
->>>>>>> origin/master
 };
 
 #endif
