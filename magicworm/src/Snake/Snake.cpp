@@ -43,9 +43,33 @@ void Snake::incrementSize(int x, int y) {
   }
 
 	body->next = new Node (x, y);
-  cout << "NEW NODE: " << "(" << x << "," << y << ")";
+  //cout << "NEW NODE: " << "(" << x << "," << y << ")";
 }
 
+//actually kills first
+void Snake::killLast() {
+
+  Node * p;
+	p = head;
+
+	Node *pPre = NULL, *pDel = NULL;
+
+  pPre = head;
+	pDel = head->next;
+
+	//If not first then find value
+	// and perform shifting operations.
+	while (pDel != NULL) {
+			pPre->next = pDel->next;
+			delete pDel;
+			pDel  = pPre->next;
+			break;
+
+		//cout << pDel->data;
+	}
+
+
+}
 
 void Snake::eat() {
   incrementSpeed();
@@ -59,7 +83,6 @@ int Snake::getX() {
 int Snake::getY() {
   return head->y;
 }
-
 
 //Sets the new x and y position
 void Snake::setX(int iX) {

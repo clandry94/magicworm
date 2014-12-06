@@ -122,7 +122,9 @@ int main() {
                           cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
                           break;
                       case SDLK_j:
-                          snake->incrementSize(snake->getX(), snake->getY());
+                          for(int i = 0; i < 8; i++) {
+                            snake->incrementSize(snake->getX(), snake->getY());
+                          }
                           cout << "SNAKE SIZE: " << snake->getSize() << endl;
                           break;
                       default:
@@ -151,20 +153,22 @@ int main() {
   	//Render the scene
   	SDL_RenderClear(renderer);
 
-    /*
-      1. Move the head forward one.
-      2. Put a body segment where the head was.
-      3. Erase the last body segment.
-    */
-      Node * body;
-      body = snake->head;
-      snake->incrementSize(snake->getX(), snake->getY());
+  /*
+    1. Move the head forward one.
+    2. Put a body segment where the head was.
+    3. Erase the last body segment.
+  */
+    Node * body;
+    body = snake->head;
+    snake->incrementSize(snake->getX(), snake->getY());
 
-      while(body != NULL) {
-        renderTexture(image, renderer, body->x, body->y);
+    snake->killLast();
 
-        body = body->next;
-      }
+    while(body != NULL) {
+
+      renderTexture(image, renderer, body->x, body->y);
+      body = body->next;
+    }
 
 
   	SDL_RenderPresent(renderer);

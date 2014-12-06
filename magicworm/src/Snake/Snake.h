@@ -24,6 +24,7 @@ class Snake {
 		void setSpeed(int val);
 		void incrementSpeed();
 		void incrementSize(int x, int y);
+		void killLast();
 		int getSize();
 		string getColor();
 		void setColor(string newColor);
