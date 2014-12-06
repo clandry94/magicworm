@@ -14,10 +14,9 @@
 
 using namespace std;
 
-Food::Food(SDL_Renderer * irenderer, Snake * isnake, PowerUp * ipowerup) {
+Food::Food(SDL_Renderer * irenderer, Snake * isnake) {
   renderer = irenderer;
   snake = isnake;
-  powerup = ipowerup;
 }
 
 // Return food's x-coordinate
@@ -33,9 +32,10 @@ int Food::getY() {
 // Continuously generates food on the gameboard
 void Food::generateFood() {
   // Check if the extra food powerup has been used
-  if (totalFood < 1) {
+  while (totalFood == 0) {
     // If the snake lands on the same coordinates, erase food
     if(foodX == snake->getX() && foodY == snake->getY()) {
+      cout << "eat food" << endl;
       snake->eat();
       totalFood--;
       score++;
@@ -44,28 +44,29 @@ void Food::generateFood() {
     srand(time(NULL));
     randomValue();
     renderFood(foodX, foodY);
+    cout << "generated food" << endl;
   }
-  else
-    generateFood();
 }
 
 // Generate new food location with x and y coordinates
 void Food::randomValue() {
+  cout << "random variables" << endl;
   foodX = rand() % SCREEN_WIDTH;
   foodY = rand() % SCREEN_HEIGHT;
-  if ((foodX == powerup->getX() && foodY == powerup->getY()) || (foodX == snake->getX() && foodY == snake->getY()))
+  if (foodX == snake->getX() && foodY == snake->getY())
     generateFood();
 }
 
 // Draws food on the gameboard
 void Food::renderFood(int x, int y) {
-  string cupcakePath = getResourcePath("magicworm") + "cupcake.bmp";
+  cout << "rendered food" << endl;
+  const string cupcakePath = getResourcePath("magicworm") + "cupcake.bmp";
   SDL_Texture * renderFood = loadTexture(cupcakePath, renderer);
   if (renderFood == nullptr){
     SDL_Quit();
   }
 
-  SDL_RenderClear(renderer);
+  //SDL_RenderClear(renderer);
   renderTexture(renderFood, renderer, x, y);
   SDL_RenderPresent(renderer);
 
