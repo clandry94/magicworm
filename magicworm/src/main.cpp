@@ -144,12 +144,10 @@ int main() {
     snake->setX(snake->getX() + x_vel);
     snake->setY(snake->getY() + y_vel);
 
-    //cout << initX << "," << snake->getX() << endl;
-    //cout << initY << "," << snake->getY() << endl;
-
     if(hitBoundary(snake->getX(), snake->getY())) {
       quit = true;
     }
+
   	//Render the scene
   	SDL_RenderClear(renderer);
 
@@ -164,8 +162,16 @@ int main() {
 
     snake->killLast();
 
-    while(body != NULL) {
+    while(body->next != NULL) {
+      if(snake->head == body->next) {
+        quit = true;
+      }
+      body = body->next;
+    }
 
+    body = snake->head;
+
+    while(body != NULL) {
       renderTexture(image, renderer, body->x, body->y);
       body = body->next;
     }
