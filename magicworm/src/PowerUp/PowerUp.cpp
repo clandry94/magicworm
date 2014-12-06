@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "PowerUp.h"
 #include <ctime>
+#include <time.h>
 #include "../food/food.h"
 //#include "../snake/snake.cpp"
 #include <SDL2/SDL.h>
@@ -52,6 +53,7 @@ void PowerUp::deactivatePowerUp() {
 void PowerUp::randomNumbers() {
 	if (!isPowerUp) {
 		whichPowerUp = (rand() % 6);
+		srand(time(NULL));
 		powerUpX = rand() % SCREEN_WIDTH;
 		powerUpY = rand() % SCREEN_HEIGHT;
 
