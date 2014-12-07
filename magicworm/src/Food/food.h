@@ -11,26 +11,27 @@ class Food {
     int foodX;             // Food x-coordinate
     int foodY;             // Food y-coordinate
 
+    bool checkCollision(SDL_Rect a, SDL_Rect b);
+
     SDL_Renderer * renderer;
     Snake * snake;
-    PowerUp * powerup;
 
-    void randomValue();                                         // Generates random x and y coordinates
+    void randomValue();     // Generates random x and y coordinates
+
+    SDL_Rect mEat;
 
   public:
     int score = 0;          // Current score
-    int totalFood = 0;      // Total food currently on the gameboard, used in case extra food powerup is used
+    static const int foodHeight = 16;
+    static const int foodWidth = 16;
     int getX();             // Returns x-coordinate
     int getY();             // Returns y-coordinate
     bool dropFood = false;
-<<<<<<< Updated upstream
+
     void raiseScore(int val);
     int getScore();
     Food(SDL_Renderer * irenderer, Snake * isnake);
-=======
 
-    Food(SDL_Renderer * irenderer, Snake * isnake, PowerUp * ipowerup);
->>>>>>> Stashed changes
     void generateFood();    // Starts loop that continuously generates more food
     void renderFood();     // Draws food on the gameboard
 
