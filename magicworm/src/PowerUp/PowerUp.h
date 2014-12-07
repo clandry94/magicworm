@@ -33,7 +33,7 @@ class PowerUp {
 		int foodx2;
 		int foody1;
 		int foody2;
-
+		void modifiedRenderFood(int x, int y);
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood);
