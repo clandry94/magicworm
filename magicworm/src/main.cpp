@@ -57,25 +57,11 @@ int main() {
 
   SDL_RenderClear(renderer);
 
-<<<<<<< HEAD
-  int iW, iH;
-  SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
 
-  int initX = SCREEN_WIDTH / 2 - iW / 2;
-  int initY = SCREEN_HEIGHT / 2 - iH / 2;
-
-  Snake * snake = new Snake(1, "red", initX, initY);
-<<<<<<< Updated upstream
-=======
   Snake * snake = new Snake(renderer, 1, 50, 50);
->>>>>>> Moved snake related code to snake.cpp instead of main.cpp
-  Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
-=======
-  PowerUp * powerup = new PowerUp(renderer, snake);
   Food * food = new Food(renderer, snake, powerup);
 
->>>>>>> Stashed changes
 
   int x_vel = 0;
   int y_vel = 0;
