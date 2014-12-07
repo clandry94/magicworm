@@ -4,166 +4,222 @@
 //#include <fstream> these are unecessary I believe
 //#include <string>
 
-//prints the main menu
-void printMenu(SDL_Window window){
-  SDL_Renderer *ren = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-  if (ren == nullptr){
-    SDL_DestroyWindow(win);
-    std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-    SDL_Quit();
-    return 1;
-  }
-  //SDL_Delay(2000); //I'm not sure this is necessary
+class Menu{
+	//the variables used throughout
+	private:
+	 	SDL_Renderer *ren = NULL;
+	  	SDL_Texture *menTex = NULL;
+	  	SDL_Window *window = NULL;
+	  	TTF_Font *font = NULL;
+	  	SDL_Surface *message = NULL;
+	 	SDL_Texture *messageTex = NULL;
+	  	SDL_Surface *background = NULL;
+	  	SDL_Texture *backgroundTex = NULL;
+	  	SDL_Color *textColor = NULL;
 
-  const std::string menuPath = getResourcePath("magicworm") + "menu.bmp";
-  SDL_Surface *bmp = SDL_LoadBMP(menuPath.c_str());
-  if (bmp == nullptr){
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(winsow);
-    std::cout << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
-    SDL_Quit();
-    return 1;
-  }
+	//constructor
+	Menu::Menu(SDL_Window *sentWindow){
+	  	window = sentWindow;
 
-  SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, bfmp);
-  SDL_FreeSurface(bmp);
-  if (tex == nullptr){
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(window);
-    std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
-    SDL_Quit();
-    return 1;
-  }
+	  	//creates the renderer to be used
+	  	ren = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	  	if (ren == nullptr){
+	    	SDL_DestroyWindow(win);
+		    std::cout << "SDL_CreateMenuRenderer Error: " << SDL_GetError() << std::endl;
+		    SDL_Quit();
+		    return 1;
+	  	}
 
-  SDL_RenderClear(ren);
-  SDL_RenderCopy(ren, tex, NULL, NULL);
-  SDL_RenderPresent(ren);
-}
+	  	//creates the menu's textures
+	  	const string menuPath = getResourcePath("magicworm") + "menu.bmp";
+	  	SDL_Surface *bmp = SDL_LoadBMP(menuPath.c_str());
+	  	if (bmp == nullptr){
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "SDL_LoadMenuBMP Error: " << SDL_GetError() << std::endl;
+	    	SDL_Quit();
+	    	return 1;
+	  	}
 
-//prints the High score screen and contains High Score functionality
-void showHighScores(SDL_Window window){
+	  	menTex = SDL_CreateTextureFromSurface(ren, bmp);
+	  	SDL_FreeSurface(bmp);
+	  	if (menTex == nullptr){
+	  	  	SDL_DestroyRenderer(ren);
+	  	  	SDL_DestroyWindow(window);
+	  	  	std::cout << "SDL_CreateMenuTextureFromSurface Error: " << SDL_GetError() << std::endl;
+	  	  	SDL_Quit();
+	    	return 1;
+	  	}
+	}
 
-  //reads the high score and stores it in a string
-  //I don't know how to put that score on the high score screen
-  string text;
-  fstream textfile;
-  textfile.open("highscore.txt");
-  textfile >> text;
+	//prints the main menu
+	void printMenu(){
+	  	//SDL_Delay(2000); //I'm not sure this is necessary
 
-  textfile.close();
+	  	SDL_RenderClear(ren);
+	  	SDL_RenderCopy(ren, menTex, NULL, NULL);
+	  	SDL_RenderPresent(ren);
+	}
 
-  TTF_Font *font = NULL;
-  SDL_Surface *message = NULL;
-  SDL_Color textColor = {255, 255, 255};
+	//prints the High score screen and contains High Score functionality
+	void showHighScores(){
 
-  if(TTF_Init() == -1){
-    return false;    
-  }
+	 	//reads the high score and stores it in a string
+	  	string text;
+	  	fstream textfile;
+	  	string highscorepath = getResourcePath("menu") + "highscore.txt";
+	  	textfile.open(highscorepath);
+	  	textfile >> text;
+	  	textfile.close();
 
-  background = load_image("highscore.png");
-  font = TTF_OpenFont( FONT NAME HERE, 28 );
-  
-  if(background == NULL){
-    return false;    
-  }
-  if(font == NULL){
-    return false;
-  }
+	  	textColor = {255, 255, 255};
 
-  message = TTF_RenderText_Solid(font, text, textColor);
+	  	const string fontPath = getResourcePath("menu") + "dpcomic.tff";
+	  	const string backgroundPath = getResourcePath("magicworm") + "highscore.png"
+	  	
+	  	background = load_image(backgroundPath);
+	  	if(background == NULL){
+	  		SDL_DestroyTexture(menTex);
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "SDL_Background Error: " << SDL_GetError() << std::endl;
+	    	TFF_Quit();
+	    	SDL_Quit();   
+	  	}
 
-  if(message == NULL){
-    return 1;    
-  }
+	  	font = TTF_OpenFont(fontPath, 32);
+	  	if(font == NULL){
+	    	SDL_FreeSurface(background);
+	    	SDL_DestroyTexture(menTex);
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "SDL_Font Error: " << SDL_GetError() << std::endl;
+	    	TFF_Quit();
+	    	SDL_Quit();
+	  	}
 
-  SDL_Renderer *ren = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-  if (ren == nullptr){
-    SDL_DestroyWindow(win);
-    std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-    SDL_Quit();
-    return 1;
-  }
+	  	message = TTF_RenderText_Solid(font, text, textColor);
+	  	if(message == NULL){
+	    	TFF_CloseFont(font);
+	    	SDL_FreeSurface(background);
+	    	SDL_DestroyTexture(menTex);
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "SDL_Message Error: " << SDL_GetError() << std::endl;
+	    	TFF_Quit();
+	    	SDL_Quit();  
+	  	}
 
-  const std::string menuPath = getResourcePath("magicworm") + "highscore.bmp";
-  SDL_Surface *bmp = SDL_LoadBMP(menuPath.c_str());
-  if (bmp == nullptr){
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(window);
-    std::cout << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
-    SDL_Quit();
-    return 1;
-  }
+	  	//creates the textures
+	  	messageTex = SDL_CreateTextureFromSurface(ren, message);
+	  	SDL_FreeSurface(message);
+	  	if (messageTex == nullptr){
+	  		TFF_CloseFont(font);
+	    	SDL_FreeSurface(background)
+	    	SDL_DestroyTexture(menTex);
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "SDL_CreateMessageTextureFromSurface Error: " << SDL_GetError() << std::endl;
+	    	TFF_Quit();
+	    	SDL_Quit();
+	    	return 1;
+	  	}
 
-  SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, bmp);
-  SDL_FreeSurface(bmp);
-  if (tex == nullptr){
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(window);
-    std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
-    SDL_Quit();
-    return 1;
-  }
+	  	backgroundTex = SDL_CreateTextureFromSurface(ren, background);
+	  	SDL_FreeSurface(background);
+	  	if (backgroundTex == nullptr){
+	    	TFF_CloseFont(font);
+	    	SDL_DestroyTexture(messageTex);
+	    	SDL_DestroyTexture(menTex);
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "SDL_CreateBackgroundTextureFromSurface Error: " << SDL_GetError() << std::endl;
+	    	TFF_Quit();
+	    	SDL_Quit();
+	    	return 1;
+	  	}
 
-  SDL_RenderClear(ren);
-  SDL_RenderCopy(ren, tex, NULL, NULL);
-  SDL_RenderPresent(ren);
+	  	//displays the textures
+	  	SDL_RenderClear(ren);
+	  	SDL_RenderCopy(ren, backgroundTex, NULL, NULL);
+	  	SDL_RenderCopy(ren, messageTex, NULL, NULL);
+	  	SDL_RenderPresent(ren);
 
-  bool quit = false;
-  while (!quit){
-    while (SDL_PollEvent(&e)){
-      switch(e.type){
-          /* Look for a keypress */
-        case SDL_KEYDOWN:
-          /* Check the SDLKey values and move change the coords */
-          switch(e.key.keysym.sym){
-            case SDLK_ESCAPE:
-              quit = true;
-              break;
-          }
-          default:
-            break;
-      }
-      break;
-    }
-  }
-  SDL_DestroyTexture(tex);
-  SDL_DestroyRenderer(ren);
-}
+	  	//checks for key inputs
+	  	bool quit = false;
+	  	while (!quit){
+	    	while (SDL_PollEvent(&e)){
+	      		switch(e.type){
+	          		/* Look for a keypress */
+	        		case SDL_KEYDOWN:
+	          			/* Check the SDLKey values */
+	          			switch(e.key.keysym.sym){
+	            			case SDLK_ESCAPE:
+	              				quit = true;
+	              				break;
+	              			default:
+	              				break;
+	          			}
+	          		default:
+	            		break;
+	      		}		
+	      		break;
+	    	}
+	  	}
 
-//main menu functionality
-bool mainMenu(SDL_Window window) {
-  //cin >> begin; //this was in the code already, I don't know what it's for
+	  	//clean up
+	  	SDL_DestroyTexture(backgroundTex);
+	  	SDL_DestroyTexture(messageTex);
+	  	TFF_CloseFont(font);
+	  	TFF_Quit();
+	}
 
-  printMenu(SDL_Window window){
-  bool quitProgram = false;
-  bool quit = false;
-  while (!quit){
-    while (SDL_PollEvent(&e)){
-      switch(e.type){
-          /* Look for a keypress */
-        case SDL_KEYDOWN:
-          /* Check the SDLKey values */
-          switch(e.key.keysym.sym){
-            case SDLK_ESCAPE:
-                quit = true;
-                quitProgram = true;
-                break;
-            case SDLK_s:
-                quit = true;
-            case SDLK_h:
-                showHighScores(window);
-                printMenu(window);
-                break;
-            default:
-                break;
-          }
-          default:
-            break;
-      }
-      break;
-    }
-  }
-  SDL_DestroyTexture(tex);
-  SDL_DestroyRenderer(ren);
-  return quitProgram;
+	//main menu functionality
+	bool mainMenu() {
+	  	//cin >> begin; //this was in the code already, I don't know what it's for
+
+	 	if(TTF_Init() == -1){
+	   		SDL_DestroyTexture(menTex);
+	    	SDL_DestroyRenderer(ren);
+	    	SDL_DestroyWindow(window);
+	    	std::cout << "TFF_Initialization Error: " << std::endl;
+	    	SDL_Quit();    
+	  	}
+
+	  	printMenu(){
+	  	bool quitProgram = false;
+	  	bool quit = false;
+
+	  	//checks for key inputs
+	  	while (!quit){
+		  	while (SDL_PollEvent(&e)){
+		  		switch(e.type){
+		          	/* Look for a keypress */
+			        case SDL_KEYDOWN:
+			          	/* Check the SDLKey values */
+			        	switch(e.key.keysym.sym){
+				            case SDLK_ESCAPE:
+				                quit = true;
+				                quitProgram = true;
+				                break;
+				            case SDLK_s:
+				                quit = true;
+				                break;
+				            case SDLK_h:
+				                showHighScores();
+				                printMenu();
+				                break;
+				            default:
+				                break;
+			          	}
+			        default:
+			           	break;
+		      	}
+		     	break;
+		    }
+	  	}
+	  	SDL_DestroyRenderer(ren);
+	  	SDL_DestroyTexture(menTex);
+	  	return quitProgram;
+	}
 }

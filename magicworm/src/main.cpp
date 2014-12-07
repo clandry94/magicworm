@@ -38,11 +38,9 @@ bool hitBoundary(int x, int y) {
   if(x < 0 || (x + 16) > 640) {
     return true;
   }
-
   if(y < 0 || (y+16) > 640) {
     return true;
   }
-
   return false;
 }
 
@@ -50,39 +48,20 @@ bool hitBoundary(int x, int y) {
 
 int main() {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-  	logSDLError(std::cout, "SDL_Init");
-  	return 1;
+    logSDLError(std::cout, "SDL_Init");
+    return 1;
   }
   SDL_Window * window = createWindow(); //Creates the window used on the screen
   SDL_Renderer * renderer = createRenderer(window);
 
-  //Path to the snake resource
-  const string snakePath = getResourcePath("magicworm") + "snake.bmp";
-
-  SDL_Texture * image = loadTexture(snakePath, renderer);
-  if (image == nullptr){
-  	//cleanup(background, image, render, window);
-  	SDL_Quit();
-  	return 1;
-  }
 
   SDL_RenderClear(renderer);
 
-  int iW, iH;
-  SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
 
-  int initX = SCREEN_WIDTH / 2 - iW / 2;
-  int initY = SCREEN_HEIGHT / 2 - iH / 2;
-
-  Snake * snake = new Snake(1, "red", initX, initY);
-<<<<<<< Updated upstream
-  Food * food = new Food(renderer, snake);
+  Snake * snake = new Snake(renderer, 1, 50, 50);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
-=======
-  PowerUp * powerup = new PowerUp(renderer, snake);
   Food * food = new Food(renderer, snake, powerup);
 
->>>>>>> Stashed changes
 
   int x_vel = 0;
   int y_vel = 0;
@@ -93,7 +72,7 @@ int main() {
   SDL_Event e;
   bool quit = false;
   while (!quit){
-  	while (SDL_PollEvent(&e)){
+    while (SDL_PollEvent(&e)){
       switch(e.type){
               /* Look for a keypress */
             case SDL_KEYDOWN:
@@ -156,30 +135,12 @@ int main() {
     if(hitBoundary(snake->getX(), snake->getY())) {
       quit = true;
     }
+    snake->draw();
 
-
-
-  /*
-    1. Move the head forward one.
-    2. Put a body segment where the head was.
-    3. Erase the last body segment.
-  */
-    Node * body;
-    body = snake->head;
-    snake->incrementSize(snake->getX(), snake->getY());
-
-    snake->killLast();
-
-    while(body != NULL) {
-      renderTexture(image, renderer, body->x, body->y);
-      body = body->next;
-    }
-
-    cout << powerup->timeInSeconds << endl;
-    SDL_RenderPresent(renderer);
     //Render the scene
-    //SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);
   }
+
   //cleanup(background, image, render, window);
   SDL_Quit();
 }

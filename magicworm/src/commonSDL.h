@@ -6,6 +6,8 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
+using namespace std;
+
 /*
   Logs error created from the SDL graphics
 */
@@ -73,7 +75,7 @@ SDL_Texture * loadTexture(const string &file, SDL_Renderer *ren) {
       logSDLError(std::cout, "CreateTextureFromSurface");
     }
   } else {
-    logSDLError(cout, "LoadBMP");
+    logSDLError(std::cout, "LoadBMP");
   }
 
   return texture;
