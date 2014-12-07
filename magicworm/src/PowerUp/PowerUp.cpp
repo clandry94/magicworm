@@ -265,15 +265,15 @@ void PowerUp::changeColor() {
 	srand(time(NULL));
 	int whichColor = rand() % 3;
 	if (whichColor == 0) {
-		const string newImagePath = getResourcePath("magicworm") + "snake.bmp";
+		string newImagePath = getResourcePath("magicworm") + "snake.bmp";
 		snake->setTexture(newImagePath);
 	}
 	else if (whichColor == 1) {
-		const string newImagePath = getResourcePath("magicworm") + "snake1.bmp";
+		string newImagePath = getResourcePath("magicworm") + "snake1.bmp";
 		snake->setTexture(newImagePath);
 	}
 	else if (whichColor == 2) {
-		const string newImagePath = getResourcePath("magicworm") + "snake2.bmp";
+		string newImagePath = getResourcePath("magicworm") + "snake2.bmp";
 		snake->setTexture(newImagePath);
 	}
 }
@@ -310,4 +310,6 @@ void PowerUp::minusScore() {
 
 void PowerUp::invertDirections() {
 	removePowerUp();
+	isInverted = true;
+	startTime = clock();
 }
