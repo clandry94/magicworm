@@ -11,14 +11,14 @@ class Snake {
 
 	private:
 
-		int speed;	//speed of the snake
+		double speed;	//speed of the snake
 		string color;
 
 	public:
 		Node * head;
 		bool hasPowerup; //Snake has powerup t/f
 
-		Snake(int speed, string color, int startX, int startY);
+		Snake(double speed, string color, int startX, int startY);
 
 		int getSpeed();
 		void setSpeed(int val);

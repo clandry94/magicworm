@@ -5,13 +5,15 @@
 #include "PowerUp/PowerUp.cpp"
 #include "commonSDL.h"
 #include "Snake/Node.h"
+#include <ctime>
 
 using namespace std;
 
 
 
 /*
- * Checks the velocity of the snake and updates accordingly
+ * Sets current velocity of the snake according to velocity
+ *  with respect to current direction
  */
 void checkVelocity(int &x_vel, int &y_vel, int &vel) {
   if(x_vel != 0) {
@@ -29,7 +31,6 @@ void checkVelocity(int &x_vel, int &y_vel, int &vel) {
       y_vel = vel * -1;
     }
   }
-
 }
 
 bool hitBoundary(int x, int y) {
@@ -127,6 +128,9 @@ int main() {
                           }
                           cout << "SNAKE SIZE: " << snake->getSize() << endl;
                           break;
+                      case SDLK_h:
+                          snake->eat();
+                          cout << "Ate food!" << endl;
                       default:
                           break;
                   }
@@ -157,25 +161,30 @@ int main() {
     3. Erase the last body segment.
   */
     Node * body;
+    Node * iBody;
     body = snake->head;
+    iBody = snake->head;
     snake->incrementSize(snake->getX(), snake->getY());
 
     snake->killLast();
-
+    /*
     while(body->next != NULL) {
-      if(snake->head == body->next) {
-        quit = true;
+      while(iBody->next != NULL) {
+        if(snake->head->x == iBody->next->x) {
+          quit = true;
+        }
+        iBody = iBody->next;
       }
       body = body->next;
     }
 
     body = snake->head;
+    */
 
     while(body != NULL) {
       renderTexture(image, renderer, body->x, body->y);
       body = body->next;
     }
-
 
   	SDL_RenderPresent(renderer);
   }

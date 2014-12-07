@@ -3,7 +3,7 @@
 
 #include "Snake.h"
 
-Snake::Snake(int iSpeed, string iColor, int iX, int iY) {
+Snake::Snake(double iSpeed, string iColor, int iX, int iY) {
   speed = iSpeed;
   color = iColor;
   head = new Node(iX, iY);
@@ -18,7 +18,7 @@ void Snake::setSpeed(int val) {
 }
 
 void Snake::incrementSpeed() {
-  speed += 1;
+  speed += .5;
 }
 
 int Snake::getSize() {
@@ -73,7 +73,10 @@ void Snake::killLast() {
 
 void Snake::eat() {
   incrementSpeed();
-  //incrementSize();
+  for(int i = 0; i < 4; i++) {
+    incrementSize(Snake::getX(), Snake::getY());
+  }
+
 }
 
 int Snake::getX() {
