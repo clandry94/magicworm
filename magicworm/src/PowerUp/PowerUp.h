@@ -24,7 +24,7 @@ class PowerUp {
 		int startTime;
 		void randomNumbers();
 		int whichPowerUp;
-		int counter;
+		int speedCounter;
 		bool isTouching();
 		bool isExtraFood;
 		bool food1;

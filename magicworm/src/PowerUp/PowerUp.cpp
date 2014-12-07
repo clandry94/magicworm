@@ -20,7 +20,7 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	isSlowedDown = false;
 	startTime = 0;
 	whichPowerUp = -1;
-	counter = 0;
+	speedCounter = 0;
 	timeInSeconds = 0;
 	isExtraFood = false;
 	food1 = false;
@@ -52,7 +52,7 @@ void PowerUp::deactivatePowerUp() {
 		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 0.5) {
 			if (snake->getSpeed() == 1) {
-				snake->setSpeed(1 + counter);
+				snake->setSpeed(1 + speedCounter);
 			}
 			else {
 				snake->setSpeed(snake->getSpeed() + 3);
@@ -66,13 +66,13 @@ void PowerUp::deactivatePowerUp() {
 			food1 = false;
 			cout << "eat food" << endl;
 			snake->eat();
-			Food->score++;
+			food->raiseScore(1);
 		}
 		if (snake->getX() == food2x && snake->getY() == food2y) {
 			food2 = false;
 			cout << "eat food" << endl;
 			snake->eat();
-			Food::score++;
+			food->raiseScore(1);
 		}
 		if (food1) {
 			modifiedRenderFood(food1x, food1y);
@@ -221,7 +221,7 @@ void PowerUp::slowDown() {
 		snake->setSpeed(snake->getSpeed() - 3);
 	}
 	else if (snake->getSpeed() <=3) {
-		counter = snake->getSpeed() - 1;
+		speedCounter = snake->getSpeed() - 1;
 		snake->setSpeed(1);
 	}
 }
@@ -273,7 +273,7 @@ void PowerUp::modifiedRenderFood(int x, int y) {
 
 void PowerUp::minusScore() {
 	removePowerUp();
-	Food->score -= 3;
+	food->raiseScore(-3);
 }
 
 void PowerUp::invertDirections() {
