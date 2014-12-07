@@ -86,6 +86,7 @@ void PowerUp::deactivatePowerUp() {
 			isExtraFood = false;
 		}
 	}
+<<<<<<< HEAD
 
 	if (isInverted) {
 		//make the absolute value of vel negative
@@ -95,6 +96,15 @@ void PowerUp::deactivatePowerUp() {
 		}
 	}
 }
+=======
+}
+
+/*bool PowerUp::isTouching() {
+	if((powerUpX == snake->getX() && (powerUpY == snake->getY() + 16 || powerUpY + 16 == snake->getY()) ||
+			(powerUpY == snake->getY() && (powerUpX == snake->getX() + 16 || powerUpX + 16 == snake->getY()))
+			|| ))
+}*/
+>>>>>>> Revert "fixed my mistakes pt 3"
 
 /*bool PowerUp::isTouching() {
 	if((powerUpX == snake->getX() && (powerUpY == snake->getY() + 16 || powerUpY + 16 == snake->getY()) ||
@@ -111,10 +121,14 @@ void PowerUp::randomNumbers() {
 		powerUpY = rand() % SCREEN_HEIGHT;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY()) || isTouching(powerUpX, powerUpY, food->getX(), food->getY())) {
 =======
 		if (powerUpX == snake->getX() && powerUpY == snake->getY()){
 >>>>>>> origin/master
+=======
+		if (powerUpX == snake->getX() && powerUpY == snake->getY()){
+>>>>>>> Revert "fixed my mistakes pt 3"
 			randomNumbers();
 		}
 	}
