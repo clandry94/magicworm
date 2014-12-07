@@ -3,6 +3,7 @@
 #include <vector>
 #include "respath.h"
 #include "PowerUp/PowerUp.cpp"
+#include "Food/food.cpp"
 #include "commonSDL.h"
 #include "Snake/Node.h"
 #include <ctime>
@@ -75,6 +76,7 @@ int main() {
 
   Snake * snake = new Snake(1, "red", initX, initY);
   PowerUp * powerup = new PowerUp(renderer, snake);
+  Food * food = new Food(renderer, snake);
 
 
   int x_vel = 0;
@@ -142,6 +144,7 @@ int main() {
     }
 
     powerup->placePowerUp();
+    food->generateFood();
 
     checkVelocity(x_vel, y_vel, vel);
     vel = snake->getSpeed();
