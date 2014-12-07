@@ -185,7 +185,7 @@ int main() {
       renderTexture(image, renderer, body->x, body->y);
       body = body->next;
     }
-
+    cout << powerup->timeInSeconds << endl;
   	SDL_RenderPresent(renderer);
   }
   //cleanup(background, image, render, window);

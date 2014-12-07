@@ -45,7 +45,7 @@ void PowerUp::deactivatePowerUp() {
 	if (isSlowedDown) {
 		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 1.5) {
-			if (snake.getSpeed() == 1) {
+			if (snake->getSpeed() == 1) {
 				snake->setSpeed(1 + counter);
 			}
 			else {
