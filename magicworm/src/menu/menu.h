@@ -1,6 +1,6 @@
 // Menu header file
-#ifndef MAIN_MENU_H
-#define MAIN_MENU_H
+#ifndef MENU_H
+#define MENU_H
 
 #include <iostream>
 #include <fstream>
@@ -14,7 +14,7 @@ using namespace std;
 
 class Menu {
 private:
-
+	Menu::Menu();
 	void printMenu();
  	void showHighScore();
  	bool mainMenu();
