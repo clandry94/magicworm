@@ -90,7 +90,7 @@ void PowerUp::placePowerUp() {
 				SDL_Quit();
 			}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(speedUp, renderer, powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 
@@ -105,7 +105,7 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(slowDown, renderer, powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
@@ -119,7 +119,7 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(changeColor, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
@@ -133,7 +133,7 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(extraFood, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
@@ -147,7 +147,7 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(minusScore, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
@@ -161,7 +161,7 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(invertDirections, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
