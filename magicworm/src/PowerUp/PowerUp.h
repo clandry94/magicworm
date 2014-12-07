@@ -25,7 +25,7 @@ class PowerUp {
 		void randomNumbers();
 		int whichPowerUp;
 		int speedCounter;
-		bool isTouching();
+		bool isTouching(int x1, int y1, int x2, int y2);
 		bool isExtraFood;
 		bool food1;
 		bool food2;
@@ -35,7 +35,6 @@ class PowerUp {
 		int food2y;
 		void modifiedRenderFood(int x, int y);
 		double powerUpTimer;
-		bool isInverted;
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood);

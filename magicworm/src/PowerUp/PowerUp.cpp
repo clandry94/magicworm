@@ -30,7 +30,6 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	food1y = -1;
 	food2y = -1;
 	powerUpTimer = 0;
-	isInverted = false;
 }
 
 int PowerUp::getX() {
@@ -64,13 +63,13 @@ void PowerUp::deactivatePowerUp() {
 	}
 
 	if (isExtraFood) {
-		if (snake->getX() == food1x && snake->getY() == food1y) {
+		if (isTouching(food1x, food1y, snake->getX(), snake->getY())) {
 			food1 = false;
 			cout << "eat food" << endl;
 			snake->eat();
 			food->raiseScore(1);
 		}
-		if (snake->getX() == food2x && snake->getY() == food2y) {
+		if (isTouching(food2x, food2y, snake->getX(), snake->getY())) {
 			food2 = false;
 			cout << "eat food" << endl;
 			snake->eat();
@@ -86,31 +85,33 @@ void PowerUp::deactivatePowerUp() {
 			isExtraFood = false;
 		}
 	}
-<<<<<<< HEAD
+}
 
-	if (isInverted) {
-		//make the absolute value of vel negative
-		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
-		if (timeInSeconds >= 0.5) {
-			isInverted = false;
-		}
+bool PowerUp::isTouching(int x1, int y1, int x2, int y2) {
+	bool leftCollision = false;
+	bool rightCollision = false;
+	bool topCollision = false;
+	bool bottomCollision = false;
+
+	if (y1 + 16 >= y2) {
+		topCollision = true;
+	}
+	if (y1 <= y2 + 16) {
+		bottomCollision = true;
+	}
+	if (x1 + 16 >= x2) {
+		leftCollision = true;
+	}
+	if (x1 <= x2 + 16) {
+		rightCollision = true;
+	}
+	if (topCollision && bottomCollision && leftCollision && rightCollision) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }
-=======
-}
-
-/*bool PowerUp::isTouching() {
-	if((powerUpX == snake->getX() && (powerUpY == snake->getY() + 16 || powerUpY + 16 == snake->getY()) ||
-			(powerUpY == snake->getY() && (powerUpX == snake->getX() + 16 || powerUpX + 16 == snake->getY()))
-			|| ))
-}*/
->>>>>>> Revert "fixed my mistakes pt 3"
-
-/*bool PowerUp::isTouching() {
-	if((powerUpX == snake->getX() && (powerUpY == snake->getY() + 16 || powerUpY + 16 == snake->getY()) ||
-			(powerUpY == snake->getY() && (powerUpX == snake->getX() + 16 || powerUpX + 16 == snake->getY()))
-			|| ))
-}*/
 
 void PowerUp::randomNumbers() {
 	if (!isPowerUp) {
@@ -120,15 +121,7 @@ void PowerUp::randomNumbers() {
 		powerUpX = rand() % SCREEN_WIDTH;
 		powerUpY = rand() % SCREEN_HEIGHT;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY()) || isTouching(powerUpX, powerUpY, food->getX(), food->getY())) {
-=======
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()){
->>>>>>> origin/master
-=======
-		if (powerUpX == snake->getX() && powerUpY == snake->getY()){
->>>>>>> Revert "fixed my mistakes pt 3"
+		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())){
 			randomNumbers();
 		}
 	}
@@ -137,7 +130,7 @@ void PowerUp::randomNumbers() {
 void PowerUp::placePowerUp() {
 	deactivatePowerUp();
 
-	if (!isSpedUp && !isSlowedDown && !isExtraFood && !isInverted) {
+	if (!isSpedUp && !isSlowedDown && !isExtraFood) {
 		randomNumbers();
 
 		isPowerUp = true;
@@ -156,7 +149,7 @@ void PowerUp::placePowerUp() {
 			renderTexture(speedUp, renderer, powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 
-			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
 				PowerUp::speedUp();
 			}
 		}
@@ -167,10 +160,10 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(slowDown, renderer, powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
 				PowerUp::slowDown();
 			}
 		}
@@ -181,10 +174,10 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(changeColor, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
 				PowerUp::changeColor();
 			}
 		}
@@ -195,10 +188,10 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(extraFood, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
 				PowerUp::extraFood();
 			}
 		}
@@ -209,10 +202,10 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(minusScore, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
 				PowerUp::minusScore();
 			}
 		}
@@ -223,10 +216,10 @@ void PowerUp::placePowerUp() {
 					SDL_Quit();
 				}
 
-			SDL_RenderClear(renderer);
+			//SDL_RenderClear(renderer);
 			renderTexture(invertDirections, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
+			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
 				PowerUp::invertDirections();
 			}
 		}
@@ -264,15 +257,15 @@ void PowerUp::changeColor() {
 	int whichColor = rand() % 2;
 	if (whichColor == 0) {
 		const string newImagePath = getResourcePath("magicworm") + "snake.bmp";
-		//pass newImagePath into something
+
 	}
 	else if (whichColor == 1) {
 		const string newImagePath = getResourcePath("magicworm") + "snake1.bmp";
-		//pass newImagePath into something
+
 	}
 	else if (whichColor == 2) {
 		const string newImagePath = getResourcePath("magicworm") + "snake2.bmp";
-		//pass newImagePath into something
+
 	}
 }
 
@@ -282,10 +275,12 @@ void PowerUp::extraFood() {
 	food1 = true;
 	food2 = true;
 	srand(time(NULL));
-	food1x = rand() % SCREEN_WIDTH;
-	food2x = rand() % SCREEN_WIDTH;
-	food1y = rand() % SCREEN_HEIGHT;
-	food2y = rand() % SCREEN_HEIGHT;
+	PowerUp::randomNumbers();
+	food1x = powerUpX;
+	food1y = powerUpY;
+	PowerUp::randomNumbers();
+	food2x = powerUpX;
+	food2y = powerUpY;
 }
 
 void PowerUp::modifiedRenderFood(int x, int y) {
@@ -297,6 +292,14 @@ void PowerUp::modifiedRenderFood(int x, int y) {
 	 //SDL_RenderClear(renderer);
 	 renderTexture(renderFood, renderer, x, y);
 	 SDL_RenderPresent(renderer);
+
+	 /*if(x == snake->getX() && y == snake->getY()) {
+	   cout << "eat food" << endl;
+	   snake->eat();
+	   score++;
+	   dropFood = false;
+	   generateFood();
+	 }*/
 }
 
 void PowerUp::minusScore() {
@@ -306,6 +309,4 @@ void PowerUp::minusScore() {
 
 void PowerUp::invertDirections() {
 	removePowerUp();
-	startTime = clock();
-	isInverted = true;
 }
