@@ -22,6 +22,13 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	whichPowerUp = -1;
 	counter = 0;
 	timeInSeconds = 0;
+	isExtraFood = false;
+	food1 = false;
+	food2 = false;
+	foodx1 = -1;
+	foodx2 = -1;
+	foody1 = -1;
+	foody2 = -1;
 }
 
 int PowerUp::getX() {
@@ -53,6 +60,30 @@ void PowerUp::deactivatePowerUp() {
 			isSlowedDown = false;
 		}
 	}
+
+	if (isExtraFood) {
+		if (snake->getX() == food1x && snake->getY() == food1y) {
+			food1 = false;
+			cout << "eat food" << endl;
+			snake->eat();
+			score++;
+		}
+		if (snake->getX() == food2x && snake->getY() == food2y) {
+			food2 = false;
+			cout << "eat food" << endl;
+			snake->eat();
+			score++;
+		}
+		if (food1) {
+			modifiedRenderFood(food1x, food1y);
+		}
+		if (food2) {
+			modifiedRenderFood(food2x, food1y);
+		}
+		if (!food1 && !food2) {
+			isExtraFood = false;
+		}
+	}
 }
 
 /*bool PowerUp::isTouching() {
@@ -77,7 +108,7 @@ void PowerUp::randomNumbers() {
 void PowerUp::placePowerUp() {
 	deactivatePowerUp();
 
-	if (!isSpedUp && !isSlowedDown) {
+	if (!isSpedUp && !isSlowedDown && !isExtraFood) {
 		randomNumbers();
 
 		isPowerUp = true;
@@ -211,13 +242,38 @@ void PowerUp::changeColor() {
 
 void PowerUp::extraFood() {
 	removePowerUp();
-	//food.generateFood();
-	//food.generateFood();
+	isExtraFood = true;
+	food1 = true;
+	food2 = true;
+	srand(time(NULL));
+	food1x = rand() % SCREEN_WIDTH;
+	food2x = rand() % SCREEN_WIDTH;
+	food1y = rand() % SCREEN_HEIGHT;
+	food2y = rand() % SCREEN_HEIGHT;
+}
+
+void PowerUp::modifiedRenderFood(int x, int y) {
+	 const string cupcakePath = getResourcePath("magicworm") + "cupcake.bmp";
+	 SDL_Texture * renderFood = loadTexture(cupcakePath, renderer);
+	 if (renderFood == nullptr)
+	   SDL_Quit();
+
+	 //SDL_RenderClear(renderer);
+	 renderTexture(renderFood, renderer, x, y);
+	 SDL_RenderPresent(renderer);
+
+	 /*if(x == snake->getX() && y == snake->getY()) {
+	   cout << "eat food" << endl;
+	   snake->eat();
+	   score++;
+	   dropFood = false;
+	   generateFood();
+	 }*/
 }
 
 void PowerUp::minusScore() {
 	removePowerUp();
-	//score -=3;
+	score -= 3;
 }
 
 void PowerUp::invertDirections() {

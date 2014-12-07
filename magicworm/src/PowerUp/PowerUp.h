@@ -26,6 +26,13 @@ class PowerUp {
 		int whichPowerUp;
 		int counter;
 		bool isTouching();
+		bool isExtraFood;
+		bool food1;
+		bool food2;
+		int foodx1;
+		int foodx2;
+		int foody1;
+		int foody2;
 
 
 	public:
