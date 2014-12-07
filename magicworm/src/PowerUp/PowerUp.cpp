@@ -22,6 +22,7 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake) {
 	startTime = 0;
 	whichPowerUp = -1;
 	counter = 0;
+	timeInSeconds = 0;
 }
 
 int PowerUp::getX() {
@@ -34,7 +35,7 @@ int PowerUp::getY() {
 
 void PowerUp::deactivatePowerUp() {
 	if (isSpedUp) {
-	  double timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
+	  timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 	  if (timeInSeconds >= 1.5) {
 			snake->setSpeed(snake->getSpeed() - 3);
 			isSpedUp = false;
@@ -42,8 +43,7 @@ void PowerUp::deactivatePowerUp() {
 	}
 
 	if (isSlowedDown) {
-		clock_t ticksTaken = clock() - startTime;
-		double timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
+		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 1.5) {
 			if (snake.getSpeed() == 1) {
 				snake->setSpeed(1 + counter);

@@ -22,6 +22,7 @@ class PowerUp {
 		int whichPowerUp;
 		int counter;
 		bool isTouching();
+		double timeInSeconds;
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
