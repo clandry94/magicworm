@@ -30,6 +30,7 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	food1y = -1;
 	food2y = -1;
 	powerUpTimer = 0;
+	isInverted = false;
 }
 
 int PowerUp::getX() {
@@ -85,6 +86,14 @@ void PowerUp::deactivatePowerUp() {
 			isExtraFood = false;
 		}
 	}
+	
+	if (isInverted) {
+		//make the absolute value of vel negative
+		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
+		if (timeInSeconds >= 0.5) {
+			isInverted = false;
+		}
+	}
 }
 
 bool PowerUp::isTouching(int x1, int y1, int x2, int y2) {
@@ -121,7 +130,7 @@ void PowerUp::randomNumbers() {
 		powerUpX = rand() % SCREEN_WIDTH;
 		powerUpY = rand() % SCREEN_HEIGHT;
 
-		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())){
+		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY()) || isTouching(powerUpX, powerUpY, food->getX(), food->getY())) {
 			randomNumbers();
 		}
 	}
@@ -254,18 +263,18 @@ void PowerUp::slowDown() {
 void PowerUp::changeColor() {
 	PowerUp::removePowerUp();
 	srand(time(NULL));
-	int whichColor = rand() % 2;
+	int whichColor = rand() % 3;
 	if (whichColor == 0) {
 		const string newImagePath = getResourcePath("magicworm") + "snake.bmp";
-
+		snake->setTexture(newImagePath);
 	}
 	else if (whichColor == 1) {
 		const string newImagePath = getResourcePath("magicworm") + "snake1.bmp";
-
+		snake->setTexture(newImagePath);
 	}
 	else if (whichColor == 2) {
 		const string newImagePath = getResourcePath("magicworm") + "snake2.bmp";
-
+		snake->setTexture(newImagePath);
 	}
 }
 
@@ -292,14 +301,6 @@ void PowerUp::modifiedRenderFood(int x, int y) {
 	 //SDL_RenderClear(renderer);
 	 renderTexture(renderFood, renderer, x, y);
 	 SDL_RenderPresent(renderer);
-
-	 /*if(x == snake->getX() && y == snake->getY()) {
-	   cout << "eat food" << endl;
-	   snake->eat();
-	   score++;
-	   dropFood = false;
-	   generateFood();
-	 }*/
 }
 
 void PowerUp::minusScore() {

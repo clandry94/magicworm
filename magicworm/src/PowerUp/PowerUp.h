@@ -35,6 +35,7 @@ class PowerUp {
 		int food2y;
 		void modifiedRenderFood(int x, int y);
 		double powerUpTimer;
+		bool isInverted;
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood);
