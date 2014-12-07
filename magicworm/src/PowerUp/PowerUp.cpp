@@ -34,8 +34,8 @@ int PowerUp::getY() {
 
 void PowerUp::deactivatePowerUp() {
 	if (isSpedUp) {
-	  int timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
-	  if (timeInSeconds >= 30) {
+	  double timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
+	  if (timeInSeconds >= 1.5) {
 			snake->setSpeed(snake->getSpeed() - 3);
 			isSpedUp = false;
 		}
@@ -43,8 +43,8 @@ void PowerUp::deactivatePowerUp() {
 
 	if (isSlowedDown) {
 		clock_t ticksTaken = clock() - startTime;
-		int timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
-		if (timeInSeconds >= 30) {
+		double timeInSeconds = ticksTaken / (double) CLOCKS_PER_SEC;
+		if (timeInSeconds >= 1.5) {
 			if (snake.getSpeed() == 1) {
 				snake->setSpeed(1 + counter);
 			}
@@ -55,6 +55,12 @@ void PowerUp::deactivatePowerUp() {
 		}
 	}
 }
+
+/*bool PowerUp::isTouching() {
+	if((powerUpX == snake->getX() && (powerUpY == snake->getY() + 16 || powerUpY + 16 == snake->getY()) ||
+			(powerUpY == snake->getY() && (powerUpX == snake->getX() + 16 || powerUpX + 16 == snake->getY()))
+			|| ))
+}*/
 
 void PowerUp::randomNumbers() {
 	if (!isPowerUp) {

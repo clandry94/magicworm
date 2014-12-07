@@ -21,6 +21,7 @@ class PowerUp {
 		void randomNumbers();
 		int whichPowerUp;
 		int counter;
+		bool isTouching();
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
