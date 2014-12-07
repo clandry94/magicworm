@@ -16,51 +16,32 @@ using namespace std;
 Food::Food(SDL_Renderer * irenderer, Snake * isnake) {
   renderer = irenderer;
   snake = isnake;
-
-  mEat.h = foodHeight;
-  mEat.w = foodWidth;
 }
 
+bool Food::isTouching(int x1, int y1, int x2, int y2) {
+  bool leftCollision = false;
+  bool rightCollision = false;
+  bool topCollision = false;
+  bool bottomCollision = false;
 
+  if (y1 + 16 >= y2)
+    topCollision = true;
 
-bool checkCollision(SDL_Rect a, SDL_Rect b) {
-  //The sides of the rectangles
-  int leftA, leftB;
-  int rightA, rightB;
-  int topA, topB;
-  int bottomA, bottomB;
+  if (y1 <= y2 + 16)
+    bottomCollision = true;
 
-  //Calculate the sides of rect A
-  leftA = a.x;
-  rightA = a.x + a.w;
-  topA = a.y;
-  bottomA = a.y + a.h;
+  if (x1 + 16 >= x2)
+    leftCollision = true;
 
-  //Calculate the sides of rect B
-  leftB = b.x;
-  rightB = b.x + b.w;
-  topB = b.y;
-  bottomB = b.y + b.h;
+  if (x1 <= x2 + 16)
+    rightCollision = true;
 
-  //If any of the sides from A are outside of B
-  if( bottomA <= topB )
+  if (topCollision && bottomCollision && leftCollision && rightCollision)
+    return true;
+
+  else
     return false;
-
-  if( topA >= bottomB )
-    return false;
-
-  if(rightA <= leftB)
-    return false;
-
-  if(leftA >= rightB)
-    return false;
-
-
-  //If none of the sides from A are outside B
-  return true;
 }
-
-
 
 // Return food's x-coordinate
 int Food::getX() {
@@ -98,9 +79,6 @@ void Food::randomValue() {
   foodY = rand() % SCREEN_HEIGHT - 16;
   if (foodX == snake->getX() && foodY == snake->getY())
     randomValue();
-
-  mEat.x = foodX;
-  mEat.y = foodY;
 }
 
 // Draws food on the gameboard
@@ -115,7 +93,7 @@ void Food::renderFood() {
   SDL_RenderPresent(renderer);
 
   // If the snake lands on the same coordinates, erase food
-  if(foodX == snake->getX() && foodY == snake->getY()) {
+  if (isTouching(foodX, foodY, snake->getX(), snake->getY())) {
     cout << "eat food" << endl;
     snake->eat();
     score++;

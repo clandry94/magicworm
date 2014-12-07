@@ -11,8 +11,8 @@ class Food {
     int foodX;             // Food x-coordinate
     int foodY;             // Food y-coordinate
 
-    bool checkCollision(SDL_Rect a, SDL_Rect b);
-
+    bool isTouching(int x1, int y1, int x2, int y2);
+    
     SDL_Renderer * renderer;
     Snake * snake;
 
@@ -22,8 +22,6 @@ class Food {
 
   public:
     int score = 0;          // Current score
-    static const int foodHeight = 16;
-    static const int foodWidth = 16;
     int getX();             // Returns x-coordinate
     int getY();             // Returns y-coordinate
     bool dropFood = false;
