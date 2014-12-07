@@ -29,10 +29,10 @@ class PowerUp {
 		bool isExtraFood;
 		bool food1;
 		bool food2;
-		int foodx1;
-		int foodx2;
-		int foody1;
-		int foody2;
+		int food1x;
+		int food2x;
+		int food1y;
+		int food2y;
 		void modifiedRenderFood(int x, int y);
 
 	public:

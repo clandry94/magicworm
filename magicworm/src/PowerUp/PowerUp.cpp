@@ -25,10 +25,10 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	isExtraFood = false;
 	food1 = false;
 	food2 = false;
-	foodx1 = -1;
-	foodx2 = -1;
-	foody1 = -1;
-	foody2 = -1;
+	food1x = -1;
+	food2x = -1;
+	food1y = -1;
+	food2y = -1;
 }
 
 int PowerUp::getX() {
