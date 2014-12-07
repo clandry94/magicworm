@@ -59,9 +59,8 @@ int main() {
 
 
   Snake * snake = new Snake(renderer, 1, 50, 50);
+  Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
-  Food * food = new Food(renderer, snake, powerup);
-
 
   int x_vel = 0;
   int y_vel = 0;
