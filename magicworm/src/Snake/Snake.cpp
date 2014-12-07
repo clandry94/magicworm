@@ -132,13 +132,11 @@ void Snake::draw() {
     killLast();
     SDL_RenderClear(renderer);
     renderTexture(image, renderer, body->x, body->y);
-    /*
-    while(body != NULL) {
 
-      cout << "test" << endl;
+    while(body != NULL) {
       renderTexture(image, renderer, body->x, body->y);
       body = body->next;
     }
-    */
+
     SDL_RenderPresent(renderer);
 }
