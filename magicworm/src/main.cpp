@@ -38,11 +38,9 @@ bool hitBoundary(int x, int y) {
   if(x < 0 || (x + 16) > 640) {
     return true;
   }
-
   if(y < 0 || (y+16) > 640) {
     return true;
   }
-
   return false;
 }
 
@@ -50,24 +48,16 @@ bool hitBoundary(int x, int y) {
 
 int main() {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-  	logSDLError(std::cout, "SDL_Init");
-  	return 1;
+    logSDLError(std::cout, "SDL_Init");
+    return 1;
   }
   SDL_Window * window = createWindow(); //Creates the window used on the screen
   SDL_Renderer * renderer = createRenderer(window);
 
-  //Path to the snake resource
-  const string snakePath = getResourcePath("magicworm") + "snake.bmp";
-
-  SDL_Texture * image = loadTexture(snakePath, renderer);
-  if (image == nullptr){
-  	//cleanup(background, image, render, window);
-  	SDL_Quit();
-  	return 1;
-  }
 
   SDL_RenderClear(renderer);
 
+<<<<<<< HEAD
   int iW, iH;
   SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
 
@@ -76,6 +66,9 @@ int main() {
 
   Snake * snake = new Snake(1, "red", initX, initY);
 <<<<<<< Updated upstream
+=======
+  Snake * snake = new Snake(renderer, 1, 50, 50);
+>>>>>>> Moved snake related code to snake.cpp instead of main.cpp
   Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
 =======
@@ -93,7 +86,7 @@ int main() {
   SDL_Event e;
   bool quit = false;
   while (!quit){
-  	while (SDL_PollEvent(&e)){
+    while (SDL_PollEvent(&e)){
       switch(e.type){
               /* Look for a keypress */
             case SDL_KEYDOWN:
@@ -156,30 +149,12 @@ int main() {
     if(hitBoundary(snake->getX(), snake->getY())) {
       quit = true;
     }
+    snake->draw();
 
-
-
-  /*
-    1. Move the head forward one.
-    2. Put a body segment where the head was.
-    3. Erase the last body segment.
-  */
-    Node * body;
-    body = snake->head;
-    snake->incrementSize(snake->getX(), snake->getY());
-
-    snake->killLast();
-
-    while(body != NULL) {
-      renderTexture(image, renderer, body->x, body->y);
-      body = body->next;
-    }
-
-    cout << powerup->timeInSeconds << endl;
-    SDL_RenderPresent(renderer);
     //Render the scene
-    //SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);
   }
+
   //cleanup(background, image, render, window);
   SDL_Quit();
 }
