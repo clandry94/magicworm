@@ -29,6 +29,14 @@ int Food::getY() {
   return foodY;
 }
 
+int Food::getScore() {
+  return score;
+}
+
+void Food::raiseScore(int val) {
+  score += val;
+}
+
 // Continuously generates food on the gameboard
 void Food::generateFood() {
   if (dropFood == false) {

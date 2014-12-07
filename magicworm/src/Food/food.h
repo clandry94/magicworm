@@ -22,7 +22,8 @@ class Food {
     int getX();             // Returns x-coordinate
     int getY();             // Returns y-coordinate
     bool dropFood = false;
-
+    void raiseScore(int val);
+    int getScore();
     Food(SDL_Renderer * irenderer, Snake * isnake);
     void generateFood();    // Starts loop that continuously generates more food
     void renderFood();     // Draws food on the gameboard

@@ -66,13 +66,13 @@ void PowerUp::deactivatePowerUp() {
 			food1 = false;
 			cout << "eat food" << endl;
 			snake->eat();
-			score++;
+			Food->score++;
 		}
 		if (snake->getX() == food2x && snake->getY() == food2y) {
 			food2 = false;
 			cout << "eat food" << endl;
 			snake->eat();
-			score++;
+			Food::score++;
 		}
 		if (food1) {
 			modifiedRenderFood(food1x, food1y);
@@ -273,7 +273,7 @@ void PowerUp::modifiedRenderFood(int x, int y) {
 
 void PowerUp::minusScore() {
 	removePowerUp();
-	score -= 3;
+	Food->score -= 3;
 }
 
 void PowerUp::invertDirections() {
