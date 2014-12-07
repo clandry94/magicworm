@@ -1,12 +1,35 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#include "../respath.h"
+#include "Node.h"
+#include "../commonSDL.h"
 
 #include "Snake.h"
 
-Snake::Snake(double iSpeed, string iColor, int iX, int iY) {
+using namespace std;
+
+Snake::Snake(SDL_Renderer * irenderer, double iSpeed, int iX, int iY) {
   speed = iSpeed;
-  color = iColor;
   head = new Node(iX, iY);
+  renderer = irenderer;
+  snakePath = getResourcePath("magicworm") + "snake.bmp";
+  setTexture(snakePath);
+}
+
+std::string Snake::getTexture() {
+  return snakePath;
+}
+
+void Snake::setTexture(std::string path) {
+  snakePath = path;
+
+  image = loadTexture(snakePath, renderer);
+  if (image == nullptr){
+    //cleanup(background, image, render, window);
+    cout << "Problem loading texture" << endl;
+    SDL_Quit();
+  }
+
 }
 
 int Snake::getSpeed() {
@@ -94,4 +117,28 @@ void Snake::setX(int iX) {
 
 void Snake::setY(int iY) {
   head->y = iY;
+}
+
+void Snake::draw() {
+    Node * body;
+    body = head;
+  /*
+    1. Move the head forward one.
+    2. Put a body segment where the head was.
+    3. Erase the last body segment.
+  */
+
+    incrementSize(getX(), getY());
+    killLast();
+    SDL_RenderClear(renderer);
+    renderTexture(image, renderer, body->x, body->y);
+    /*
+    while(body != NULL) {
+
+      cout << "test" << endl;
+      renderTexture(image, renderer, body->x, body->y);
+      body = body->next;
+    }
+    */
+    SDL_RenderPresent(renderer);
 }
