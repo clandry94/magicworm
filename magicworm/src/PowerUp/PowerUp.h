@@ -1,3 +1,6 @@
+#include "../food/food.h"
+#include "../snake/snake.h"
+
 #ifndef POWERUP_H_
 #define POWERUP_H_
 
@@ -7,6 +10,7 @@ class PowerUp {
 		int powerUpY;
 		SDL_Renderer * renderer;
 		Snake * snake;
+		Food * food;
 		bool isSpedUp;
 		bool isSlowedDown;
 		void removePowerUp();
@@ -25,7 +29,7 @@ class PowerUp {
 
 
 	public:
-		PowerUp(SDL_Renderer * irenderer, Snake * isnake);
+		PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood);
 		void placePowerUp();
 		double timeInSeconds;
 		int getX();

@@ -75,8 +75,9 @@ int main() {
   int initY = SCREEN_HEIGHT / 2 - iH / 2;
 
   Snake * snake = new Snake(1, "red", initX, initY);
-  PowerUp * powerup = new PowerUp(renderer, snake);
   Food * food = new Food(renderer, snake);
+  PowerUp * powerup = new PowerUp(renderer, snake, food);
+
 
 
   int x_vel = 0;
@@ -164,25 +165,10 @@ int main() {
     3. Erase the last body segment.
   */
     Node * body;
-    Node * iBody;
     body = snake->head;
-    iBody = snake->head;
     snake->incrementSize(snake->getX(), snake->getY());
 
     snake->killLast();
-    /*
-    while(body->next != NULL) {
-      while(iBody->next != NULL) {
-        if(snake->head->x == iBody->next->x) {
-          quit = true;
-        }
-        iBody = iBody->next;
-      }
-      body = body->next;
-    }
-
-    body = snake->head;
-    */
 
     while(body != NULL) {
       renderTexture(image, renderer, body->x, body->y);

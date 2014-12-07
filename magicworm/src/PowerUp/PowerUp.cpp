@@ -4,19 +4,18 @@
 #include "PowerUp.h"
 #include <ctime>
 #include <time.h>
-#include "../food/food.h"
-//#include "../snake/snake.cpp"
 #include <SDL2/SDL.h>
 #include "../commonSDL.h"
 
 using namespace std;
 
-PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake) {
+PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	powerUpX = -1;
 	powerUpY = -1;
 	isPowerUp = false;
 	renderer = irenderer;
 	snake = isnake;
+	food = ifood;
 	isSpedUp = false;
 	isSlowedDown = false;
 	startTime = 0;
