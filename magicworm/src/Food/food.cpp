@@ -56,7 +56,7 @@ void Food::renderFood() {
   if (renderFood == nullptr)
     SDL_Quit();
 
-  SDL_RenderClear(renderer);
+  //SDL_RenderClear(renderer);
   renderTexture(renderFood, renderer, foodX, foodY);
   SDL_RenderPresent(renderer);
 

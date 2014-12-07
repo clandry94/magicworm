@@ -78,15 +78,10 @@ int main() {
   Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
 
-
-
   int x_vel = 0;
   int y_vel = 0;
   int vel = snake->getSpeed();
   int lastKeyPress = 0;
-
-  //renderTexture(image, renderer, x, y);
-  //renderTexture(image, renderer, 50, 50);
 
   //Our event structure
   SDL_Event e;
@@ -156,8 +151,7 @@ int main() {
       quit = true;
     }
 
-  	//Render the scene
-  	SDL_RenderClear(renderer);
+
 
   /*
     1. Move the head forward one.
@@ -177,6 +171,8 @@ int main() {
 
     cout << powerup->timeInSeconds << endl;
     SDL_RenderPresent(renderer);
+    //Render the scene
+    //SDL_RenderClear(renderer);
   }
   //cleanup(background, image, render, window);
   SDL_Quit();
