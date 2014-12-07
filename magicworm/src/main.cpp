@@ -75,8 +75,14 @@ int main() {
   int initY = SCREEN_HEIGHT / 2 - iH / 2;
 
   Snake * snake = new Snake(1, "red", initX, initY);
+<<<<<<< Updated upstream
   Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
+=======
+  PowerUp * powerup = new PowerUp(renderer, snake);
+  Food * food = new Food(renderer, snake, powerup);
+
+>>>>>>> Stashed changes
 
   int x_vel = 0;
   int y_vel = 0;

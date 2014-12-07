@@ -13,18 +13,24 @@ class Food {
 
     SDL_Renderer * renderer;
     Snake * snake;
+    PowerUp * powerup;
 
     void randomValue();                                         // Generates random x and y coordinates
 
   public:
     int score = 0;          // Current score
-    int totalFood = 0;     // Total food currently on the gameboard, used in case extra food powerup is used
+    int totalFood = 0;      // Total food currently on the gameboard, used in case extra food powerup is used
     int getX();             // Returns x-coordinate
     int getY();             // Returns y-coordinate
     bool dropFood = false;
+<<<<<<< Updated upstream
     void raiseScore(int val);
     int getScore();
     Food(SDL_Renderer * irenderer, Snake * isnake);
+=======
+
+    Food(SDL_Renderer * irenderer, Snake * isnake, PowerUp * ipowerup);
+>>>>>>> Stashed changes
     void generateFood();    // Starts loop that continuously generates more food
     void renderFood();     // Draws food on the gameboard
 

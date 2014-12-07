@@ -14,9 +14,10 @@
 
 using namespace std;
 
-Food::Food(SDL_Renderer * irenderer, Snake * isnake) {
+Food::Food(SDL_Renderer * irenderer, Snake * isnake, PowerUp * ipowerup) {
   renderer = irenderer;
   snake = isnake;
+  powerup = ipowerup;
 }
 
 // Return food's x-coordinate
@@ -51,10 +52,10 @@ void Food::generateFood() {
 // Generate new food location with x and y coordinates
 void Food::randomValue() {
   srand(time(NULL));
-  foodX = rand() % SCREEN_WIDTH;
-  foodY = rand() % SCREEN_HEIGHT;
-  //if ((foodX == powerup->getX() && foodY == powerup->getY()) || (foodX == snake->getX() && foodY == snake->getY()))
-  //  randomValue();
+  foodX = rand() % SCREEN_WIDTH - 16;
+  foodY = rand() % SCREEN_HEIGHT - 16;
+  if ((foodX == powerup->getX() && foodY == powerup->getY()) || (foodX == snake->getX() && foodY == snake->getY()))
+    randomValue();
 }
 
 // Draws food on the gameboard
