@@ -29,6 +29,7 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	food2x = -1;
 	food1y = -1;
 	food2y = -1;
+	powerUpTimer = 0;
 }
 
 int PowerUp::getX() {
@@ -94,6 +95,7 @@ void PowerUp::deactivatePowerUp() {
 
 void PowerUp::randomNumbers() {
 	if (!isPowerUp) {
+		powerUpTimer = clock();
 		srand(time(NULL));
 		whichPowerUp = (rand() % 6);
 		powerUpX = rand() % SCREEN_WIDTH;
@@ -112,6 +114,9 @@ void PowerUp::placePowerUp() {
 		randomNumbers();
 
 		isPowerUp = true;
+		if (((clock() - powerUpTimer) / (double) CLOCKS_PER_SEC) >= .17) {
+			isPowerUp = false;
+		}
 
 		if (whichPowerUp == 0) {
 			const string speedUpPath = getResourcePath("magicworm") + "speedUp.bmp";
@@ -228,15 +233,19 @@ void PowerUp::slowDown() {
 
 void PowerUp::changeColor() {
 	PowerUp::removePowerUp();
+	srand(time(NULL));
 	int whichColor = rand() % 2;
 	if (whichColor == 0) {
-		//color =
+		const string newImagePath = getResourcePath("magicworm") + "snake.bmp";
+
 	}
 	else if (whichColor == 1) {
-		//color =
+		const string newImagePath = getResourcePath("magicworm") + "snake1.bmp";
+
 	}
 	else if (whichColor == 2) {
-		//color =
+		const string newImagePath = getResourcePath("magicworm") + "snake2.bmp";
+
 	}
 }
 

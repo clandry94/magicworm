@@ -34,6 +34,7 @@ class PowerUp {
 		int food1y;
 		int food2y;
 		void modifiedRenderFood(int x, int y);
+		double powerUpTimer;
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood);
