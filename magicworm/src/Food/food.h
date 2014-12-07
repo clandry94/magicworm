@@ -12,13 +12,11 @@ class Food {
     int foodY;             // Food y-coordinate
 
     bool isTouching(int x1, int y1, int x2, int y2);
-    
+
     SDL_Renderer * renderer;
     Snake * snake;
 
     void randomValue();     // Generates random x and y coordinates
-
-    SDL_Rect mEat;
 
   public:
     int score = 0;          // Current score
