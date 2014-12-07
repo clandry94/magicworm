@@ -63,13 +63,13 @@ void PowerUp::deactivatePowerUp() {
 	}
 
 	if (isExtraFood) {
-		if (isTouching(food1x, food1y, snake->getX(), snake->getY())) {
+		if (snake->getX() == food1x && snake->getY() == food1y) {
 			food1 = false;
 			cout << "eat food" << endl;
 			snake->eat();
 			food->raiseScore(1);
 		}
-		if (isTouching(food2x, food2y, snake->getX(), snake->getY())) {
+		if (snake->getX() == food2x && snake->getY() == food2y) {
 			food2 = false;
 			cout << "eat food" << endl;
 			snake->eat();
@@ -87,31 +87,11 @@ void PowerUp::deactivatePowerUp() {
 	}
 }
 
-bool PowerUp::isTouching(int x1, int y1, int x2, int y2) {
-	bool leftCollision = false;
-	bool rightCollision = false;
-	bool topCollision = false;
-	bool bottomCollision = false;
-
-	if (y1 + 16 >= y2) {
-		topCollision = true;
-	}
-	if (y1 <= y2 + 16) {
-		bottomCollision = true;
-	}
-	if (x1 + 16 >= x2) {
-		leftCollision = true;
-	}
-	if (x1 <= x2 + 16) {
-		rightCollision = true
-	}
-	if (topCollision && bottomCollision && leftCollision && rightCollision) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
+/*bool PowerUp::isTouching() {
+	if((powerUpX == snake->getX() && (powerUpY == snake->getY() + 16 || powerUpY + 16 == snake->getY()) ||
+			(powerUpY == snake->getY() && (powerUpX == snake->getX() + 16 || powerUpX + 16 == snake->getY()))
+			|| ))
+}*/
 
 void PowerUp::randomNumbers() {
 	if (!isPowerUp) {
@@ -121,7 +101,7 @@ void PowerUp::randomNumbers() {
 		powerUpX = rand() % SCREEN_WIDTH;
 		powerUpY = rand() % SCREEN_HEIGHT;
 
-		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())){
+		if (powerUpX == snake->getX() && powerUpY == snake->getY()){
 			randomNumbers();
 		}
 	}
@@ -149,7 +129,7 @@ void PowerUp::placePowerUp() {
 			renderTexture(speedUp, renderer, powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
 
-			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 				PowerUp::speedUp();
 			}
 		}
@@ -163,7 +143,7 @@ void PowerUp::placePowerUp() {
 			SDL_RenderClear(renderer);
 			renderTexture(slowDown, renderer, powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 				PowerUp::slowDown();
 			}
 		}
@@ -177,7 +157,7 @@ void PowerUp::placePowerUp() {
 			SDL_RenderClear(renderer);
 			renderTexture(changeColor, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 				PowerUp::changeColor();
 			}
 		}
@@ -191,7 +171,7 @@ void PowerUp::placePowerUp() {
 			SDL_RenderClear(renderer);
 			renderTexture(extraFood, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 				PowerUp::extraFood();
 			}
 		}
@@ -205,7 +185,7 @@ void PowerUp::placePowerUp() {
 			SDL_RenderClear(renderer);
 			renderTexture(minusScore, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 				PowerUp::minusScore();
 			}
 		}
@@ -219,7 +199,7 @@ void PowerUp::placePowerUp() {
 			SDL_RenderClear(renderer);
 			renderTexture(invertDirections, renderer,powerUpX,powerUpY);
 			SDL_RenderPresent(renderer);
-			if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY())) {
+			if (powerUpX == snake->getX() && powerUpY == snake->getY()) {
 				PowerUp::invertDirections();
 			}
 		}
@@ -275,12 +255,10 @@ void PowerUp::extraFood() {
 	food1 = true;
 	food2 = true;
 	srand(time(NULL));
-	PowerUp::randomNumbers();
-	food1x = powerUpX;
-	food1y = powerUpY;
-	PowerUp::randomNumbers();
-	food2x = powerUpX;
-	food2y = powerUpY;
+	food1x = rand() % SCREEN_WIDTH;
+	food2x = rand() % SCREEN_WIDTH;
+	food1y = rand() % SCREEN_HEIGHT;
+	food2y = rand() % SCREEN_HEIGHT;
 }
 
 void PowerUp::modifiedRenderFood(int x, int y) {
