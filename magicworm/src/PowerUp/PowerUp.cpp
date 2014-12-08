@@ -4,7 +4,7 @@
 #include "PowerUp.h"
 #include <ctime>
 #include <time.h>
-#include <math>
+#include <math.h>
 #include <SDL2/SDL.h>
 #include "../commonSDL.h"
 
@@ -31,7 +31,7 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	food1y = -1;
 	food2y = -1;
 	powerUpTimer = 0;
-	isInverted;
+	isInverted = false;
 	isInvertedX = false;
 	isInvertedY = false;
 }
@@ -89,17 +89,17 @@ void PowerUp::deactivatePowerUp() {
 			isExtraFood = false;
 		}
 	}
-	
+
 	if (isInverted) {
 		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 0.5) {
 			isInverted = false;
 		}
 		if (isInvertedX) {
-			snake->setX_Vel(abs(snake->getX_Vel()) * -1);
+			snake->setX_Vel(snake->getX_Vel() * -1);
 		}
 		else if (isInvertedY) {
-			snake->setY_Vel(abs(snake->getY_Vel()) * -1);
+			snake->setY_Vel(snake->getY_Vel() * -1);
 		}
 		if (!isInverted) {
 			isInvertedX = false;
@@ -139,8 +139,8 @@ void PowerUp::randomNumbers() {
 		powerUpTimer = clock();
 		srand(time(NULL));
 		whichPowerUp = (rand() % 6);
-		powerUpX = rand() % SCREEN_WIDTH;
-		powerUpY = rand() % SCREEN_HEIGHT;
+		powerUpX = rand() % (SCREEN_WIDTH - 16);
+		powerUpY = rand() % (SCREEN_HEIGHT - 16);
 
 		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY()) || isTouching(powerUpX, powerUpY, food->getX(), food->getY())) {
 			randomNumbers();
@@ -295,7 +295,6 @@ void PowerUp::extraFood() {
 	isExtraFood = true;
 	food1 = true;
 	food2 = true;
-	srand(time(NULL));
 	PowerUp::randomNumbers();
 	food1x = powerUpX;
 	food1y = powerUpY;
@@ -324,10 +323,10 @@ void PowerUp::invertDirections() {
 	removePowerUp();
 	isInverted = true;
 	startTime = clock();
-	if (snake->getVelX() == 0) {
+	if (snake->getX_Vel() == 0) {
 		isInvertedX = true;
 	}
-	else if (snake->getVelY() == 0) {
+	else if (snake->getY_Vel() == 0) {
 		isInvertedY = true;
 	}
 }

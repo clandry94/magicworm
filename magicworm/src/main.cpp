@@ -32,8 +32,6 @@ int main() {
   SDL_Renderer * renderer = createRenderer(window);
 
 
-  SDL_RenderClear(renderer);
-
 
   Snake * snake = new Snake(renderer, 1, 50, 50);
   Food * food = new Food(renderer, snake);

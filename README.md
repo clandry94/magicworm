@@ -19,3 +19,7 @@ To build on Windows
   Get Linux
   
 =============================================================
+
+Dependencies:
+
+SDL2.0
