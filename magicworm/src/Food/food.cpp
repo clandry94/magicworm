@@ -78,7 +78,7 @@ void Food::randomValue() {
   srand(time(NULL));
   foodX = rand() % (SCREEN_WIDTH - 16);
   foodY = rand() % (SCREEN_HEIGHT - 16);
-  if (foodX == snake->getX() && foodY == snake->getY())
+  if (isTouching(foodX, foodY, snake->getX(), snake->getY()))
     randomValue();
 }
 
