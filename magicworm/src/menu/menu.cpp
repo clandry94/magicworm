@@ -63,17 +63,15 @@ void Menu::showHighScores(){
   	textColor = {255, 255, 255, 255};
 
   	const string fontPath = getResourcePath("menu") + "dpcomic.tff";
-  	const string backgroundPath = getResourcePath("magicworm") + "highscore.png";
+  	const string backgroundPath = getResourcePath("magicworm") + "highscore.bmp";
 
-  	background = load_image(backgroundPath);
-  	if(background == NULL){
-  		SDL_DestroyTexture(menTex);
-    	SDL_DestroyRenderer(ren);
-    	SDL_DestroyWindow(window);
-    	std::cout << "SDL_Background Error: " << SDL_GetError() << std::endl;
-    	TFF_Quit();
-    	SDL_Quit();
-  	}
+  	SDL_Surface *background = SDL_LoadBMP(backgroundPath.c_str());
+    if (background == nullptr){
+      SDL_DestroyRenderer(ren);
+      SDL_DestroyWindow(window);
+      std::cout << "SDL_LoadMenuBMP Error: " << SDL_GetError() << std::endl;
+      SDL_Quit();
+    }
 
   	font = TTF_OpenFont(fontPath, 32);
   	if(font == NULL){
