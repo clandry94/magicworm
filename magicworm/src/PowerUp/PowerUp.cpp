@@ -65,12 +65,7 @@ void PowerUp::deactivatePowerUp() {
 		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 0.5) {
 			//return the speed back to normal and turn off the power up
-			if (snake->getSpeed() == 1) {
-				snake->setSpeed(1 + speedCounter);
-			}
-			else {
-				snake->setSpeed(snake->getSpeed() + 3);
-			}
+			snake->setSpeed(snake->getSpeed() + 3);
 			isSlowedDown = false;
 		}
 	}
@@ -97,7 +92,7 @@ void PowerUp::deactivatePowerUp() {
 		}
 		if (food2) {
 			//if the second extra food is on then draw it
-			modifiedRenderFood(food2x, food1y);
+			modifiedRenderFood(food2x, food2y);
 		}
 		if (!food1 && !food2) {
 			//if both foods are off then turn the power up off
@@ -387,7 +382,7 @@ void PowerUp::invertDirections() {
 	if (snake->getX_Vel() == 0) {
 		isInvertedX = true;
 	}
-	//if the worm is going left or right then prevent it from going up
+	//if the worm is going left or right then prevent it from going down
 	else if (snake->getY_Vel() == 0) {
 		isInvertedY = true;
 	}
