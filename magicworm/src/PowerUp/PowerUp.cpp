@@ -370,6 +370,7 @@ void PowerUp::modifiedRenderFood(int x, int y) {
 void PowerUp::minusScore() {
 	removePowerUp();
 	food->raiseScore(-3);
+	cout << food->getScore() << endl;
 }
 
 //mark that there is no longer a power up currently being drawn and mark the start time for the duration of the
