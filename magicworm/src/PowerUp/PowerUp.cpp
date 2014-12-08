@@ -96,7 +96,7 @@ void PowerUp::deactivatePowerUp() {
 			isInverted = false;
 		}
 		if (isInvertedX) {
-			snake->setX_Vel(abd(snake->getX_Vel()) * -1);
+			snake->setX_Vel(abs(snake->getX_Vel()) * -1);
 		}
 		else if (isInvertedY) {
 			snake->setY_Vel(abs(snake->getY_Vel()) * -1);

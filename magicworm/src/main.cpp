@@ -6,6 +6,8 @@
 #include "Food/food.cpp"
 #include "commonSDL.h"
 #include "Snake/Node.h"
+#include "menu/menu.h"
+#include "menu/menu.cpp"
 #include <ctime>
 
 using namespace std;

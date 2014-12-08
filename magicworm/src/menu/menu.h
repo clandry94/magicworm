@@ -5,10 +5,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "respath.h"
+#include "../respath.h"
 
-#include "..SDL2/SDL.h"
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include "SDL_ttf.h"
 
 using namespace std;
 
@@ -18,6 +18,17 @@ private:
 	void printMenu();
  	void showHighScore();
  	bool mainMenu();
+
+	SDL_Renderer *ren = NULL;
+	SDL_Texture *menTex = NULL;
+	SDL_Window *window = NULL;
+  TTF_Font *font = NULL;
+	SDL_Surface *message = NULL;
+	SDL_Texture *messageTex = NULL;
+	SDL_Surface *background = NULL;
+  SDL_Texture *backgroundTex = NULL;
+	SDL_Color *textColor = NULL;
+
 };
 
 #endif
