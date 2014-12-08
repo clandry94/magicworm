@@ -3,6 +3,7 @@
 #include "../Snake/Snake.h"
 #include "../respath.h"
 #include "../commonSDL.h"
+#include "../Snake/Node.h"
 
 #include <iostream>
 #include <stdio.h>
@@ -75,8 +76,8 @@ void Food::generateFood() {
 // Generate new food location with x and y coordinates
 void Food::randomValue() {
   srand(time(NULL));
-  foodX = rand() % SCREEN_WIDTH - 16;
-  foodY = rand() % SCREEN_HEIGHT - 16;
+  foodX = rand() % (SCREEN_WIDTH - 16);
+  foodY = rand() % (SCREEN_HEIGHT - 16);
   if (foodX == snake->getX() && foodY == snake->getY())
     randomValue();
 }
