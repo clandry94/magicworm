@@ -115,7 +115,7 @@ void showHighScores(){
     	SDL_Quit();
     	return 1;
   	}*/
-
+//fdasfdas
     SDL_Rect offset;
     offset.x = 90;
    	offset.y = 150;
