@@ -95,9 +95,9 @@ void Food::renderFood() {
 
   // If the snake lands on the same coordinates, erase food
   if (isTouching(foodX, foodY, snake->getX(), snake->getY())) {
-    cout << "eat food" << endl;
     snake->eat();
     score++;
+    cout << "Score: " << score << endl;
     dropFood = false;
     generateFood();
   }
