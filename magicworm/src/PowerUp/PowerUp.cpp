@@ -4,6 +4,7 @@
 #include "PowerUp.h"
 #include <ctime>
 #include <time.h>
+#include <math>
 #include <SDL2/SDL.h>
 #include "../commonSDL.h"
 
@@ -30,7 +31,9 @@ PowerUp::PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood) {
 	food1y = -1;
 	food2y = -1;
 	powerUpTimer = 0;
-	isInverted = false;
+	isInverted;
+	isInvertedX = false;
+	isInvertedY = false;
 }
 
 int PowerUp::getX() {
@@ -88,10 +91,19 @@ void PowerUp::deactivatePowerUp() {
 	}
 	
 	if (isInverted) {
-		//make the absolute value of vel negative
 		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 0.5) {
 			isInverted = false;
+		}
+		if (isInvertedX) {
+			snake->setX_Vel(abs(snake->getX_Vel()) * -1);
+		}
+		else if (isInvertedY) {
+			snake->setY_Vel(abs(snake->get_YVel()) * -1);
+		}
+		if (!isInverted) {
+			isInvertedX = false;
+			isInvertedY = false;
 		}
 	}
 }
@@ -139,7 +151,7 @@ void PowerUp::randomNumbers() {
 void PowerUp::placePowerUp() {
 	deactivatePowerUp();
 
-	if (!isSpedUp && !isSlowedDown && !isExtraFood) {
+	if (!isSpedUp && !isSlowedDown && !isExtraFood && !isInverted) {
 		randomNumbers();
 
 		isPowerUp = true;
@@ -312,4 +324,10 @@ void PowerUp::invertDirections() {
 	removePowerUp();
 	isInverted = true;
 	startTime = clock();
+	if (snake->getVelX() == 0) {
+		isInvertedX = true;
+	}
+	else if (snake->getVelY() == 0) {
+		isInvertedY = true;
+	}
 }

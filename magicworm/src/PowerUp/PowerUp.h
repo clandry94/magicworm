@@ -21,7 +21,7 @@ class PowerUp {
 		void minusScore();
 		void invertDirections();
 		void deactivatePowerUp();
-		int startTime;
+		double startTime;
 		void randomNumbers();
 		int whichPowerUp;
 		int speedCounter;
@@ -36,6 +36,8 @@ class PowerUp {
 		void modifiedRenderFood(int x, int y);
 		double powerUpTimer;
 		bool isInverted;
+		bool isInvertedX;
+		bool isInvertedY;
 
 	public:
 		PowerUp(SDL_Renderer * irenderer, Snake * isnake, Food * ifood);
