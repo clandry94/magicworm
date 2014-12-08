@@ -75,17 +75,17 @@ int main() {
                           break;
                       case SDLK_k:
                           snake->incrementSpeed();
-                          cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
+                          //cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
                           break;
                       case SDLK_j:
                           for(int i = 0; i < 8; i++) {
                             snake->incrementSize(snake->getX(), snake->getY());
                           }
-                          cout << "SNAKE SIZE: " << snake->getSize() << endl;
+                          //cout << "SNAKE SIZE: " << snake->getSize() << endl;
                           break;
                       case SDLK_h:
                           snake->eat();
-                          cout << "Ate food!" << endl;
+                          //cout << "Ate food!" << endl;
                       default:
                           break;
                   }

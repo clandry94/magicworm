@@ -43,12 +43,6 @@ bool Snake::isCollision(int &x, int &y, int i) {
   int hY = getY();
 
   if((hX == x && hY == y) && i >= 1) {
-    cout << "COLLISION" << endl;
-    cout << "=========" << endl;
-    cout << "I-VAL: " << i << endl;
-    cout << "COORDS HEAD: (" << hX << "," << hY << ")" << endl;
-    cout << "COORDS BODY: (" << x << "," << y << ")" << endl;
-    cout << "=================================" << endl;
     return true;
   }
 
