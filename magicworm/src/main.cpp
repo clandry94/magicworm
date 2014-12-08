@@ -12,28 +12,6 @@ using namespace std;
 
 
 
-/*
- * Sets current velocity of the snake according to velocity
- *  with respect to current direction
- */
-void checkVelocity(int &x_vel, int &y_vel, int &vel) {
-  if(x_vel != 0) {
-    if(x_vel > 0) {
-      x_vel = vel;
-    } else {
-      x_vel = vel * -1;
-    }
-  }
-
-  if(y_vel != 0) {
-    if(y_vel > 0) {
-      y_vel = vel;
-    } else {
-      y_vel = vel * -1;
-    }
-  }
-}
-
 bool hitBoundary(int x, int y) {
   if(x < 0 || (x + 16) > 640) {
     return true;
@@ -43,7 +21,6 @@ bool hitBoundary(int x, int y) {
   }
   return false;
 }
-
 
 
 int main() {
@@ -62,40 +39,35 @@ int main() {
   Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
 
-  int x_vel = 0;
-  int y_vel = 0;
-  int vel = snake->getSpeed();
-  int lastKeyPress = 0;
+  int vel = 0;
+
 
   //Our event structure
   SDL_Event e;
   bool quit = false;
   while (!quit){
     while (SDL_PollEvent(&e)){
+      vel = snake->getSpeed();
       switch(e.type){
               /* Look for a keypress */
             case SDL_KEYDOWN:
                   /* Check the SDLKey values and move change the coords */
                   switch(e.key.keysym.sym){
                       case SDLK_LEFT:
-                          x_vel = vel * -1;
-                          y_vel = 0;
-                          lastKeyPress = 1;
+                          snake->setX_Vel(vel * -1);
+                          snake->setY_Vel(0);
                           break;
                       case SDLK_RIGHT:
-                          x_vel = vel;
-                          y_vel = 0;
-                          lastKeyPress = 2;
+                          snake->setX_Vel(vel);
+                          snake->setY_Vel(0);
                           break;
                       case SDLK_UP:
-                          x_vel = 0;
-                          y_vel = vel * -1;
-                          lastKeyPress = 3;
+                          snake->setX_Vel(0);
+                          snake->setY_Vel(vel * -1);
                           break;
                       case SDLK_DOWN:
-                          x_vel = 0;
-                          y_vel = vel;
-                          lastKeyPress = 4;
+                          snake->setX_Vel(0);
+                          snake->setY_Vel(vel);
                           break;
                       case SDLK_ESCAPE:
                           SDL_Quit();
@@ -125,11 +97,10 @@ int main() {
 
     powerup->placePowerUp();
     food->generateFood();
+    snake->checkVelocity();
 
-    checkVelocity(x_vel, y_vel, vel);
-    vel = snake->getSpeed();
-    snake->setX(snake->getX() + x_vel);
-    snake->setY(snake->getY() + y_vel);
+    snake->setX(snake->getX() + snake->getX_Vel());
+    snake->setY(snake->getY() + snake->getY_Vel());
 
     if(hitBoundary(snake->getX(), snake->getY())) {
       quit = true;

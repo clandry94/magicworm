@@ -16,6 +16,44 @@ Snake::Snake(SDL_Renderer * irenderer, double iSpeed, int iX, int iY) {
   setTexture(snakePath);
 }
 
+/*
+ * Sets current velocity of the snake according to velocity
+ *  with respect to current direction
+ */
+void Snake::checkVelocity() {
+  if(x_vel != 0) {
+    if(x_vel > 0) {
+      x_vel = speed;
+    } else {
+      x_vel = speed * -1;
+    }
+  }
+
+  if(y_vel != 0) {
+    if(y_vel > 0) {
+      y_vel = speed;
+    } else {
+      y_vel = speed * -1;
+    }
+  }
+}
+
+void Snake::setX_Vel(int val) {
+  x_vel = val;
+}
+
+int Snake::getX_Vel() {
+  return x_vel;
+}
+
+void Snake::setY_Vel(int val) {
+  y_vel = val;
+}
+
+int Snake::getY_Vel() {
+  return y_vel;
+}
+
 std::string Snake::getTexture() {
   return snakePath;
 }
