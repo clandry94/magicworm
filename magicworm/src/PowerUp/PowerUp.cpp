@@ -349,9 +349,11 @@ void PowerUp::extraFood() {
 	isExtraFood = true;
 	food1 = true;
 	food2 = true;
+	srand(time(NULL));
 	PowerUp::randomNumbers();
 	food1x = powerUpX;
 	food1y = powerUpY;
+	srand(time(NULL));
 	PowerUp::randomNumbers();
 	food2x = powerUpX;
 	food2y = powerUpY;
