@@ -16,10 +16,10 @@ using namespace std;
 
 
 bool hitBoundary(int x, int y) {
-  if(x < 0 || (x + 16) > 640) {
+  if(x < 0 || (x + 16) > SCREEN_WIDTH) {
     return true;
   }
-  if(y < 0 || (y+16) > 640) {
+  if(y < 0 || (y + 16) > SCREEN_HEIGHT) {
     return true;
   }
   return false;
@@ -106,7 +106,10 @@ int main() {
     if(hitBoundary(snake->getX(), snake->getY())) {
       quit = true;
     }
-    snake->draw();
+
+    if(!snake->draw()) {
+      quit = true;
+    }
 
     //Render the scene
     SDL_RenderClear(renderer);

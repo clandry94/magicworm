@@ -33,12 +33,13 @@ class Snake {
 		int getY();
 		void setX(int iX);
 		void setY(int iY);
-		void draw();
+		bool draw();
 
 		int getY_Vel();
 		void setY_Vel(int val);
 		int getX_Vel();
 		void setX_Vel(int val);
+		bool isCollision(int &x, int &y, int i);
 
 };
 

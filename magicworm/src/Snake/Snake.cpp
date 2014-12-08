@@ -38,6 +38,23 @@ void Snake::checkVelocity() {
   }
 }
 
+bool Snake::isCollision(int &x, int &y, int i) {
+  int hX = getX();
+  int hY = getY();
+
+  if((hX == x && hY == y) && i >= 1) {
+    cout << "COLLISION" << endl;
+    cout << "=========" << endl;
+    cout << "I-VAL: " << i << endl;
+    cout << "COORDS HEAD: (" << hX << "," << hY << ")" << endl;
+    cout << "COORDS BODY: (" << x << "," << y << ")" << endl;
+    cout << "=================================" << endl;
+    return true;
+  }
+
+  return false;
+}
+
 void Snake::setX_Vel(int val) {
   x_vel = val;
 }
@@ -157,24 +174,33 @@ void Snake::setY(int iY) {
   head->y = iY;
 }
 
-void Snake::draw() {
+bool Snake::draw() {
     Node * body;
     body = head;
+    int i = 0;
+
   /*
     1. Move the head forward one.
     2. Put a body segment where the head was.
     3. Erase the last body segment.
   */
-
     incrementSize(getX(), getY());
     killLast();
     SDL_RenderClear(renderer);
-    renderTexture(image, renderer, body->x, body->y);
+    //renderTexture(image, renderer, body->x, body->y);
 
     while(body != NULL) {
       renderTexture(image, renderer, body->x, body->y);
+      if(body->next != NULL) {
+        if(isCollision(body->x, body->y, i)) {
+          return false;
+        }
+      }
       body = body->next;
+      i++;
     }
 
     SDL_RenderPresent(renderer);
+
+    return true;
 }
