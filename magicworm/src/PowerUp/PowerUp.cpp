@@ -139,8 +139,8 @@ void PowerUp::randomNumbers() {
 		powerUpTimer = clock();
 		srand(time(NULL));
 		whichPowerUp = (rand() % 6);
-		powerUpX = rand() % SCREEN_WIDTH;
-		powerUpY = rand() % SCREEN_HEIGHT;
+		powerUpX = rand() % (SCREEN_WIDTH - 16);
+		powerUpY = rand() % (SCREEN_HEIGHT - 16);
 
 		if (isTouching(powerUpX, powerUpY, snake->getX(), snake->getY()) || isTouching(powerUpX, powerUpY, food->getX(), food->getY())) {
 			randomNumbers();
@@ -295,7 +295,6 @@ void PowerUp::extraFood() {
 	isExtraFood = true;
 	food1 = true;
 	food2 = true;
-	srand(time(NULL));
 	PowerUp::randomNumbers();
 	food1x = powerUpX;
 	food1y = powerUpY;
