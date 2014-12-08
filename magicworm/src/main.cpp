@@ -6,8 +6,9 @@
 #include "Food/food.cpp"
 #include "commonSDL.h"
 #include "Snake/Node.h"
-#include "menu/menu.h"
+
 #include "menu/menu.cpp"
+
 #include <ctime>
 
 using namespace std;
@@ -31,6 +32,9 @@ int main() {
     return 1;
   }
   SDL_Window * window = createWindow(); //Creates the window used on the screen
+
+  Menu * menu = new Menu(window);
+
   SDL_Renderer * renderer = createRenderer(window);
 
 

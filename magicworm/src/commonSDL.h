@@ -1,7 +1,7 @@
 #ifndef COMMONSDL_H
 #define COMMONSDL_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480

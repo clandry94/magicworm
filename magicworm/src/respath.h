@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 std::string getResourcePath(const std::string &subDir = ""){
   //Seperator

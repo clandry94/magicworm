@@ -6,28 +6,28 @@
 #include <fstream>
 #include <string>
 #include "../respath.h"
+#include <SDL/SDL_ttf.h>
 
 #include <SDL2/SDL.h>
-#include "SDL_ttf.h"
+
+#include "../commonSDL.h"
 
 using namespace std;
 
 class Menu {
-private:
+public:
 	Menu(SDL_Window *sentWindow);
 	void printMenu();
- 	void showHighScores();
+ 	void showHighScore();
  	bool mainMenu();
 
-	SDL_Renderer *ren = NULL;
-	SDL_Texture *menTex = NULL;
-	SDL_Window *window = NULL;
-	TTF_Font *font = NULL;
-	SDL_Surface *message = NULL;
-	SDL_Texture *messageTex = NULL;
-	SDL_Surface *background = NULL;
-  SDL_Texture *backgroundTex = NULL;
-	SDL_Color textColor;
+	SDL_Renderer *ren;
+	SDL_Texture *menTex;
+	SDL_Texture *tex;
+	SDL_Window *window;
+	TTF_Font *font;
+	SDL_Surface *message;
+	SDL_Texture *messageTex;
 
 };
 

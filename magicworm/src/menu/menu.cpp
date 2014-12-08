@@ -1,10 +1,5 @@
 // Main Menu
 #include "menu.h"
-//#include <iostream>
-//#include <fstream> these are unecessary I believe
-//#include <string>
-
-
 
 //constructor
 Menu::Menu(SDL_Window *sentWindow){
@@ -50,7 +45,7 @@ void Menu::printMenu(){
 }
 
 //prints the High score screen and contains High Score functionality
-void Menu::showHighScores(){
+void Menu::showHighScore(){
 
  	//reads the high score and stores it in a string
   	string text;
@@ -60,9 +55,9 @@ void Menu::showHighScores(){
   	textfile >> text;
   	textfile.close();
 
-  	textColor = {255, 255, 255, 255};
+  	SDL_Color textColor = {255, 255, 255, 255};
 
-  	const string fontPath = getResourcePath("menu") + "dpcomic.tff";
+  	const string fontPath = getResourcePath("menu") + "dpcomic.ttf";
   	const string backgroundPath = getResourcePath("magicworm") + "highscore.bmp";
 
   	SDL_Surface *background = SDL_LoadBMP(backgroundPath.c_str());
@@ -73,26 +68,26 @@ void Menu::showHighScores(){
       SDL_Quit();
     }
 
-  	font = TTF_OpenFont(fontPath, 32);
+  	font = TTF_OpenFont("dpcomic.ttf", 32);
   	if(font == NULL){
     	SDL_FreeSurface(background);
     	SDL_DestroyTexture(menTex);
     	SDL_DestroyRenderer(ren);
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_Font Error: " << SDL_GetError() << std::endl;
-    	TFF_Quit();
+    	TTF_Quit();
     	SDL_Quit();
   	}
 
-  	message = TTF_RenderText_Solid(font, text, textColor);
+  	message = TTF_RenderText_Solid(font, "test", textColor);
   	if(message == NULL){
-    	TFF_CloseFont(font);
+    	TTF_CloseFont(font);
     	SDL_FreeSurface(background);
     	SDL_DestroyTexture(menTex);
     	SDL_DestroyRenderer(ren);
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_Message Error: " << SDL_GetError() << std::endl;
-    	TFF_Quit();
+    	TTF_Quit();
     	SDL_Quit();
   	}
 
@@ -100,13 +95,13 @@ void Menu::showHighScores(){
   	/*messageTex = SDL_CreateTextureFromSurface(ren, message);
   	SDL_FreeSurface(message);
   	if (messageTex == nullptr){
-  		TFF_CloseFont(font);
+  		TTF_CloseFont(font);
     	SDL_FreeSurface(background)
     	SDL_DestroyTexture(menTex);
     	SDL_DestroyRenderer(ren);
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_CreateMessageTextureFromSurface Error: " << SDL_GetError() << std::endl;
-    	TFF_Quit();
+    	TTF_Quit();
     	SDL_Quit();
     	return 1;
   	}*/
@@ -120,13 +115,13 @@ void Menu::showHighScores(){
   	SDL_FreeSurface(background);
   	SDL_FreeSurface(message);
   	if (tex == nullptr){
-    	TFF_CloseFont(font);
+    	TTF_CloseFont(font);
     	SDL_DestroyTexture(messageTex);
     	SDL_DestroyTexture(menTex);
     	SDL_DestroyRenderer(ren);
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_CreateBackgroundTextureFromSurface Error: " << SDL_GetError() << std::endl;
-    	TFF_Quit();
+    	TTF_Quit();
     	SDL_Quit();
   	}
 
@@ -136,6 +131,7 @@ void Menu::showHighScores(){
   	SDL_RenderPresent(ren);
 
   	//checks for key inputs
+		SDL_Event e;
   	bool quit = false;
   	while (!quit){
     	while (SDL_PollEvent(&e)){
@@ -160,8 +156,8 @@ void Menu::showHighScores(){
   	//clean up
   	SDL_DestroyTexture(tex);
   	//SDL_DestroyTexture(messageTex);
-  	TFF_CloseFont(font);
-  	TFF_Quit();
+  	TTF_CloseFont(font);
+  	TTF_Quit();
 }
 
 //main menu functionality
@@ -172,14 +168,15 @@ bool Menu::mainMenu() {
    		SDL_DestroyTexture(menTex);
     	SDL_DestroyRenderer(ren);
     	SDL_DestroyWindow(window);
-    	std::cout << "TFF_Initialization Error: " << std::endl;
+    	std::cout << "TTF_Initialization Error: " << std::endl;
     	SDL_Quit();
   	}
 
-  	printMenu(){
+  	printMenu();
   	bool quitProgram = false;
   	bool quit = false;
 
+		SDL_Event e;
   	//checks for key inputs
   	while (!quit){
 	  	while (SDL_PollEvent(&e)){
@@ -196,7 +193,7 @@ bool Menu::mainMenu() {
 			                quit = true;
 			                break;
 			            case SDLK_h:
-			                showHighScores();
+			                showHighScore();
 			                printMenu();
 			                break;
 			            default:
