@@ -13,10 +13,9 @@ Menu::Menu(SDL_Window *sentWindow){
   	//creates the renderer to be used
   	ren = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   	if (ren == nullptr){
-    	SDL_DestroyWindow(win);
+    	SDL_DestroyWindow(window);
 	    std::cout << "SDL_CreateMenuRenderer Error: " << SDL_GetError() << std::endl;
 	    SDL_Quit();
-	    return 1;
   	}
 
   	//creates the menu's textures
@@ -27,7 +26,6 @@ Menu::Menu(SDL_Window *sentWindow){
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_LoadMenuBMP Error: " << SDL_GetError() << std::endl;
     	SDL_Quit();
-    	return 1;
   	}
 
   	menTex = SDL_CreateTextureFromSurface(ren, bmp);
@@ -37,14 +35,13 @@ Menu::Menu(SDL_Window *sentWindow){
   	  	SDL_DestroyWindow(window);
   	  	std::cout << "SDL_CreateMenuTextureFromSurface Error: " << SDL_GetError() << std::endl;
   	  	SDL_Quit();
-    	return 1;
   	}
 
   	mainMenu();
 }
 
 //prints the main menu
-void printMenu(){
+void Menu::printMenu(){
   	//SDL_Delay(2000); //I'm not sure this is necessary
 
   	SDL_RenderClear(ren);
@@ -53,7 +50,7 @@ void printMenu(){
 }
 
 //prints the High score screen and contains High Score functionality
-void showHighScores(){
+void Menu::showHighScores(){
 
  	//reads the high score and stores it in a string
   	string text;
@@ -63,11 +60,11 @@ void showHighScores(){
   	textfile >> text;
   	textfile.close();
 
-  	textColor = {255, 255, 255};
+  	textColor = {255, 255, 255, 255};
 
   	const string fontPath = getResourcePath("menu") + "dpcomic.tff";
-  	const string backgroundPath = getResourcePath("magicworm") + "highscore.png"
-  	
+  	const string backgroundPath = getResourcePath("magicworm") + "highscore.png";
+
   	background = load_image(backgroundPath);
   	if(background == NULL){
   		SDL_DestroyTexture(menTex);
@@ -75,7 +72,7 @@ void showHighScores(){
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_Background Error: " << SDL_GetError() << std::endl;
     	TFF_Quit();
-    	SDL_Quit();   
+    	SDL_Quit();
   	}
 
   	font = TTF_OpenFont(fontPath, 32);
@@ -98,7 +95,7 @@ void showHighScores(){
     	SDL_DestroyWindow(window);
     	std::cout << "SDL_Message Error: " << SDL_GetError() << std::endl;
     	TFF_Quit();
-    	SDL_Quit();  
+    	SDL_Quit();
   	}
 
   	//creates the textures
@@ -133,7 +130,6 @@ void showHighScores(){
     	std::cout << "SDL_CreateBackgroundTextureFromSurface Error: " << SDL_GetError() << std::endl;
     	TFF_Quit();
     	SDL_Quit();
-    	return 1;
   	}
 
   	//displays the textures
@@ -158,7 +154,7 @@ void showHighScores(){
           			}
           		default:
             		break;
-      		}		
+      		}
       		break;
     	}
   	}
@@ -171,7 +167,7 @@ void showHighScores(){
 }
 
 //main menu functionality
-bool mainMenu() {
+bool Menu::mainMenu() {
   	//cin >> begin; //this was in the code already, I don't know what it's for
 
  	if(TTF_Init() == -1){
@@ -179,7 +175,7 @@ bool mainMenu() {
     	SDL_DestroyRenderer(ren);
     	SDL_DestroyWindow(window);
     	std::cout << "TFF_Initialization Error: " << std::endl;
-    	SDL_Quit();    
+    	SDL_Quit();
   	}
 
   	printMenu(){

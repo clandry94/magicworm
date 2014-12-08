@@ -14,20 +14,20 @@ using namespace std;
 
 class Menu {
 private:
-	Menu::Menu(SDL_Window *sentWindow);
+	Menu(SDL_Window *sentWindow);
 	void printMenu();
- 	void showHighScore();
+ 	void showHighScores();
  	bool mainMenu();
 
 	SDL_Renderer *ren = NULL;
 	SDL_Texture *menTex = NULL;
 	SDL_Window *window = NULL;
-  	TTF_Font *font = NULL;
+	TTF_Font *font = NULL;
 	SDL_Surface *message = NULL;
 	SDL_Texture *messageTex = NULL;
 	SDL_Surface *background = NULL;
-  	SDL_Texture *backgroundTex = NULL;
-	SDL_Color *textColor = NULL;
+  SDL_Texture *backgroundTex = NULL;
+	SDL_Color textColor;
 
 };
 
