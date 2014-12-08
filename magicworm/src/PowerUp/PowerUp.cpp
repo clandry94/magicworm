@@ -75,14 +75,14 @@ void PowerUp::deactivatePowerUp() {
 		if (isTouching(food1x, food1y, snake->getX(), snake->getY())) {
 			//if the worm touches the first of the extra foods then eat it and turn that food off
 			food1 = false;
-			cout << "eat food" << endl;
+			cout << food->getScore() << endl;
 			snake->eat();
 			food->raiseScore(1);
 		}
 		if (isTouching(food2x, food2y, snake->getX(), snake->getY())) {
 			//same for the second extra food
 			food2 = false;
-			cout << "eat food" << endl;
+			cout << food->getScore() << endl;
 			snake->eat();
 			food->raiseScore(1);
 		}
