@@ -59,7 +59,6 @@ void Menu::showHighScore(){
 bool Menu::mainMenu() {
   	//cin >> begin; //this was in the code already, I don't know what it's for
   	printMenu();
-  	bool quitProgram = false;
   	bool quit = false;
 
 		SDL_Event e;
@@ -72,8 +71,11 @@ bool Menu::mainMenu() {
 		          	/* Check the SDLKey values */
 		        	switch(e.key.keysym.sym){
 			            case SDLK_ESCAPE:
-			                quit = true;
-			                quitProgram = true;
+                      SDL_DestroyRenderer(ren);
+                      SDL_DestroyTexture(menTex);
+                      SDL_DestroyWindow(window);
+                      SDL_Quit();
+                      std::exit(0);
 			                break;
 			            case SDLK_s:
 			                quit = true;

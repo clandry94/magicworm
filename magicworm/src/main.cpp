@@ -14,6 +14,44 @@
 using namespace std;
 
 
+void gameOver(){
+  //retrieves the highScore
+  string highScore;
+  fstream textfile;
+  string highscorepath = getResourcePath("menu") + "highscore.txt";
+  textfile.open(highscorepath);
+  textfile >> highScore;
+  std::cout << highScore << std::endl;
+  //overwrites the old score
+  if(food->score > highScore){
+    food->score << textfile;
+  }
+  textfile.close();
+
+  //displays the gameover screen
+  const string gameOverPath = getResourcePath("magicworm") + "gameOver.bmp";
+  SDL_Surface *bmp = SDL_LoadBMP(gameOverPath.c_str());
+  if (bmp == nullptr){
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    std::cout << "SDL_LoadMenuBMP Error: " << SDL_GetError() << std::endl;
+    SDL_Quit();
+  }
+
+  SDL_Texture gameOver = SDL_CreateTextureFromSurface(renderer, bmp);
+  SDL_FreeSurface(bmp);
+  if (gameOver == nullptr){
+      SDL_DestroyRenderer(renderer);
+      SDL_DestroyWindow(window);
+      std::cout << "SDL_CreateMenuTextureFromSurface Error: " << SDL_GetError() << std::endl;
+      SDL_Quit();
+  }
+
+  SDL_RenderClear(renderer);
+  SDL_RenderCopy(renderer, gameOver, NULL, NULL);
+  SDL_RenderPresent(renderer);
+}
+
 
 bool hitBoundary(int x, int y) {
   if(x < 0 || (x + 16) > SCREEN_WIDTH) {
@@ -117,6 +155,8 @@ int main() {
     //Render the scene
     SDL_RenderClear(renderer);
   }
+
+  gameOver();
 
   //cleanup(background, image, render, window);
   SDL_Quit();
