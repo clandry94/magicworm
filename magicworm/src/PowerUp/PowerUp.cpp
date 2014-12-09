@@ -145,7 +145,7 @@ bool PowerUp::isTouching(int x1, int y1, int x2, int y2) {
 	if (x1 + 16 >= x2) {
 		leftCollision = true;
 	}
-	//if two things are touching then the left one is at the same length or to the left of the right side of the other
+	//if two things are touching then the left of one is at the same length or to the left of the right side of the other
 	if (x1 <= x2 + 16) {
 		rightCollision = true;
 	}
@@ -391,5 +391,4 @@ void PowerUp::invertDirections() {
 		isInvertedY = true;
 		cout << "Can't Move Down!" << endl;
 	}
-	
 }
