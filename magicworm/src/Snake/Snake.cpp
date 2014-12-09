@@ -91,7 +91,7 @@ void Snake::setSpeed(int val) {
 }
 
 void Snake::incrementSpeed() {
-  speed += .5
+  speed += .5;
 }
 
 int Snake::getSize() {
