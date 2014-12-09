@@ -39,6 +39,7 @@ void Snake::checkVelocity() {
   }
 }
 
+//Checks if the snake has collided with itself
 bool Snake::isCollision(int &x, int &y, int i) {
   int hX = getX();
   int hY = getY();
@@ -169,6 +170,8 @@ void Snake::setY(int iY) {
   head->y = iY;
 }
 
+
+//Draws the snake on the screen using a linked list data structure
 bool Snake::draw() {
     Node * body;
     body = head;

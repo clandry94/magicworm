@@ -73,23 +73,26 @@ int main() {
   //Creates renderer which draws gamepieces
   SDL_Renderer * renderer = createRenderer(window);
 
-
+  //Create the gamepieces onto the screen
   Snake * snake = new Snake(renderer, 2, 50, 50);
   Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
 
   int vel = 0;
 
-  //Our event structure
+  /*
+  * Loops through and checks for key inputs in order to updates
+  * the snake on the screen accordingly
+  */
   SDL_Event e;
   bool quit = false;
   while (!quit){
     while (SDL_PollEvent(&e)){
       vel = snake->getSpeed();
       switch(e.type){
-              /* Look for a keypress */
+              //Checks for a keypress each loop
             case SDL_KEYDOWN:
-                  /* Check the SDLKey values and move change the coords */
+                  //Compares to SDL2 key values
                   switch(e.key.keysym.sym){
                       case SDLK_LEFT:
                           snake->setX_Vel(vel * -1);
@@ -122,23 +125,30 @@ int main() {
 
     powerup->placePowerUp();
     food->generateFood();
+
+    //Ensures the snake is never able to stand still in one place
     snake->checkVelocity();
 
     snake->setX(snake->getX() + snake->getX_Vel());
     snake->setY(snake->getY() + snake->getY_Vel());
 
+    //If a boundary is hit then quit the game
     if(hitBoundary(snake->getX(), snake->getY())) {
       quit = true;
     }
 
+    //If snake draw is false then quit the game.
+    // If it is false then that means the snake hit itself
     if(!snake->draw()) {
       quit = true;
     }
 
-    //Render the scene
+    //Render the screen
     SDL_RenderClear(renderer);
   }
 
+
+  //Same as previous loop, but just shows the game over screen
   quit = false;
   while(!quit) {
     gameOver(renderer, window);
