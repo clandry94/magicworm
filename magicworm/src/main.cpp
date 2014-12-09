@@ -8,6 +8,7 @@
 #include "Snake/Node.h"
 #include <fstream>
 #include "menu/menu.cpp"
+#include <sstream>
 
 #include <ctime>
 
@@ -22,8 +23,10 @@ void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
   textfile.open(highscorepath);
   textfile >> highScore;
   std::cout << highScore << std::endl;
+  int value = 0;
+  istringstream(highScore) >> value;
   //overwrites the old score
-  if(food->score > atoi(highScore)){
+  if(food->score > value)){
     ofstream writetext;
     writetext.open(highscorepath);
     writetext << food->score << endl;
