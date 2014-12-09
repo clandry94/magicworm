@@ -46,7 +46,7 @@ void Menu::printMenu(){
 //prints the High score screen and contains High Score functionality
 void Menu::showHighScore(){
  	//reads the high score and stores it in a string
-  	string text;
+  	string highScore;
   	fstream textfile;
   	string highscorepath = getResourcePath("menu") + "highscore.txt";
   	textfile.open(highscorepath);
