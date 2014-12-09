@@ -27,7 +27,7 @@ void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
   int value = 0;
   istringstream(highScore) >> value;
   //overwrites the old score
-  if(food->score > value)){
+  if(food->score > value){
     ofstream writetext;
     writetext.open(highscorepath);
     writetext << food->score << endl;
