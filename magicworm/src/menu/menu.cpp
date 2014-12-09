@@ -52,7 +52,7 @@ void Menu::showHighScore(){
   	textfile.open(highscorepath);
   	textfile >> highScore;
   	textfile.close();
-    std::cout << highScore << std::endl;
+    std::cout << "High Score: " << highScore << std::endl;
 }
 
 //main menu functionality

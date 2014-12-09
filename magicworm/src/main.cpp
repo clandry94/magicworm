@@ -9,6 +9,7 @@
 #include <fstream>
 #include "menu/menu.cpp"
 #include <sstream>
+#include <iostream>
 
 #include <ctime>
 
@@ -120,19 +121,6 @@ int main() {
                       case SDLK_ESCAPE:
                           SDL_Quit();
                           break;
-                      case SDLK_k:
-                          snake->incrementSpeed();
-                          //cout << "SNAKE SPEED: " << snake->getSpeed() << endl;
-                          break;
-                      case SDLK_j:
-                          for(int i = 0; i < 8; i++) {
-                            snake->incrementSize(snake->getX(), snake->getY());
-                          }
-                          //cout << "SNAKE SIZE: " << snake->getSize() << endl;
-                          break;
-                      case SDLK_h:
-                          snake->eat();
-                          //cout << "Ate food!" << endl;
                       default:
                           break;
                   }
@@ -162,8 +150,11 @@ int main() {
     SDL_RenderClear(renderer);
   }
 
-  gameOver(food, renderer, window);
+  while(1) {
+    gameOver(food, renderer, window);
+  }
+
 
   //cleanup(background, image, render, window);
-  SDL_Quit();
+  //SDL_Quit();
 }
