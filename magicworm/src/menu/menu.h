@@ -6,7 +6,6 @@
 #include <fstream>
 #include <string>
 #include "../respath.h"
-#include <SDL/SDL_ttf.h>
 
 #include <SDL2/SDL.h>
 
@@ -23,12 +22,7 @@ public:
 
 	SDL_Renderer *ren;
 	SDL_Texture *menTex;
-	SDL_Texture *tex;
 	SDL_Window *window;
-	TTF_Font *font;
-	SDL_Surface *message;
-	SDL_Texture *messageTex;
-
 };
 
 #endif
