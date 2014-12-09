@@ -65,7 +65,7 @@ void PowerUp::deactivatePowerUp() {
 		timeInSeconds = (clock() - startTime) / (double) CLOCKS_PER_SEC;
 		if (timeInSeconds >= 0.5) {
 			//return the speed back to normal and turn off the power up
-			snake->setSpeed(snake->getSpeed() + 3);
+			snake->setSpeed(snake->getSpeed() + speedCounter);
 			isSlowedDown = false;
 		}
 	}
@@ -309,12 +309,9 @@ void PowerUp::slowDown() {
 	isSlowedDown = true;
 	PowerUp::removePowerUp();
 	cout << "Slow Down!" << endl;
-	if (snake->getSpeed() > 3) {
-		snake->setSpeed(snake->getSpeed() - 3);
-	}
-	else if (snake->getSpeed() <=3) {
-		speedCounter = snake->getSpeed() - 1;
-		snake->setSpeed(1);
+	if (snake->getSpeed() > 1) {
+		speedCounter = snake->getSpeed() - 2;
+		snake->setSpeed(2);
 	}
 }
 
