@@ -298,7 +298,7 @@ void PowerUp::speedUp() {
 	isSpedUp = true;
 	PowerUp::removePowerUp();
 	snake->setSpeed(snake->getSpeed() + 3);
-
+	cout << "Speed Up!" << endl;
 }
 
 //mark the start time for keeping track of the power up duration, turn on the slowDown power up,
@@ -308,6 +308,7 @@ void PowerUp::slowDown() {
 	startTime = clock();
 	isSlowedDown = true;
 	PowerUp::removePowerUp();
+	cout << "Slow Down!" << endl;
 	if (snake->getSpeed() > 3) {
 		snake->setSpeed(snake->getSpeed() - 3);
 	}
@@ -326,14 +327,17 @@ void PowerUp::changeColor() {
 	if (whichColor == 0) {
 		string newImagePath = getResourcePath("magicworm") + "snake.bmp";
 		snake->setTexture(newImagePath);
+		cout << "Change Color to Red!" << endl;
 	}
 	else if (whichColor == 1) {
 		string newImagePath = getResourcePath("magicworm") + "snake1.bmp";
 		snake->setTexture(newImagePath);
+		cout << "Change Color to Green!" << endl;
 	}
 	else if (whichColor == 2) {
 		string newImagePath = getResourcePath("magicworm") + "snake2.bmp";
 		snake->setTexture(newImagePath);
+		cout << "Change Color to Blue!" << endl;
 	}
 }
 
@@ -352,6 +356,7 @@ void PowerUp::extraFood() {
 	PowerUp::randomNumbers();
 	food2x = powerUpX;
 	food2y = powerUpY;
+	cout << "Extra Food!" << endl;
 }
 
 //create food icons at the newly determined locations
@@ -370,7 +375,7 @@ void PowerUp::modifiedRenderFood(int x, int y) {
 void PowerUp::minusScore() {
 	removePowerUp();
 	food->raiseScore(-3);
-	cout << food->getScore() << endl;
+	cout << "Minus Score!\n" << food->getScore() << endl;
 }
 
 //mark that there is no longer a power up currently being drawn and mark the start time for the duration of the
@@ -382,9 +387,12 @@ void PowerUp::invertDirections() {
 	//if the worm is moving up and down then prevent it from going to the right
 	if (snake->getX_Vel() == 0) {
 		isInvertedX = true;
+		cout << "Can't Move Right!" << endl;
 	}
 	//if the worm is going left or right then prevent it from going down
 	else if (snake->getY_Vel() == 0) {
 		isInvertedY = true;
+		cout << "Can't Move Down!" << endl;
 	}
+	
 }
