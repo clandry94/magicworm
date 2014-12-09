@@ -50,9 +50,13 @@ void Menu::showHighScore(){
   	ifstream textfile;
   	string highscorepath = getResourcePath("menu") + "highscore.txt";
   	textfile.open(highscorepath);
-  	textfile >> highScore;
-  	textfile.close();
-    std::cout << "High Score: " << highScore << std::endl;
+  	if(textfile.is_open()){
+      while (getline(textfile,highScore)){
+        cout << "High Score: " << highScore << '\n';
+      }
+      textfile.close();
+    }
+  else cout << "Unable to open file";
 }
 
 //main menu functionality
