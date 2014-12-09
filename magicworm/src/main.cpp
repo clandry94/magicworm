@@ -17,24 +17,6 @@ using namespace std;
 
 
 void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
-  //retrieves the highScore
-  string highScore;
-  ifstream textfile;
-  string highscorepath = getResourcePath("menu") + "highscore.txt";
-  textfile.open(highscorepath);
-  textfile >> highScore;
-  textfile.close();
-  std::cout << highScore << std::endl;
-  int value = 0;
-  istringstream(highScore) >> value;
-  //overwrites the old score
-  if(food->score > value){
-    ofstream writetext;
-    writetext.open(highscorepath);
-    writetext << food->score << endl;
-    writetext.close();
-  }
-
   //displays the gameover screen
   const string gameOverPath = getResourcePath("magicworm") + "gameOver.bmp";
   SDL_Surface *bmp = SDL_LoadBMP(gameOverPath.c_str());
