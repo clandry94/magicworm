@@ -19,9 +19,9 @@ available to everyone while simultaneously allowing all of us to work on
 languages and other tools to be able to work on other projects. Learning how to
 use SDL put us through a similar process to what we might have to do for a
 future endeavor. GitHub or similar tools will also most likely be used for
-our futur careers in programming. Being able to work in teams is one of the
+our future careers in programming. Being able to work in teams is one of the
 most important qualities in the field, and helps get projects finished in a
 much more efficient and timely manner. Flexibility and the ability to
  work with others are qualities that can make or break someone's career in
  programming, and in the process of completing this project, we have all
- proven that we these qualities can be attributed to our team.  
+ proven that we these qualities can be attributed to our team.
