@@ -83,7 +83,7 @@ int main() {
 
 
 
-  Snake * snake = new Snake(renderer, 1, 50, 50);
+  Snake * snake = new Snake(renderer, 2, 50, 50);
   Food * food = new Food(renderer, snake);
   PowerUp * powerup = new PowerUp(renderer, snake, food);
 
