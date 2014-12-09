@@ -14,7 +14,7 @@
 using namespace std;
 
 
-void gameOver(Food *food){
+void gameOver(Food *food SDL_Renderer renderer, SDL_Window window){
   //retrieves the highScore
   string highScore;
   fstream textfile;
@@ -156,7 +156,7 @@ int main() {
     SDL_RenderClear(renderer);
   }
 
-  gameOver(food);
+  gameOver(food, renderer, window);
 
   //cleanup(background, image, render, window);
   SDL_Quit();
