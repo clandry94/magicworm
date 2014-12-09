@@ -22,6 +22,7 @@ void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
   string highscorepath = getResourcePath("menu") + "highscore.txt";
   textfile.open(highscorepath);
   textfile >> highScore;
+  textfile.close();
   std::cout << highScore << std::endl;
   int value = 0;
   istringstream(highScore) >> value;
@@ -32,7 +33,6 @@ void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
     writetext << food->score << endl;
     writetext.close();
   }
-  textfile.close();
 
   //displays the gameover screen
   const string gameOverPath = getResourcePath("magicworm") + "gameOver.bmp";
