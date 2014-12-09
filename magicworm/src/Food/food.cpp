@@ -85,7 +85,7 @@ void Food::randomValue() {
   srand(time(NULL));
   foodX = rand() % (SCREEN_WIDTH - 16);
   foodY = rand() % (SCREEN_HEIGHT - 16);
-  // Check to make sure the food does not land on the snake
+  // Check to make sure the food does not land on the snake head
   if (isTouching(foodX, foodY, snake->getX(), snake->getY()))
     randomValue();
 }

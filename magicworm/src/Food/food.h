@@ -31,7 +31,6 @@ class Food {
 
     void generateFood();    // Starts loop that continuously generates more food
     void renderFood();      // Draws food on the gameboard
-
 };
 
 #endif
