@@ -6,7 +6,7 @@
 #include "Food/food.cpp"
 #include "commonSDL.h"
 #include "Snake/Node.h"
-
+#include <fstream>
 #include "menu/menu.cpp"
 
 #include <ctime>
@@ -14,7 +14,7 @@
 using namespace std;
 
 
-void gameOver(Food *food SDL_Renderer renderer, SDL_Window window){
+void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
   //retrieves the highScore
   string highScore;
   fstream textfile;
@@ -23,7 +23,7 @@ void gameOver(Food *food SDL_Renderer renderer, SDL_Window window){
   textfile >> highScore;
   std::cout << highScore << std::endl;
   //overwrites the old score
-  if(food->score > highScore){
+  if(food->score > stoi(highScore)){
     food->score << textfile;
   }
   textfile.close();
@@ -38,7 +38,7 @@ void gameOver(Food *food SDL_Renderer renderer, SDL_Window window){
     SDL_Quit();
   }
 
-  SDL_Texture gameOver = SDL_CreateTextureFromSurface(renderer, bmp);
+  SDL_Texture * gameOver = SDL_CreateTextureFromSurface(renderer, bmp);
   SDL_FreeSurface(bmp);
   if (gameOver == nullptr){
       SDL_DestroyRenderer(renderer);
@@ -72,7 +72,7 @@ int main() {
   SDL_Window * window = createWindow(); //Creates the window used on the screen
 
   Menu * menu = new Menu(window);
-  
+
   SDL_Renderer * renderer = createRenderer(window);
 
 
