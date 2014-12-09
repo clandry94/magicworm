@@ -56,7 +56,7 @@ void Menu::showHighScore(){
 }
 
 //main menu functionality
-bool Menu::mainMenu() {
+void Menu::mainMenu() {
   	//cin >> begin; //this was in the code already, I don't know what it's for
   	printMenu();
   	bool quit = false;
@@ -94,5 +94,4 @@ bool Menu::mainMenu() {
   	}
   	SDL_DestroyRenderer(ren);
   	SDL_DestroyTexture(menTex);
-  	return quitProgram;
 }

@@ -18,7 +18,7 @@ public:
 	Menu(SDL_Window *sentWindow);
 	void printMenu();
  	void showHighScore();
- 	bool mainMenu();
+ 	void mainMenu();
 
 	SDL_Renderer *ren;
 	SDL_Texture *menTex;
