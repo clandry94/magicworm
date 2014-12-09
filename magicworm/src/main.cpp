@@ -166,7 +166,6 @@ int main() {
           }
         default:
           break;
-
         }
       }
     }
