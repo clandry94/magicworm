@@ -150,11 +150,24 @@ int main() {
     SDL_RenderClear(renderer);
   }
 
-  while(1) {
+  quit = false;
+  while(!quit) {
     gameOver(food, renderer, window);
+    while(SDL_PollEvent(&e)) {
+      switch(e.type) {
+        case SDL_KEYDOWN:
+          switch(e.key.keysym.sym) {
+            case SDLK_ESCAPE:
+              SDL_Quit();
+              std::exit(0);
+              break;
+            default:
+              break;
+          }
+        default:
+          break;
+
+        }
+      }
+    }
   }
-
-
-  //cleanup(background, image, render, window);
-  //SDL_Quit();
-}
