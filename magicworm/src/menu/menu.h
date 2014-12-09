@@ -3,7 +3,6 @@
 #define MENU_H
 
 #include <iostream>
-#include <fstream>
 #include <string>
 #include "../respath.h"
 
@@ -17,7 +16,6 @@ class Menu {
 public:
 	Menu(SDL_Window *sentWindow);
 	void printMenu();
- 	void showHighScore();
  	void mainMenu();
 
 	SDL_Renderer *ren;

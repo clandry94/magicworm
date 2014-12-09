@@ -43,22 +43,6 @@ void Menu::printMenu(){
   	SDL_RenderPresent(ren);
 }
 
-//prints the High score screen and contains High Score functionality
-void Menu::showHighScore(){
- 	//reads the high score and stores it in a string
-  	string highScore;
-  	ifstream textfile;
-  	string highscorepath = getResourcePath("menu") + "highscore.txt";
-  	textfile.open(highscorepath);
-  	if(textfile.is_open()){
-      while (getline(textfile,highScore)){
-        cout << "High Score: " << highScore << '\n';
-      }
-      textfile.close();
-    }
-  else cout << "Unable to open file";
-}
-
 //main menu functionality
 void Menu::mainMenu() {
   	//cin >> begin; //this was in the code already, I don't know what it's for
@@ -83,9 +67,6 @@ void Menu::mainMenu() {
 			                break;
 			            case SDLK_s:
 			                quit = true;
-			                break;
-			            case SDLK_h:
-			                showHighScore();
 			                break;
 			            default:
 			                break;
