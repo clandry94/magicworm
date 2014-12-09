@@ -23,7 +23,7 @@ void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
   textfile >> highScore;
   std::cout << highScore << std::endl;
   //overwrites the old score
-  if(food->score > stoi(highScore)){
+  if(food->score > atoi(highScore)){
     ofstream writetext;
     writetext.open(highscorepath);
     writetext << food->score << endl;
