@@ -17,14 +17,17 @@ using namespace std;
 void gameOver(Food *food, SDL_Renderer * renderer, SDL_Window * window){
   //retrieves the highScore
   string highScore;
-  fstream textfile;
+  ifstream textfile;
   string highscorepath = getResourcePath("menu") + "highscore.txt";
   textfile.open(highscorepath);
   textfile >> highScore;
   std::cout << highScore << std::endl;
   //overwrites the old score
   if(food->score > stoi(highScore)){
-    food->score << textfile;
+    ofstream writetext;
+    writetext.open(highscorepath);
+    writetext << food->score << endl;
+    writetext.close();
   }
   textfile.close();
 
