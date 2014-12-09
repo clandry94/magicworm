@@ -3,6 +3,7 @@
 #include "../respath.h"
 #include "Node.h"
 #include "../commonSDL.h"
+#include <math.h>
 
 #include "Snake.h"
 
@@ -90,7 +91,8 @@ void Snake::setSpeed(int val) {
 }
 
 void Snake::incrementSpeed() {
-  speed += .5;
+  //speed += .5;
+  speed += log(speed / 2);
 }
 
 int Snake::getSize() {
